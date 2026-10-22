@@ -1,0 +1,417 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606001,pop_residente,T,541,,,2026-10-21,,pessoas,Recife
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606001,dom_ocupados,T,184,,,2026-10-21,,domicílios,Recife
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606001,moradores_dpp,T,498,,,2026-10-21,,pessoas,Recife
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606001,media_moradores_dpp,T,2.71,,,2026-10-21,,pessoas por domicílio,Recife
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606002,pop_residente,T,27103,,,2026-10-21,,pessoas,Santo Amaro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606002,dom_ocupados,T,10046,,,2026-10-21,,domicílios,Santo Amaro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606002,moradores_dpp,T,27045,,,2026-10-21,,pessoas,Santo Amaro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606002,media_moradores_dpp,T,2.69,,,2026-10-21,,pessoas por domicílio,Santo Amaro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606003,pop_residente,T,13147,,,2026-10-21,,pessoas,Boa Vista
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606003,dom_ocupados,T,6133,,,2026-10-21,,domicílios,Boa Vista
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606003,moradores_dpp,T,12838,,,2026-10-21,,pessoas,Boa Vista
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606003,media_moradores_dpp,T,2.09,,,2026-10-21,,pessoas por domicílio,Boa Vista
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606004,pop_residente,T,2081,,,2026-10-21,,pessoas,Soledade
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606004,dom_ocupados,T,1084,,,2026-10-21,,domicílios,Soledade
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606004,moradores_dpp,T,2045,,,2026-10-21,,pessoas,Soledade
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606004,media_moradores_dpp,T,1.89,,,2026-10-21,,pessoas por domicílio,Soledade
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606005,pop_residente,T,447,,,2026-10-21,,pessoas,Santo Antônio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606005,dom_ocupados,T,227,,,2026-10-21,,domicílios,Santo Antônio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606005,moradores_dpp,T,445,,,2026-10-21,,pessoas,Santo Antônio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606005,media_moradores_dpp,T,1.96,,,2026-10-21,,pessoas por domicílio,Santo Antônio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606006,pop_residente,T,568,,,2026-10-21,,pessoas,Paissandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606006,dom_ocupados,T,275,,,2026-10-21,,domicílios,Paissandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606006,moradores_dpp,T,568,,,2026-10-21,,pessoas,Paissandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606006,media_moradores_dpp,T,2.07,,,2026-10-21,,pessoas por domicílio,Paissandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606007,pop_residente,T,990,,,2026-10-21,,pessoas,Ilha do Leite
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606007,dom_ocupados,T,489,,,2026-10-21,,domicílios,Ilha do Leite
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606007,moradores_dpp,T,990,,,2026-10-21,,pessoas,Ilha do Leite
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606007,media_moradores_dpp,T,2.02,,,2026-10-21,,pessoas por domicílio,Ilha do Leite
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606008,pop_residente,T,5923,,,2026-10-21,,pessoas,Coelhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606008,dom_ocupados,T,2198,,,2026-10-21,,domicílios,Coelhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606008,moradores_dpp,T,5909,,,2026-10-21,,pessoas,Coelhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606008,media_moradores_dpp,T,2.69,,,2026-10-21,,pessoas por domicílio,Coelhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606009,pop_residente,T,12257,,,2026-10-21,,pessoas,Ilha Joana Bezerra
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606009,dom_ocupados,T,4260,,,2026-10-21,,domicílios,Ilha Joana Bezerra
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606009,moradores_dpp,T,12246,,,2026-10-21,,pessoas,Ilha Joana Bezerra
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606009,media_moradores_dpp,T,2.87,,,2026-10-21,,pessoas por domicílio,Ilha Joana Bezerra
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606010,pop_residente,T,1831,,,2026-10-21,,pessoas,Cabanga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606010,dom_ocupados,T,625,,,2026-10-21,,domicílios,Cabanga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606010,moradores_dpp,T,1720,,,2026-10-21,,pessoas,Cabanga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606010,media_moradores_dpp,T,2.75,,,2026-10-21,,pessoas por domicílio,Cabanga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606011,pop_residente,T,8876,,,2026-10-21,,pessoas,São José
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606011,dom_ocupados,T,3154,,,2026-10-21,,domicílios,São José
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606011,moradores_dpp,T,8834,,,2026-10-21,,pessoas,São José
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606011,media_moradores_dpp,T,2.8,,,2026-10-21,,pessoas por domicílio,São José
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606012,pop_residente,T,1867,,,2026-10-21,,pessoas,Derby
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606012,dom_ocupados,T,704,,,2026-10-21,,domicílios,Derby
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606012,moradores_dpp,T,1768,,,2026-10-21,,pessoas,Derby
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606012,media_moradores_dpp,T,2.51,,,2026-10-21,,pessoas por domicílio,Derby
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606013,pop_residente,T,19694,,,2026-10-21,,pessoas,Graças
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606013,dom_ocupados,T,7944,,,2026-10-21,,domicílios,Graças
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606013,moradores_dpp,T,19630,,,2026-10-21,,pessoas,Graças
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606013,media_moradores_dpp,T,2.47,,,2026-10-21,,pessoas por domicílio,Graças
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606014,pop_residente,T,1342,,,2026-10-21,,pessoas,Jaqueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606014,dom_ocupados,T,509,,,2026-10-21,,domicílios,Jaqueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606014,moradores_dpp,T,1342,,,2026-10-21,,pessoas,Jaqueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606014,media_moradores_dpp,T,2.64,,,2026-10-21,,pessoas por domicílio,Jaqueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606015,pop_residente,T,4990,,,2026-10-21,,pessoas,Aflitos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606015,dom_ocupados,T,1998,,,2026-10-21,,domicílios,Aflitos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606015,moradores_dpp,T,4990,,,2026-10-21,,pessoas,Aflitos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606015,media_moradores_dpp,T,2.5,,,2026-10-21,,pessoas por domicílio,Aflitos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606016,pop_residente,T,10741,,,2026-10-21,,pessoas,Espinheiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606016,dom_ocupados,T,4374,,,2026-10-21,,domicílios,Espinheiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606016,moradores_dpp,T,10709,,,2026-10-21,,pessoas,Espinheiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606016,media_moradores_dpp,T,2.45,,,2026-10-21,,pessoas por domicílio,Espinheiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606017,pop_residente,T,7271,,,2026-10-21,,pessoas,Rosarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606017,dom_ocupados,T,2818,,,2026-10-21,,domicílios,Rosarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606017,moradores_dpp,T,7269,,,2026-10-21,,pessoas,Rosarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606017,media_moradores_dpp,T,2.58,,,2026-10-21,,pessoas por domicílio,Rosarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606018,pop_residente,T,13236,,,2026-10-21,,pessoas,Tamarineira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606018,dom_ocupados,T,5057,,,2026-10-21,,domicílios,Tamarineira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606018,moradores_dpp,T,13169,,,2026-10-21,,pessoas,Tamarineira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606018,media_moradores_dpp,T,2.6,,,2026-10-21,,pessoas por domicílio,Tamarineira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606019,pop_residente,T,2915,,,2026-10-21,,pessoas,Peixinhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606019,dom_ocupados,T,951,,,2026-10-21,,domicílios,Peixinhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606019,moradores_dpp,T,2715,,,2026-10-21,,pessoas,Peixinhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606019,media_moradores_dpp,T,2.85,,,2026-10-21,,pessoas por domicílio,Peixinhos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606020,pop_residente,T,8757,,,2026-10-21,,pessoas,Campina do Barreto
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606020,dom_ocupados,T,3093,,,2026-10-21,,domicílios,Campina do Barreto
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606020,moradores_dpp,T,8754,,,2026-10-21,,pessoas,Campina do Barreto
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606020,media_moradores_dpp,T,2.83,,,2026-10-21,,pessoas por domicílio,Campina do Barreto
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606021,pop_residente,T,12797,,,2026-10-21,,pessoas,Arruda
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606021,dom_ocupados,T,4609,,,2026-10-21,,domicílios,Arruda
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606021,moradores_dpp,T,12779,,,2026-10-21,,pessoas,Arruda
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606021,media_moradores_dpp,T,2.77,,,2026-10-21,,pessoas por domicílio,Arruda
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606022,pop_residente,T,2382,,,2026-10-21,,pessoas,Ponto de Parada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606022,dom_ocupados,T,925,,,2026-10-21,,domicílios,Ponto de Parada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606022,moradores_dpp,T,2382,,,2026-10-21,,pessoas,Ponto de Parada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606022,media_moradores_dpp,T,2.58,,,2026-10-21,,pessoas por domicílio,Ponto de Parada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606023,pop_residente,T,2091,,,2026-10-21,,pessoas,Hipódromo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606023,dom_ocupados,T,756,,,2026-10-21,,domicílios,Hipódromo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606023,moradores_dpp,T,2091,,,2026-10-21,,pessoas,Hipódromo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606023,media_moradores_dpp,T,2.77,,,2026-10-21,,pessoas por domicílio,Hipódromo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606024,pop_residente,T,31783,,,2026-10-21,,pessoas,Campo Grande
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606024,dom_ocupados,T,11586,,,2026-10-21,,domicílios,Campo Grande
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606024,moradores_dpp,T,31648,,,2026-10-21,,pessoas,Campo Grande
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606024,media_moradores_dpp,T,2.73,,,2026-10-21,,pessoas por domicílio,Campo Grande
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606025,pop_residente,T,15249,,,2026-10-21,,pessoas,Encruzilhada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606025,dom_ocupados,T,5929,,,2026-10-21,,domicílios,Encruzilhada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606025,moradores_dpp,T,15152,,,2026-10-21,,pessoas,Encruzilhada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606025,media_moradores_dpp,T,2.56,,,2026-10-21,,pessoas por domicílio,Encruzilhada
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606026,pop_residente,T,1566,,,2026-10-21,,pessoas,Torreão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606026,dom_ocupados,T,602,,,2026-10-21,,domicílios,Torreão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606026,moradores_dpp,T,1484,,,2026-10-21,,pessoas,Torreão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606026,media_moradores_dpp,T,2.47,,,2026-10-21,,pessoas por domicílio,Torreão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606027,pop_residente,T,24306,,,2026-10-21,,pessoas,Passarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606027,dom_ocupados,T,8358,,,2026-10-21,,domicílios,Passarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606027,moradores_dpp,T,24124,,,2026-10-21,,pessoas,Passarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606027,media_moradores_dpp,T,2.89,,,2026-10-21,,pessoas por domicílio,Passarinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606028,pop_residente,T,31437,,,2026-10-21,,pessoas,Dois Unidos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606028,dom_ocupados,T,11063,,,2026-10-21,,domicílios,Dois Unidos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606028,moradores_dpp,T,31431,,,2026-10-21,,pessoas,Dois Unidos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606028,media_moradores_dpp,T,2.84,,,2026-10-21,,pessoas por domicílio,Dois Unidos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606029,pop_residente,T,14202,,,2026-10-21,,pessoas,Linha do Tiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606029,dom_ocupados,T,4900,,,2026-10-21,,domicílios,Linha do Tiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606029,moradores_dpp,T,14196,,,2026-10-21,,pessoas,Linha do Tiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606029,media_moradores_dpp,T,2.9,,,2026-10-21,,pessoas por domicílio,Linha do Tiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606030,pop_residente,T,7089,,,2026-10-21,,pessoas,Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606030,dom_ocupados,T,2603,,,2026-10-21,,domicílios,Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606030,moradores_dpp,T,7089,,,2026-10-21,,pessoas,Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606030,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606031,pop_residente,T,6620,,,2026-10-21,,pessoas,Alto Santa Terezinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606031,dom_ocupados,T,2305,,,2026-10-21,,domicílios,Alto Santa Terezinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606031,moradores_dpp,T,6620,,,2026-10-21,,pessoas,Alto Santa Terezinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606031,media_moradores_dpp,T,2.87,,,2026-10-21,,pessoas por domicílio,Alto Santa Terezinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606032,pop_residente,T,6495,,,2026-10-21,,pessoas,Porto da Madeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606032,dom_ocupados,T,2371,,,2026-10-21,,domicílios,Porto da Madeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606032,moradores_dpp,T,6495,,,2026-10-21,,pessoas,Porto da Madeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606032,media_moradores_dpp,T,2.74,,,2026-10-21,,pessoas por domicílio,Porto da Madeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606033,pop_residente,T,5062,,,2026-10-21,,pessoas,Cajueiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606033,dom_ocupados,T,1862,,,2026-10-21,,domicílios,Cajueiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606033,moradores_dpp,T,5061,,,2026-10-21,,pessoas,Cajueiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606033,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Cajueiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606034,pop_residente,T,7793,,,2026-10-21,,pessoas,Fundão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606034,dom_ocupados,T,2811,,,2026-10-21,,domicílios,Fundão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606034,moradores_dpp,T,7793,,,2026-10-21,,pessoas,Fundão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606034,media_moradores_dpp,T,2.77,,,2026-10-21,,pessoas por domicílio,Fundão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606035,pop_residente,T,39012,,,2026-10-21,,pessoas,Água Fria
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606035,dom_ocupados,T,13482,,,2026-10-21,,domicílios,Água Fria
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606035,moradores_dpp,T,38990,,,2026-10-21,,pessoas,Água Fria
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606035,media_moradores_dpp,T,2.89,,,2026-10-21,,pessoas por domicílio,Água Fria
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606036,pop_residente,T,7728,,,2026-10-21,,pessoas,Bomba do Hemetério
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606036,dom_ocupados,T,2696,,,2026-10-21,,domicílios,Bomba do Hemetério
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606036,moradores_dpp,T,7728,,,2026-10-21,,pessoas,Bomba do Hemetério
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606036,media_moradores_dpp,T,2.87,,,2026-10-21,,pessoas por domicílio,Bomba do Hemetério
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606037,pop_residente,T,89,,,2026-10-21,,pessoas,Pau Ferro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606037,dom_ocupados,T,27,,,2026-10-21,,domicílios,Pau Ferro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606037,moradores_dpp,T,89,,,2026-10-21,,pessoas,Pau Ferro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606037,media_moradores_dpp,T,3.3,,,2026-10-21,,pessoas por domicílio,Pau Ferro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606038,pop_residente,T,11095,,,2026-10-21,,pessoas,Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606038,dom_ocupados,T,3934,,,2026-10-21,,domicílios,Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606038,moradores_dpp,T,11029,,,2026-10-21,,pessoas,Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606038,media_moradores_dpp,T,2.8,,,2026-10-21,,pessoas por domicílio,Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606039,pop_residente,T,7996,,,2026-10-21,,pessoas,Sítio dos Pintos - São Brás
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606039,dom_ocupados,T,2943,,,2026-10-21,,domicílios,Sítio dos Pintos - São Brás
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606039,moradores_dpp,T,7985,,,2026-10-21,,pessoas,Sítio dos Pintos - São Brás
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606039,media_moradores_dpp,T,2.71,,,2026-10-21,,pessoas por domicílio,Sítio dos Pintos - São Brás
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606040,pop_residente,T,3026,,,2026-10-21,,pessoas,Dois Irmãos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606040,dom_ocupados,T,1093,,,2026-10-21,,domicílios,Dois Irmãos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606040,moradores_dpp,T,3024,,,2026-10-21,,pessoas,Dois Irmãos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606040,media_moradores_dpp,T,2.77,,,2026-10-21,,pessoas por domicílio,Dois Irmãos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606041,pop_residente,T,10620,,,2026-10-21,,pessoas,Brejo da Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606041,dom_ocupados,T,3760,,,2026-10-21,,domicílios,Brejo da Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606041,moradores_dpp,T,10620,,,2026-10-21,,pessoas,Brejo da Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606041,media_moradores_dpp,T,2.82,,,2026-10-21,,pessoas por domicílio,Brejo da Guabiraba
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606042,pop_residente,T,8086,,,2026-10-21,,pessoas,Córrego do Jenipapo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606042,dom_ocupados,T,2854,,,2026-10-21,,domicílios,Córrego do Jenipapo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606042,moradores_dpp,T,8083,,,2026-10-21,,pessoas,Córrego do Jenipapo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606042,media_moradores_dpp,T,2.83,,,2026-10-21,,pessoas por domicílio,Córrego do Jenipapo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606043,pop_residente,T,2523,,,2026-10-21,,pessoas,Apipucos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606043,dom_ocupados,T,868,,,2026-10-21,,domicílios,Apipucos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606043,moradores_dpp,T,2516,,,2026-10-21,,pessoas,Apipucos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606043,media_moradores_dpp,T,2.9,,,2026-10-21,,pessoas por domicílio,Apipucos
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606044,pop_residente,T,20126,,,2026-10-21,,pessoas,Macaxeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606044,dom_ocupados,T,6902,,,2026-10-21,,domicílios,Macaxeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606044,moradores_dpp,T,20126,,,2026-10-21,,pessoas,Macaxeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606044,media_moradores_dpp,T,2.92,,,2026-10-21,,pessoas por domicílio,Macaxeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606045,pop_residente,T,28697,,,2026-10-21,,pessoas,Nova Descoberta
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606045,dom_ocupados,T,10267,,,2026-10-21,,domicílios,Nova Descoberta
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606045,moradores_dpp,T,28693,,,2026-10-21,,pessoas,Nova Descoberta
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606045,media_moradores_dpp,T,2.79,,,2026-10-21,,pessoas por domicílio,Nova Descoberta
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606046,pop_residente,T,7738,,,2026-10-21,,pessoas,Brejo de Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606046,dom_ocupados,T,2754,,,2026-10-21,,domicílios,Brejo de Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606046,moradores_dpp,T,7737,,,2026-10-21,,pessoas,Brejo de Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606046,media_moradores_dpp,T,2.81,,,2026-10-21,,pessoas por domicílio,Brejo de Beberibe
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606047,pop_residente,T,4221,,,2026-10-21,,pessoas,Alto do Mandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606047,dom_ocupados,T,1489,,,2026-10-21,,domicílios,Alto do Mandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606047,moradores_dpp,T,4217,,,2026-10-21,,pessoas,Alto do Mandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606047,media_moradores_dpp,T,2.83,,,2026-10-21,,pessoas por domicílio,Alto do Mandu
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606048,pop_residente,T,32450,,,2026-10-21,,pessoas,Casa Amarela
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606048,dom_ocupados,T,12360,,,2026-10-21,,domicílios,Casa Amarela
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606048,moradores_dpp,T,32408,,,2026-10-21,,pessoas,Casa Amarela
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606048,media_moradores_dpp,T,2.62,,,2026-10-21,,pessoas por domicílio,Casa Amarela
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606049,pop_residente,T,26631,,,2026-10-21,,pessoas,Vasco da Gama
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606049,dom_ocupados,T,9495,,,2026-10-21,,domicílios,Vasco da Gama
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606049,moradores_dpp,T,26629,,,2026-10-21,,pessoas,Vasco da Gama
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606049,media_moradores_dpp,T,2.8,,,2026-10-21,,pessoas por domicílio,Vasco da Gama
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606050,pop_residente,T,10365,,,2026-10-21,,pessoas,Alto José Bonifácio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606050,dom_ocupados,T,3605,,,2026-10-21,,domicílios,Alto José Bonifácio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606050,moradores_dpp,T,10365,,,2026-10-21,,pessoas,Alto José Bonifácio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606050,media_moradores_dpp,T,2.88,,,2026-10-21,,pessoas por domicílio,Alto José Bonifácio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606051,pop_residente,T,8217,,,2026-10-21,,pessoas,Morro da Conceição
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606051,dom_ocupados,T,2911,,,2026-10-21,,domicílios,Morro da Conceição
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606051,moradores_dpp,T,8214,,,2026-10-21,,pessoas,Morro da Conceição
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606051,media_moradores_dpp,T,2.82,,,2026-10-21,,pessoas por domicílio,Morro da Conceição
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606052,pop_residente,T,11313,,,2026-10-21,,pessoas,Alto José do Pinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606052,dom_ocupados,T,3945,,,2026-10-21,,domicílios,Alto José do Pinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606052,moradores_dpp,T,11310,,,2026-10-21,,pessoas,Alto José do Pinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606052,media_moradores_dpp,T,2.87,,,2026-10-21,,pessoas por domicílio,Alto José do Pinho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606053,pop_residente,T,6397,,,2026-10-21,,pessoas,Mangabeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606053,dom_ocupados,T,2348,,,2026-10-21,,domicílios,Mangabeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606053,moradores_dpp,T,6394,,,2026-10-21,,pessoas,Mangabeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606053,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Mangabeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606054,pop_residente,T,6954,,,2026-10-21,,pessoas,Parnamirim
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606054,dom_ocupados,T,2573,,,2026-10-21,,domicílios,Parnamirim
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606054,moradores_dpp,T,6954,,,2026-10-21,,pessoas,Parnamirim
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606054,media_moradores_dpp,T,2.7,,,2026-10-21,,pessoas por domicílio,Parnamirim
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606055,pop_residente,T,6307,,,2026-10-21,,pessoas,Casa Forte
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606055,dom_ocupados,T,2325,,,2026-10-21,,domicílios,Casa Forte
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606055,moradores_dpp,T,6274,,,2026-10-21,,pessoas,Casa Forte
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606055,media_moradores_dpp,T,2.7,,,2026-10-21,,pessoas por domicílio,Casa Forte
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606056,pop_residente,T,2574,,,2026-10-21,,pessoas,Santana
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606056,dom_ocupados,T,1013,,,2026-10-21,,domicílios,Santana
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606056,moradores_dpp,T,2560,,,2026-10-21,,pessoas,Santana
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606056,media_moradores_dpp,T,2.53,,,2026-10-21,,pessoas por domicílio,Santana
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606057,pop_residente,T,5542,,,2026-10-21,,pessoas,Poço
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606057,dom_ocupados,T,1965,,,2026-10-21,,domicílios,Poço
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606057,moradores_dpp,T,5516,,,2026-10-21,,pessoas,Poço
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606057,media_moradores_dpp,T,2.81,,,2026-10-21,,pessoas por domicílio,Poço
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606058,pop_residente,T,6738,,,2026-10-21,,pessoas,Monteiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606058,dom_ocupados,T,2342,,,2026-10-21,,domicílios,Monteiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606058,moradores_dpp,T,6734,,,2026-10-21,,pessoas,Monteiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606058,media_moradores_dpp,T,2.88,,,2026-10-21,,pessoas por domicílio,Monteiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606059,pop_residente,T,20872,,,2026-10-21,,pessoas,Torre
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606059,dom_ocupados,T,8185,,,2026-10-21,,domicílios,Torre
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606059,moradores_dpp,T,20790,,,2026-10-21,,pessoas,Torre
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606059,media_moradores_dpp,T,2.54,,,2026-10-21,,pessoas por domicílio,Torre
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606060,pop_residente,T,37660,,,2026-10-21,,pessoas,Cordeiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606060,dom_ocupados,T,13768,,,2026-10-21,,domicílios,Cordeiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606060,moradores_dpp,T,37474,,,2026-10-21,,pessoas,Cordeiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606060,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Cordeiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606061,pop_residente,T,4763,,,2026-10-21,,pessoas,Zumbí
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606061,dom_ocupados,T,1881,,,2026-10-21,,domicílios,Zumbí
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606061,moradores_dpp,T,4760,,,2026-10-21,,pessoas,Zumbí
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606061,media_moradores_dpp,T,2.53,,,2026-10-21,,pessoas por domicílio,Zumbí
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606062,pop_residente,T,25832,,,2026-10-21,,pessoas,Madalena
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606062,dom_ocupados,T,9964,,,2026-10-21,,domicílios,Madalena
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606062,moradores_dpp,T,25745,,,2026-10-21,,pessoas,Madalena
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606062,media_moradores_dpp,T,2.58,,,2026-10-21,,pessoas por domicílio,Madalena
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606063,pop_residente,T,11412,,,2026-10-21,,pessoas,Prado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606063,dom_ocupados,T,4193,,,2026-10-21,,domicílios,Prado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606063,moradores_dpp,T,11333,,,2026-10-21,,pessoas,Prado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606063,media_moradores_dpp,T,2.7,,,2026-10-21,,pessoas por domicílio,Prado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606064,pop_residente,T,3946,,,2026-10-21,,pessoas,Ilha do Retiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606064,dom_ocupados,T,1408,,,2026-10-21,,domicílios,Ilha do Retiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606064,moradores_dpp,T,3942,,,2026-10-21,,pessoas,Ilha do Retiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606064,media_moradores_dpp,T,2.8,,,2026-10-21,,pessoas por domicílio,Ilha do Retiro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606065,pop_residente,T,7060,,,2026-10-21,,pessoas,Bongi
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606065,dom_ocupados,T,2546,,,2026-10-21,,domicílios,Bongi
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606065,moradores_dpp,T,7024,,,2026-10-21,,pessoas,Bongi
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606065,media_moradores_dpp,T,2.76,,,2026-10-21,,pessoas por domicílio,Bongi
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606066,pop_residente,T,23074,,,2026-10-21,,pessoas,San Martin
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606066,dom_ocupados,T,8273,,,2026-10-21,,domicílios,San Martin
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606066,moradores_dpp,T,23070,,,2026-10-21,,pessoas,San Martin
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606066,media_moradores_dpp,T,2.79,,,2026-10-21,,pessoas por domicílio,San Martin
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606067,pop_residente,T,10642,,,2026-10-21,,pessoas,Mustardinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606067,dom_ocupados,T,3740,,,2026-10-21,,domicílios,Mustardinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606067,moradores_dpp,T,10617,,,2026-10-21,,pessoas,Mustardinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606067,media_moradores_dpp,T,2.84,,,2026-10-21,,pessoas por domicílio,Mustardinha
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606068,pop_residente,T,7664,,,2026-10-21,,pessoas,Mangueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606068,dom_ocupados,T,2815,,,2026-10-21,,domicílios,Mangueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606068,moradores_dpp,T,7664,,,2026-10-21,,pessoas,Mangueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606068,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Mangueira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606069,pop_residente,T,70946,,,2026-10-21,,pessoas,Várzea
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606069,dom_ocupados,T,26536,,,2026-10-21,,domicílios,Várzea
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606069,moradores_dpp,T,70614,,,2026-10-21,,pessoas,Várzea
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606069,media_moradores_dpp,T,2.66,,,2026-10-21,,pessoas por domicílio,Várzea
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606070,pop_residente,T,13813,,,2026-10-21,,pessoas,Caxangá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606070,dom_ocupados,T,5067,,,2026-10-21,,domicílios,Caxangá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606070,moradores_dpp,T,13688,,,2026-10-21,,pessoas,Caxangá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606070,media_moradores_dpp,T,2.7,,,2026-10-21,,pessoas por domicílio,Caxangá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606071,pop_residente,T,49944,,,2026-10-21,,pessoas,Iputinga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606071,dom_ocupados,T,18648,,,2026-10-21,,domicílios,Iputinga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606071,moradores_dpp,T,49897,,,2026-10-21,,pessoas,Iputinga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606071,media_moradores_dpp,T,2.68,,,2026-10-21,,pessoas por domicílio,Iputinga
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606072,pop_residente,T,31130,,,2026-10-21,,pessoas,Torrões
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606072,dom_ocupados,T,10986,,,2026-10-21,,domicílios,Torrões
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606072,moradores_dpp,T,31112,,,2026-10-21,,pessoas,Torrões
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606072,media_moradores_dpp,T,2.83,,,2026-10-21,,pessoas por domicílio,Torrões
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606073,pop_residente,T,9849,,,2026-10-21,,pessoas,Engenho do Meio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606073,dom_ocupados,T,3494,,,2026-10-21,,domicílios,Engenho do Meio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606073,moradores_dpp,T,9816,,,2026-10-21,,pessoas,Engenho do Meio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606073,media_moradores_dpp,T,2.81,,,2026-10-21,,pessoas por domicílio,Engenho do Meio
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606074,pop_residente,T,1819,,,2026-10-21,,pessoas,Cidade Universitária
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606074,dom_ocupados,T,675,,,2026-10-21,,domicílios,Cidade Universitária
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606074,moradores_dpp,T,1816,,,2026-10-21,,pessoas,Cidade Universitária
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606074,media_moradores_dpp,T,2.69,,,2026-10-21,,pessoas por domicílio,Cidade Universitária
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606075,pop_residente,T,31457,,,2026-10-21,,pessoas,Afogados
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606075,dom_ocupados,T,11522,,,2026-10-21,,domicílios,Afogados
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606075,moradores_dpp,T,31391,,,2026-10-21,,pessoas,Afogados
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606075,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Afogados
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606076,pop_residente,T,12051,,,2026-10-21,,pessoas,Jiquiá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606076,dom_ocupados,T,4269,,,2026-10-21,,domicílios,Jiquiá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606076,moradores_dpp,T,12051,,,2026-10-21,,pessoas,Jiquiá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606076,media_moradores_dpp,T,2.82,,,2026-10-21,,pessoas por domicílio,Jiquiá
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606077,pop_residente,T,7408,,,2026-10-21,,pessoas,Estância
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606077,dom_ocupados,T,2719,,,2026-10-21,,domicílios,Estância
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606077,moradores_dpp,T,7408,,,2026-10-21,,pessoas,Estância
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606077,media_moradores_dpp,T,2.72,,,2026-10-21,,pessoas por domicílio,Estância
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606078,pop_residente,T,26740,,,2026-10-21,,pessoas,Areias
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606078,dom_ocupados,T,9692,,,2026-10-21,,domicílios,Areias
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606078,moradores_dpp,T,26739,,,2026-10-21,,pessoas,Areias
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606078,media_moradores_dpp,T,2.76,,,2026-10-21,,pessoas por domicílio,Areias
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606079,pop_residente,T,8738,,,2026-10-21,,pessoas,Caçote
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606079,dom_ocupados,T,3182,,,2026-10-21,,domicílios,Caçote
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606079,moradores_dpp,T,8729,,,2026-10-21,,pessoas,Caçote
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606079,media_moradores_dpp,T,2.74,,,2026-10-21,,pessoas por domicílio,Caçote
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606080,pop_residente,T,16559,,,2026-10-21,,pessoas,Curado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606080,dom_ocupados,T,5916,,,2026-10-21,,domicílios,Curado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606080,moradores_dpp,T,16411,,,2026-10-21,,pessoas,Curado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606080,media_moradores_dpp,T,2.77,,,2026-10-21,,pessoas por domicílio,Curado
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606081,pop_residente,T,2074,,,2026-10-21,,pessoas,Totó
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606081,dom_ocupados,T,753,,,2026-10-21,,domicílios,Totó
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606081,moradores_dpp,T,2074,,,2026-10-21,,pessoas,Totó
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606081,media_moradores_dpp,T,2.75,,,2026-10-21,,pessoas por domicílio,Totó
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606082,pop_residente,T,9427,,,2026-10-21,,pessoas,Coqueiral
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606082,dom_ocupados,T,3443,,,2026-10-21,,domicílios,Coqueiral
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606082,moradores_dpp,T,9427,,,2026-10-21,,pessoas,Coqueiral
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606082,media_moradores_dpp,T,2.74,,,2026-10-21,,pessoas por domicílio,Coqueiral
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606083,pop_residente,T,12768,,,2026-10-21,,pessoas,Sancho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606083,dom_ocupados,T,2599,,,2026-10-21,,domicílios,Sancho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606083,moradores_dpp,T,6969,,,2026-10-21,,pessoas,Sancho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606083,media_moradores_dpp,T,2.68,,,2026-10-21,,pessoas por domicílio,Sancho
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606084,pop_residente,T,9835,,,2026-10-21,,pessoas,Tejipió
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606084,dom_ocupados,T,3748,,,2026-10-21,,domicílios,Tejipió
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606084,moradores_dpp,T,9830,,,2026-10-21,,pessoas,Tejipió
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606084,media_moradores_dpp,T,2.62,,,2026-10-21,,pessoas por domicílio,Tejipió
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606085,pop_residente,T,29996,,,2026-10-21,,pessoas,Jardim São Paulo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606085,dom_ocupados,T,10919,,,2026-10-21,,domicílios,Jardim São Paulo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606085,moradores_dpp,T,29988,,,2026-10-21,,pessoas,Jardim São Paulo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606085,media_moradores_dpp,T,2.75,,,2026-10-21,,pessoas por domicílio,Jardim São Paulo
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606086,pop_residente,T,30565,,,2026-10-21,,pessoas,Barro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606086,dom_ocupados,T,10951,,,2026-10-21,,domicílios,Barro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606086,moradores_dpp,T,30518,,,2026-10-21,,pessoas,Barro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606086,media_moradores_dpp,T,2.79,,,2026-10-21,,pessoas por domicílio,Barro
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606087,pop_residente,T,62632,,,2026-10-21,,pessoas,Cohab
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606087,dom_ocupados,T,21926,,,2026-10-21,,domicílios,Cohab
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606087,moradores_dpp,T,62627,,,2026-10-21,,pessoas,Cohab
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606087,media_moradores_dpp,T,2.86,,,2026-10-21,,pessoas por domicílio,Cohab
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606088,pop_residente,T,20449,,,2026-10-21,,pessoas,Jordão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606088,dom_ocupados,T,7172,,,2026-10-21,,domicílios,Jordão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606088,moradores_dpp,T,20448,,,2026-10-21,,pessoas,Jordão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606088,media_moradores_dpp,T,2.85,,,2026-10-21,,pessoas por domicílio,Jordão
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606089,pop_residente,T,45448,,,2026-10-21,,pessoas,Ibura
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606089,dom_ocupados,T,16241,,,2026-10-21,,domicílios,Ibura
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606089,moradores_dpp,T,45415,,,2026-10-21,,pessoas,Ibura
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606089,media_moradores_dpp,T,2.8,,,2026-10-21,,pessoas por domicílio,Ibura
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606090,pop_residente,T,20610,,,2026-10-21,,pessoas,Ipsep
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606090,dom_ocupados,T,7721,,,2026-10-21,,domicílios,Ipsep
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606090,moradores_dpp,T,20578,,,2026-10-21,,pessoas,Ipsep
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606090,media_moradores_dpp,T,2.67,,,2026-10-21,,pessoas por domicílio,Ipsep
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606091,pop_residente,T,52158,,,2026-10-21,,pessoas,Imbiribeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606091,dom_ocupados,T,19321,,,2026-10-21,,domicílios,Imbiribeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606091,moradores_dpp,T,52051,,,2026-10-21,,pessoas,Imbiribeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606091,media_moradores_dpp,T,2.69,,,2026-10-21,,pessoas por domicílio,Imbiribeira
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606092,pop_residente,T,125805,,,2026-10-21,,pessoas,Boa Viagem
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606092,dom_ocupados,T,50663,,,2026-10-21,,domicílios,Boa Viagem
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606092,moradores_dpp,T,125735,,,2026-10-21,,pessoas,Boa Viagem
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606092,media_moradores_dpp,T,2.48,,,2026-10-21,,pessoas por domicílio,Boa Viagem
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606093,pop_residente,T,29195,,,2026-10-21,,pessoas,Pina
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606093,dom_ocupados,T,11653,,,2026-10-21,,domicílios,Pina
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606093,moradores_dpp,T,29067,,,2026-10-21,,pessoas,Pina
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606093,media_moradores_dpp,T,2.49,,,2026-10-21,,pessoas por domicílio,Pina
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606094,pop_residente,T,16685,,,2026-10-21,,pessoas,Brasília Teimosa
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606094,dom_ocupados,T,6118,,,2026-10-21,,domicílios,Brasília Teimosa
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606094,moradores_dpp,T,16675,,,2026-10-21,,pessoas,Brasília Teimosa
+IBGE Censo 2022,SIDRA 9922/9923,bairro,2611606094,media_moradores_dpp,T,2.73,,,2026-10-21,,pessoas por domicílio,Brasília Teimosa
+IBGE Censo 2022,SIDRA 9922/9923,ds,1,pop_residente,T,73764,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,1,dom_ocupados,T,28675,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,1,media_moradores_dpp,T,2.550584,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,1,n_bairros,T,11,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,1,pop_por_equipe_esf_eap,T,3207.130435,,,2026-10-21,,pessoas por equipe,23 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,2,pop_residente,T,210249,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,2,dom_ocupados,T,75362,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,2,media_moradores_dpp,T,2.782264,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,2,n_bairros,T,18,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,2,pop_por_equipe_esf_eap,T,3446.704918,,,2026-10-21,,pessoas por equipe,61 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,3,pop_residente,T,130201,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,3,dom_ocupados,T,49557,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,3,media_moradores_dpp,T,2.619125,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,3,n_bairros,T,16,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,3,pop_por_equipe_esf_eap,T,5425.041667,,,2026-10-21,,pessoas por equipe,24 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,4,pop_residente,T,281986,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,4,dom_ocupados,T,104805,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,4,media_moradores_dpp,T,2.681046,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,4,n_bairros,T,12,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,4,pop_por_equipe_esf_eap,T,4475.968254,,,2026-10-21,,pessoas por equipe,63 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,5,pop_residente,T,246058,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,5,dom_ocupados,T,87087,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,5,media_moradores_dpp,T,2.754831,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,5,n_bairros,T,16,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,5,pop_por_equipe_esf_eap,T,3465.605634,,,2026-10-21,,pessoas por equipe,71 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,6,pop_residente,T,244453,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,6,dom_ocupados,T,95476,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,6,media_moradores_dpp,T,2.556726,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,6,n_bairros,T,5,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,6,pop_por_equipe_esf_eap,T,5555.75,,,2026-10-21,,pessoas por equipe,44 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,7,pop_residente,T,173680,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,7,dom_ocupados,T,61160,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,7,media_moradores_dpp,T,2.835399,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,7,n_bairros,T,13,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,7,pop_por_equipe_esf_eap,T,2517.101449,,,2026-10-21,,pessoas por equipe,69 eSF/eAP ativas no distrito
+IBGE Censo 2022,SIDRA 9922/9923,ds,8,pop_residente,T,128529,,,2026-10-21,,pessoas,Soma dos bairros do distrito (bairro → DS)
+IBGE Censo 2022,SIDRA 9922/9923,ds,8,dom_ocupados,T,45339,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 9922/9923,ds,8,media_moradores_dpp,T,2.833984,,,2026-10-21,,pessoas por domicílio,
+IBGE Censo 2022,SIDRA 9922/9923,ds,8,n_bairros,T,3,,,2026-10-21,,bairros,
+Derivado Censo+CNES,SIDRA 9923 + CNES,ds,8,pop_por_equipe_esf_eap,T,2107.032787,,,2026-10-21,,pessoas por equipe,61 eSF/eAP ativas no distrito

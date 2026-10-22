@@ -1,0 +1,277 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=T,1478148,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=ate0.25,168427,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=0.25-0.5,290073,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=0.5-1,369742,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=1-2,241669,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=2-3,109604,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=3-5,116431,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=5-10,89924,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=10-15,22709,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=15-20,7473,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=20+,5205,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=T;renda_pc=sem,56889,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=T,579873,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=ate0.25,44516,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=0.25-0.5,81964,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=0.5-1,117168,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=1-2,97749,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=2-3,57484,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=3-5,71087,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=5-10,62602,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=10-15,16221,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=15-20,5769,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=20+,4049,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=1;renda_pc=sem,21264,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=T,181054,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=ate0.25,23521,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=0.25-0.5,43529,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=0.5-1,56082,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=1-2,30194,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=2-3,8281,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=3-5,6877,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=5-10,3460,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=10-15,684,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=15-20,189,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=20+,190,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=2;renda_pc=sem,8046,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=T,2410,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=ate0.25,229,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=0.25-0.5,219,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=0.5-1,370,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=1-2,426,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=2-3,139,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=3-5,475,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=5-10,213,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=10-15,40,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=15-20,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=20+,86,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=3;renda_pc=sem,214,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=T,711282,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=ate0.25,99644,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=0.25-0.5,163757,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=0.5-1,195264,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=1-2,112456,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=2-3,43469,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=3-5,37709,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=5-10,23563,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=10-15,5744,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=15-20,1514,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=20+,880,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=4;renda_pc=sem,27282,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=T,3275,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=ate0.25,498,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=0.25-0.5,604,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=0.5-1,837,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=1-2,672,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=2-3,211,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=3-5,283,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=5-10,87,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=10-15,21,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=15-20,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=20+,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=T;raca=5;renda_pc=sem,62,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=T,676055,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=ate0.25,74847,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=0.25-0.5,131549,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=0.5-1,169434,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=1-2,113147,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=2-3,49440,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=3-5,52429,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=5-10,41734,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=10-15,11102,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=15-20,3618,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=20+,2623,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=T;renda_pc=sem,26132,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=T,259233,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=ate0.25,19793,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=0.25-0.5,37032,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=0.5-1,51652,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=1-2,44289,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=2-3,24626,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=3-5,31526,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=5-10,28299,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=10-15,7882,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=15-20,2776,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=20+,2056,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=1;renda_pc=sem,9300,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=T,86592,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=ate0.25,10629,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=0.25-0.5,20337,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=0.5-1,26960,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=1-2,14459,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=2-3,4321,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=3-5,3494,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=5-10,1833,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=10-15,384,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=15-20,107,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=20+,66,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=2;renda_pc=sem,4003,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=T,850,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=ate0.25,86,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=0.25-0.5,64,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=0.5-1,84,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=1-2,85,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=2-3,37,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=3-5,217,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=5-10,128,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=10-15,20,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=15-20,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=20+,43,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=3;renda_pc=sem,85,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=T,327827,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=ate0.25,44143,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=0.25-0.5,73874,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=0.5-1,90354,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=1-2,53963,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=2-3,20288,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=3-5,17106,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=5-10,11430,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=10-15,2795,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=15-20,735,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=20+,458,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=4;renda_pc=sem,12682,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=T,1468,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=ate0.25,195,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=0.25-0.5,242,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=0.5-1,384,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=1-2,286,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=2-3,148,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=3-5,86,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=5-10,44,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=10-15,21,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=15-20,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=20+,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=H;raca=5;renda_pc=sem,62,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=T,802093,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=ate0.25,93581,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=0.25-0.5,158524,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=0.5-1,200309,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=1-2,128522,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=2-3,60164,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=3-5,64002,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=5-10,48190,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=10-15,11607,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=15-20,3855,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=20+,2582,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=T;renda_pc=sem,30757,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=T,320640,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=ate0.25,24723,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=0.25-0.5,44931,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=0.5-1,65516,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=1-2,53460,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=2-3,32857,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=3-5,39561,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=5-10,34303,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=10-15,8338,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=15-20,2993,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=20+,1993,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=1;renda_pc=sem,11964,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=T,94462,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=ate0.25,12891,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=0.25-0.5,23192,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=0.5-1,29122,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=1-2,15735,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=2-3,3961,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=3-5,3384,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=5-10,1628,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=10-15,300,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=15-20,83,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=20+,123,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=2;renda_pc=sem,4043,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=T,1560,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=ate0.25,143,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=0.25-0.5,155,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=0.5-1,286,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=1-2,341,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=2-3,101,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=3-5,258,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=5-10,84,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=10-15,20,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=15-20,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=20+,43,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=3;renda_pc=sem,129,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=T,383455,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=ate0.25,55501,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=0.25-0.5,89883,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=0.5-1,104910,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=1-2,58493,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=2-3,23181,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=3-5,20603,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=5-10,12133,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=10-15,2949,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=15-20,779,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=20+,422,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=4;renda_pc=sem,14601,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=T,1807,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=ate0.25,302,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=0.25-0.5,363,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=0.5-1,453,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=1-2,385,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=2-3,63,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=3-5,197,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=5-10,43,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=10-15,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=15-20,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=20+,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10296,municipio,2611606,moradores_dpp,sexo=M;raca=5;renda_pc=sem,0,,,2026-10-21,,pessoas,renda_pc em salários mínimos; exclui pensionistas e empregados domésticos
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=T,1232887,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=ate0.25,114433,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=0.25-0.5,222876,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=0.5-1,318035,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=1-2,216900,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=2-3,96971,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=3-5,103256,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=5-10,79093,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=10-15,20574,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=15-20,6894,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=20+,4870,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=T;renda_pc=sem,48984,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=T,709789,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=ate0.25,42046,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=0.25-0.5,105314,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=0.5-1,191544,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=1-2,148312,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=2-3,65580,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=3-5,69719,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=5-10,56859,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=10-15,15436,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=15-20,5363,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=20+,3965,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ft;renda_pc=sem,5651,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=T,653845,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=ate0.25,28753,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=0.25-0.5,88952,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=0.5-1,179628,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=1-2,143436,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=2-3,63722,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=3-5,68206,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=5-10,56251,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=10-15,15310,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=15-20,5342,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=20+,3943,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=ocupada;renda_pc=sem,302,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=T,55945,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=ate0.25,13293,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=0.25-0.5,16362,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=0.5-1,11916,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=1-2,4877,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=2-3,1858,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=3-5,1513,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=5-10,608,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=10-15,125,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=15-20,22,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=20+,23,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=desocupada;renda_pc=sem,5350,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=T,523098,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=ate0.25,72386,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=0.25-0.5,117562,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=0.5-1,126491,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=1-2,68588,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=2-3,31392,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=3-5,33537,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=5-10,22234,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=10-15,5138,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=15-20,1531,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=20+,905,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 10300,municipio,2611606,pessoas_14mais,ft=fora_ft;renda_pc=sem,43333,,,2026-10-21,,pessoas,

@@ -1,0 +1,45 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,1,nascidos_vivos_2024,raca_mae=negra,717,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,1,nascidos_vivos_2024,raca_mae=nao_negra,195,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,2,nascidos_vivos_2024,raca_mae=negra,1890,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,2,nascidos_vivos_2024,raca_mae=nao_negra,516,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,3,nascidos_vivos_2024,raca_mae=negra,456,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,3,nascidos_vivos_2024,raca_mae=nao_negra,567,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,4,nascidos_vivos_2024,raca_mae=negra,1994,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,4,nascidos_vivos_2024,raca_mae=nao_negra,801,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,5,nascidos_vivos_2024,raca_mae=negra,2015,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,5,nascidos_vivos_2024,raca_mae=nao_negra,548,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,6,nascidos_vivos_2024,raca_mae=negra,1346,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,6,nascidos_vivos_2024,raca_mae=nao_negra,991,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,7,nascidos_vivos_2024,raca_mae=negra,1610,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,7,nascidos_vivos_2024,raca_mae=nao_negra,365,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,8,nascidos_vivos_2024,raca_mae=negra,1522,,,2026-10-22,,nascidos vivos,SINASC 2024; negra = preta + parda
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.3,ds,8,nascidos_vivos_2024,raca_mae=nao_negra,319,,,2026-10-22,,nascidos vivos,SINASC 2024; não-negra = branca
+SESAU Boletim 01/2025,Boletim 01/2025 p.1,municipio,2611606,nascidos_vivos_2024,raca_mae=T,16120,,,2026-10-22,,nascidos vivos,Total de nascidos vivos de residentes
+SESAU Boletim 01/2025,Boletim 01/2025 p.1,municipio,2611606,nascidos_vivos_2024,raca_mae=negra,11608,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 p.1,municipio,2611606,nascidos_vivos_2024,raca_mae=nao_negra,4321,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Fig.1,municipio,2611606,taxa_natalidade_2024,raca=negra,12.8,,,2026-10-22,,por 1.000 hab.,
+SESAU Boletim 01/2025,Boletim 01/2025 Fig.1,municipio,2611606,taxa_natalidade_2024,raca=nao_negra,7.5,,,2026-10-22,,por 1.000 hab.,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=0-9;raca=negra,189,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=0-9;raca=nao_negra,57,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=10-19;raca=negra,96,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=10-19;raca=nao_negra,55,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=20-39;raca=negra,846,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=20-39;raca=nao_negra,247,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=40-59;raca=negra,1684,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=40-59;raca=nao_negra,665,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=60+;raca=negra,5352,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.4,municipio,2611606,obitos_2024,idade=60+;raca=nao_negra,4628,,,2026-10-22,,óbitos,SIM 2024
+SESAU Boletim 01/2025,Boletim 01/2025 p.4,municipio,2611606,obitos_2024,T,14007,,,2026-10-22,,óbitos,"1,0% sem raça/cor na DO"
+SESAU Boletim 01/2025,Boletim 01/2025 p.4,municipio,2611606,prop_obitos_raca_ignorada,T,0.01,,,2026-10-22,,proporção,Completude de referência para raça/cor
+SESAU Boletim 01/2025,Boletim 01/2025 p.1,municipio,2611606,prop_nv_raca_ignorada,T,0.007,,,2026-10-22,,proporção,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=0;raca_mae=negra,243,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=0;raca_mae=nao_negra,60,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=1-3;raca_mae=negra,718,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=1-3;raca_mae=nao_negra,142,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=4-6;raca_mae=negra,2183,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=4-6;raca_mae=nao_negra,524,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=7+;raca_mae=negra,8316,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Tab.1,municipio,2611606,nv_consultas_prenatal_2024,consultas=7+;raca_mae=nao_negra,3512,,,2026-10-22,,nascidos vivos,
+SESAU Boletim 01/2025,Boletim 01/2025 Fig.6,municipio,2611606,taxa_mortalidade_infantil_2024,raca_mae=negra,12.9,,,2026-10-22,,por 1.000 NV,
+SESAU Boletim 01/2025,Boletim 01/2025 Fig.6,municipio,2611606,taxa_mortalidade_infantil_2024,raca_mae=nao_negra,8.3,,,2026-10-22,,por 1.000 NV,

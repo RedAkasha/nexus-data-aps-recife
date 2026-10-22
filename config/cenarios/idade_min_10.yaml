@@ -1,0 +1,2 @@
+nome: idade_min_10
+regra: {idade_min_elegivel: 10}

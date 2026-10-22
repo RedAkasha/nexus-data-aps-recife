@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aps-sintetico"
+version = "1.0.0"
+description = "Gerador de dados sintéticos da APS do Recife no leiaute do PEC e-SUS APS (Projeto 3 – Dados, CESAR School)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Equipe 2 – Nexus Data" }]
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "scipy>=1.11",
+    "pyyaml>=6.0",
+    "pyarrow>=14",
+    "faker==40.43.0",
+    "scikit-learn>=1.4",
+]
+
+[project.optional-dependencies]
+banco = ["psycopg[binary]>=3.1"]
+painel = ["streamlit>=1.50", "altair>=5"]
+ml = ["mlflow>=2.10"]
+coleta = ["requests>=2.31"]
+dev = ["pytest>=8", "ruff>=0.4"]
+tudo = ["aps-sintetico[banco,painel,ml,dev]"]
+
+[project.scripts]
+aps-sintetico = "aps_sintetico.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

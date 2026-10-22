@@ -1,0 +1,20 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+Premissa SESAU,Reuniao 01/09/2026,municipio,2611606,cobertura_esf,T,0.8,0.75,0.9,2026-10-20,sensibilidade,proporção,Cadastrados / residentes; ajustar ao SISAB quando disponível
+Premissa SESAU,Planilha monitoramento,usf,faixa,prop_os_sim_dado_real,T,0.28,0.03,0.53,2026-10-20,faixa_observada,proporção,Ponto médio da faixa entre USF (~3% a ~53%); trocar pelas metas por USF quando autorizadas
+Premissa SESAU,Planilha monitoramento,usf,linha3,prop_os_sim_dado_real,T,0.378043,,,2026-10-20,,proporção,Exemplo conferido (linha 3 da planilha)
+Premissa SESAU,Reuniao 01/09/2026,municipio,2611606,idade_min_elegivel_os_ig,T,11,10,11,2026-10-20,sensibilidade,anos,Regra do dado real; confirmar se 10 anos completos saem
+Premissa Projeto,Tabela 6,municipio,2611606,efeito_oficina_logito,cenario=nulo,0,,,2026-10-20,,log-odds,PROPOSTA a validar pelo grupo: efeito sobre o logito de perguntar e registrar
+Premissa Projeto,Tabela 6,municipio,2611606,efeito_oficina_logito,cenario=pequeno,0.2,,,2026-10-20,,log-odds,PROPOSTA a validar pelo grupo: efeito sobre o logito de perguntar e registrar
+Premissa Projeto,Tabela 6,municipio,2611606,efeito_oficina_logito,cenario=moderado,0.5,,,2026-10-20,,log-odds,PROPOSTA a validar pelo grupo: efeito sobre o logito de perguntar e registrar
+Premissa Projeto,Tabela 6,municipio,2611606,dp_efeito_equipe_logito,cenario=baixa,0.5,,,2026-10-20,,log-odds,PROPOSTA: desvio-padrão do efeito próprio da equipe dentro da USF
+Premissa Projeto,Tabela 6,municipio,2611606,dp_efeito_equipe_logito,cenario=alta,1,,,2026-10-20,,log-odds,PROPOSTA: desvio-padrão do efeito próprio da equipe dentro da USF
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,prev_tipo_deficiencia_esus,tipo=13,0.048899,,,2026-10-20,,proporção,Visual: enxergar
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,dist_tipo_entre_pcd,tipo=13,0.582726,,,2026-10-20,,proporção,"Visual: entre pessoas com deficiência (soma > 1, múltipla escolha)"
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,prev_tipo_deficiencia_esus,tipo=12,0.014056,,,2026-10-20,,proporção,Auditiva: ouvir
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,dist_tipo_entre_pcd,tipo=12,0.167509,,,2026-10-20,,proporção,"Auditiva: entre pessoas com deficiência (soma > 1, múltipla escolha)"
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,prev_tipo_deficiencia_esus,tipo=15,0.039476,0.031307,0.047646,2026-10-20,limites,proporção,Física: andar ∪ pegar; sobreposição desconhecida → entre o maior e a soma
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,dist_tipo_entre_pcd,tipo=15,0.47044,0.373081,0.567799,2026-10-20,limites,proporção,"Física: entre pessoas com deficiência (soma > 1, múltipla escolha)"
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,prev_tipo_deficiencia_esus,tipo=14,0.016191,,,2026-10-20,,proporção,Intelectual/Cognitiva: funções mentais (aproximação)
+Premissa Projeto,Tabela 7 + SIDRA 10127,municipio,2611606,dist_tipo_entre_pcd,tipo=14,0.192947,,,2026-10-20,,proporção,"Intelectual/Cognitiva: entre pessoas com deficiência (soma > 1, múltipla escolha)"
+Premissa Projeto,Tabela 7,municipio,2611606,dist_tipo_entre_pcd,tipo=16,0.03,0.01,0.05,2026-10-20,sensibilidade,proporção,Outra: sem equivalente no Censo; PROPOSTA de proporção residual
+Premissa Projeto,SIDRA 10147,municipio,2611606,prev_tipo_deficiencia_esus,tipo=232,0.014246,,,2026-10-20,,proporção,"TEA: autismo diagnosticado (Censo 2022) – correspondência nova, fora da Tabela 7"

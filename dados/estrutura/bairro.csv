@@ -1,0 +1,95 @@
+id_bairro,nome_bairro,id_ds
+1,Recife,1
+2,Santo Amaro,1
+3,Boa Vista,1
+4,Soledade,1
+5,Santo Antônio,1
+6,Paissandu,1
+7,Ilha do Leite,1
+8,Coelhos,1
+9,Ilha Joana Bezerra,1
+10,Cabanga,1
+11,São José,1
+12,Derby,3
+13,Graças,3
+14,Jaqueira,3
+15,Aflitos,3
+16,Espinheiro,3
+17,Rosarinho,2
+18,Tamarineira,3
+19,Peixinhos,2
+20,Campina do Barreto,2
+21,Arruda,2
+22,Ponto de Parada,2
+23,Hipódromo,2
+24,Campo Grande,2
+25,Encruzilhada,2
+26,Torreão,2
+27,Passarinho,7
+28,Dois Unidos,2
+29,Linha do Tiro,2
+30,Beberibe,2
+31,Alto Santa Terezinha,2
+32,Porto da Madeira,2
+33,Cajueiro,2
+34,Fundão,2
+35,Água Fria,2
+36,Bomba do Hemetério,2
+37,Pau Ferro,7
+38,Guabiraba,7
+39,Sítio dos Pintos - São Brás,3
+40,Dois Irmãos,3
+41,Brejo da Guabiraba,7
+42,Córrego do Jenipapo,7
+43,Apipucos,3
+44,Macaxeira,7
+45,Nova Descoberta,7
+46,Brejo de Beberibe,7
+47,Alto do Mandu,3
+48,Casa Amarela,3
+49,Vasco da Gama,7
+50,Alto José Bonifácio,7
+51,Morro da Conceição,7
+52,Alto José do Pinho,7
+53,Mangabeira,7
+54,Parnamirim,3
+55,Casa Forte,3
+56,Santana,3
+57,Poço,3
+58,Monteiro,3
+59,Torre,4
+60,Cordeiro,4
+61,Zumbí,4
+62,Madalena,4
+63,Prado,4
+64,Ilha do Retiro,4
+65,Bongi,5
+66,San Martin,5
+67,Mustardinha,5
+68,Mangueira,5
+69,Várzea,4
+70,Caxangá,4
+71,Iputinga,4
+72,Torrões,4
+73,Engenho do Meio,4
+74,Cidade Universitária,4
+75,Afogados,5
+76,Jiquiá,5
+77,Estância,5
+78,Areias,5
+79,Caçote,5
+80,Curado,5
+81,Totó,5
+82,Coqueiral,5
+83,Sancho,5
+84,Tejipió,5
+85,Jardim São Paulo,5
+86,Barro,5
+87,Cohab,8
+88,Jordão,8
+89,Ibura,8
+90,Ipsep,6
+91,Imbiribeira,6
+92,Boa Viagem,6
+93,Pina,6
+94,Brasília Teimosa,6

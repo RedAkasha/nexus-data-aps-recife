@@ -1,0 +1,144 @@
+# =====================================================================
+# Cenário base do gerador de dados sintéticos da APS do Recife (Etapa 6)
+# Projeto 3 – Dados (CESAR School, 2026.2) · Equipe 2 – Nexus Data
+#
+# Cada parâmetro indica a classe da evidência (Plano metodológico da Etapa 6, Tabela 3):
+#   [A] fonte oficial · [B] literatura ou derivado com premissa · [C] direção de estudo
+#   de serviço ou amostra intencional · [P] premissa do grupo (testar na sensibilidade).
+# Os cenários em config/cenarios/ sobrescrevem só as chaves que mudam.
+# =====================================================================
+nome: base
+versao_gerador: "1.0.0"
+semente: 20261022
+escala: 0.10            # fração da população (0 < escala <= 1); 1.0 = Recife inteiro
+distritos: [1, 2, 3, 4, 5, 6, 7, 8]
+id_carga: 1
+
+periodo:
+  inicio: "2023-01-01"          # primeira competência da série
+  data_corte: "2026-09-30"      # última competência e data de corte da planilha [P]
+  dt_geracao: "2026-10-01 00:00:00"   # fixo para a geração ser reprodutível (VC13)
+  inicio_legado: "2015-01-01"   # cadastros anteriores à série
+  referencia_censo: "2022-08-01"
+
+regra:                          # RN26: lidos pelas visões, nunca fixados em consulta
+  idade_min_elegivel: 11        # [A] regra do "dado real" da SESAU (10 ou 11 a confirmar)
+  recusa_conta_ativo: true      # [P] pendência P1
+  meses_desatualizado: 24       # [P] limite da RQ06
+
+populacao:
+  razao_natalidade: 1.7067      # [A] 12,8 / 7,5 (boletim SESAU 01/2025): estimador de raça por DS
+  homofilia_racial: 0.70        # [P] prob. de o morador ter o grupo racial da pessoa de referência
+  nao_residencial: 0.05         # [P] imóveis não residenciais na FCDT, por domicílio
+  rho_escolaridade_renda: 0.50  # [P] cópula gaussiana escolaridade x renda (até a PNAD, E7)
+  pessoas_por_setor: 800        # [P] tamanho dos setores censitários sintéticos (E6 pendente)
+
+cobertura:
+  municipal: 0.80               # [P] SESAU, 01/09; ajustar ao SISAB (E2)
+  teto_equipe: 0.97             # [P] cobertura máxima do território de uma equipe
+  dp_meta_equipe: 0.15          # [P] variação (lognormal) da meta entre equipes do DS
+  beta_renda_pc: -0.25          # [C] log-odds por SM per capita (menos cadastro com mais renda)
+  beta_negro: 0.20              # [C] maior dependência do SUS (boletim SESAU)
+  omissao_morador: 0.02         # [P]
+  prop_legado: 0.85             # [P] cadastrados antes de 2023 nas equipes já ativas
+  rampa_meses: 6                # [P] velocidade de cadastro de equipe nova
+  pessoas_por_acs: 750          # [A] PNAB 2011: até 750 pessoas por ACS, até 12 ACS
+  max_microareas: 12
+  ecr_pessoas: 300              # [P] pessoas em situação de rua por eCR (escala 1)
+  eapp_pessoas: 500             # [P] pessoas privadas de liberdade por eAPP (escala 1)
+
+atributos:
+  lgb_pe: 0.010                 # [B] PNS 2019, Pernambuco
+  gradiente_os: {"18-29": 0.048, "30-39": 0.019, "40-59": 0.010, "60+": 0.002}   # [B] PNS, Brasil
+  os_media_brasil: 0.018
+  os_adolescente_fator: 0.5     # [P] 11-17 anos: metade da taxa de 18-29
+  dist_lgb: {homossexual: 0.60, bissexual: 0.35, outra: 0.05}   # [B] PNS 1,2 / 0,7 / 0,1
+  dist_outra_os: {198: 0.4, 199: 0.4, 155: 0.2}                 # [P] assexual, panssexual, outro
+  trans: 0.0069                 # [B] Spizzirri et al. 2021 (IC 0,48%-0,90%)
+  nao_binario: 0.0119           # [B] idem (IC 0,92%-1,47%)
+  dist_trans: {150: 0.50, 149: 0.35, 156: 0.15}  # [P] mulher trans, homem trans, travesti
+  gradiente_ig: {"11-29": 1.8, "30-49": 1.0, "50+": 0.4}         # [C] Santos e Melo 2022 (direção)
+  nome_social_trans_nb: 0.50    # [P]
+  rho_tipos_deficiencia: null   # null = calibrar para a união do Censo (≈0,65)
+  outra_deficiencia: 0.03       # [P] entre pessoas com deficiência (Tabela 7)
+  recusa_cadastro: 0.005        # [P] termo de recusa
+
+registro:
+  # Priori das USF (sem a planilha autorizada): Beta ajustada à faixa 3%-53% (Plano Etapa 6, 4.5)
+  usf_sim_beta: [2.9, 10.7]     # [B] média 21%
+  usf_ni_beta: [2.0, 50.0]      # [P] média 3,8% (linha 3 da planilha)
+  metas_usf_csv: null           # caminho de CSV (cnes,prop_sim,prop_ni) quando a SESAU autorizar
+  sigma_equipe: 1.0             # [P] DP do efeito de equipe no logito (cenários 0,5 e 1,5)
+  rho_ra: 0.5                   # [P] correlação entre os efeitos de equipe em R e A
+  sigma_pessoa: 0.8             # [P] efeito persistente da pessoa na aceitação
+  pi_nao_sem_pergunta: 0.0      # [P] semântica do "Não" (pergunta 10 do Apêndice A; cenários 0,5 e 0,9)
+  lambda_lgb: 0.0               # [C] log da razão de chances de aceitar sendo LGB+ (cenários ln 0,5 e ln 1,5)
+  inclinacao_idade: -0.015      # [B] aceitação cai com a idade (PNS)
+  linha3_adultos: {sim: 0.378043, nao: 0.584303, ni: 0.037653}   # [A] planilha SESAU, linha 3
+  linha3_criancas: {sim: 0.099823, nao: 0.872792, ni: 0.027385}
+  ig_desloca_aceita: 0.0        # [P] diferença de logito entre aceitar IG e aceitar OS
+  ig_perguntado_junto: 0.95     # [P] prob. de IG ser perguntada quando OS é
+  sens_deficiencia: 0.70        # [P] sensibilidade do registro de deficiência (cenários 0,5 e 0,9)
+  fp_deficiencia: 0.002         # [P]
+  deficiencia_nao_perguntada: 0.02  # [P] campo tem_deficiencia nulo (RQ11)
+  regime_hetero: 0.30           # [C] fração de equipes com heteroidentificação de raça/cor
+
+dinamica:
+  meses_entre_atualizacoes: 18  # [P] média de meses entre versões da FCI
+  dp_ritmo_equipe: 0.30         # [P] variação do ritmo de atualização entre equipes
+  mobilidade_anual: 0.075       # [P] domicílios que mudam de território por ano
+  prob_registro_mudanca: 0.60   # [P]
+  prob_registro_obito: 0.70     # [P]
+  atraso_saida_meses: 2.0       # [P]
+  tendencia_sd: 0.15            # [P] inclinação anual da equipe no logito
+  ar_phi: 0.70                  # [P] AR(1) mensal
+  ar_sd: 0.08                   # [P]
+  atraso_cadastro_rn_meses: 1.5 # [P] do nascimento ao cadastro
+
+oficinas:
+  fracao_equipes: 0.30          # [P]
+  inicio: "2024-03-01"
+  fim: "2026-06-30"
+  alocacao: aleatoria           # aleatoria | focalizada
+  efeito_logito: 0.2            # [P] verdade conhecida (0; 0,2; 0,5)
+  meia_vida_meses: null         # [P] null = efeito permanente
+  fracao_material: 0.20         # [P] equipes que recebem só material formativo
+  efeito_material: 0.5          # [P] fração do efeito da oficina
+
+atendimentos:
+  # taxas anuais por cadastrado [P] (ordem de grandeza; calibrar com o SISAB, F5)
+  taxas_anuais:
+    "0": 8.0
+    "1-4": 3.0
+    "5-9": 1.5
+    "10-19": 1.0
+    "20-39": {M: 0.8, F: 2.2}
+    "40-59": {M: 1.6, F: 2.5}
+    "60-79": 3.5
+    "80+": 3.0
+  forma_gama: 0.5               # [P] heterogeneidade individual (binomial negativa)
+  dp_oferta_equipe: 0.20        # [P]
+  rr_lgb_trans: 1.0             # [C] Souza 2018: direção < 1 (cenário 0,7)
+  rr_pcd: 1.0                   # [C] Farias et al. 2023: 0,8 a 1,3
+  sazonalidade: {1: 0.90, 2: 0.95, 7: 0.95, 12: 0.85}
+  problemas_extra_media: 0.3    # [P] além do primeiro problema avaliado
+  prob_cid: 0.6                 # [P] item com CID-10 além da CIAP2
+  atraso_digitacao_dias: 3.0    # [P] média por equipe (lognormal)
+  equipes_atrasadas: 0.05       # [P] equipes com atraso médio de 20 dias
+  max_por_ficha: 99
+
+defeitos:                       # Etapa 7 (taxas [P]); os de comportamento vêm da Etapa 6
+  duplicidade: 0.02
+  raca_errada_hetero: 0.25      # prob. por versão nas equipes de heteroidentificação
+  equipes_amarela: 0.03         # equipes com excesso de "amarela"
+  raca_amarela_prob: 0.30
+  raca_divergente: 0.03
+  raca_vazia_legado: 0.15       # versões anteriores a 2017
+  ano_legado: 2017
+  erro_nome: 0.01
+  erro_endereco: 0.01
+  data_implausivel: 0.003
+  data_1900: 0.0002
+  escolaridade_incompativel: 0.005
+  deficiencia_sem_registro: 0.01
+  atraso_limite_dias: 30

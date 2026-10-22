@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/
+# saídas geradas (reprodutíveis pela semente; não versionar)
+saida/
+mlruns/
+mlflow.db
+mlartifacts/
+*.parquet
+!dados/**/*.parquet
+.DS_Store
+Thumbs.db

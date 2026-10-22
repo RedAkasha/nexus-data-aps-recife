@@ -1,0 +1,4 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+IBGE Censo 2022,SIDRA 4712,municipio,2611606,dom_ocupados,T,547461,,,2026-10-21,,domicílios,
+IBGE Censo 2022,SIDRA 4712,municipio,2611606,moradores_dpp,T,1479517,,,2026-10-21,,pessoas,
+IBGE Censo 2022,SIDRA 4712,municipio,2611606,media_moradores_dpp,T,2.7,,,2026-10-21,,pessoas por domicílio,

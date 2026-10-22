@@ -1,0 +1,19 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_orientacao_18mais,os=heterossexual,0.948,,,2026-10-20,,proporção,"IBGE (2022), Orientação sexual autoidentificada da população adulta: PNS 2019"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_orientacao_18mais,os=homossexual,0.012,,,2026-10-20,,proporção,"IBGE (2022), Orientação sexual autoidentificada da população adulta: PNS 2019"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_orientacao_18mais,os=bissexual,0.007,,,2026-10-20,,proporção,"IBGE (2022), Orientação sexual autoidentificada da população adulta: PNS 2019"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_orientacao_18mais,os=outra,0.001,,,2026-10-20,,proporção,"IBGE (2022), Orientação sexual autoidentificada da população adulta: PNS 2019"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_orientacao_18mais,os=nao_sabe,0.011,,,2026-10-20,,proporção,"IBGE (2022), Orientação sexual autoidentificada da população adulta: PNS 2019"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_orientacao_18mais,os=recusou,0.023,,,2026-10-20,,proporção,"IBGE (2022), Orientação sexual autoidentificada da população adulta: PNS 2019"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,T,0.018,,,2026-10-20,,proporção,"2,9 milhões de adultos (1,8%)"
+IBGE PNS 2019,Orientacao sexual 2022,uf,26,prop_homo_bi_18mais,T,0.01,0.01,0.018,2026-10-20,sensibilidade,proporção,Pernambuco; intervalo PE a Brasil (Tabela 6); IC 95% da UF não extraído
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,idade=18-29,0.048,,,2026-10-20,,proporção,Gradiente etário nacional (usar como razão relativa)
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,idade=30-39,0.019,,,2026-10-20,,proporção,Gradiente etário nacional (usar como razão relativa)
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,idade=40-59,0.01,,,2026-10-20,,proporção,Gradiente etário nacional (usar como razão relativa)
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,idade=60+,0.002,,,2026-10-20,,proporção,Gradiente etário nacional (usar como razão relativa)
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,raca=1,0.018,,,2026-10-20,,proporção,"Sem diferença significativa entre brancos, pretos e pardos"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,raca=2,0.019,,,2026-10-20,,proporção,"Sem diferença significativa entre brancos, pretos e pardos"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_homo_bi_18mais,raca=4,0.019,,,2026-10-20,,proporção,"Sem diferença significativa entre brancos, pretos e pardos"
+IBGE PNS 2019,Orientacao sexual 2022,pais,BR,prop_recusa_nao_sabe_18mais,T,0.034,0.02,0.06,2026-10-20,sensibilidade,proporção,"Não sabe (1,1%) + recusou (2,3%)"
+Spizzirri et al. 2021,Scientific Reports 2021,pais,BR,prop_transgenero,T,0.0069,0.0048,0.009,2026-10-15,IC95,proporção,Amostra de 6.000 adultos; sem diferença regional
+Spizzirri et al. 2021,Scientific Reports 2021,pais,BR,prop_nao_binario,T,0.0119,0.0092,0.0147,2026-10-15,IC95,proporção,

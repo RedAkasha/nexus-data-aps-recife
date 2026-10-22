@@ -1,0 +1,4 @@
+# Execução rápida para testar a instalação (DS I e III, 2% da população)
+nome: demo
+escala: 0.02
+distritos: [1, 3]

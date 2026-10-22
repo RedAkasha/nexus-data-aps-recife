@@ -1,0 +1,27 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=T,1537704,,,2026-10-21,,pessoas,Total
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=1,636864,,,2026-10-21,,pessoas,Branca
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=1,0.414166,,,2026-10-21,,proporção,Branca
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=2,127789,,,2026-10-21,,pessoas,Preta
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=2,0.083104,,,2026-10-21,,proporção,Preta
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=3,14696,,,2026-10-21,,pessoas,Amarela
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=3,0.009557,,,2026-10-21,,proporção,Amarela
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=4,754674,,,2026-10-21,,pessoas,Parda
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=4,0.49078,,,2026-10-21,,proporção,Parda
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=5,3665,,,2026-10-21,,pessoas,Indígena
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=5,0.002383,,,2026-10-21,,proporção,Indígena
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=T,1488920,,,2026-10-21,,pessoas,Total
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=1,578413,,,2026-10-21,,pessoas,Branca
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=1,0.388478,,,2026-10-21,,proporção,Branca
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=2,182546,,,2026-10-21,,pessoas,Preta
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=2,0.122603,,,2026-10-21,,proporção,Preta
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=3,2703,,,2026-10-21,,pessoas,Amarela
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=3,0.001815,,,2026-10-21,,proporção,Amarela
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=4,722555,,,2026-10-21,,pessoas,Parda
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=4,0.485288,,,2026-10-21,,proporção,Parda
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=5,2656,,,2026-10-21,,pessoas,Indígena
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=5,0.001784,,,2026-10-21,,proporção,Indígena
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,pop_residente,raca=SD,16,,,2026-10-21,,pessoas,Sem declaração: Total − soma das categorias (derivado)
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,pop_residente,raca=SD,47,,,2026-10-21,,pessoas,Sem declaração: Total − soma das categorias (derivado)
+IBGE Censo 2010,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=2+4,0.573884,,,2026-10-21,,proporção,Pretos + pardos
+IBGE Censo 2022,SIDRA 9605,municipio,2611606,prop_pop_residente,raca=2+4,0.607891,,,2026-10-21,,proporção,Pretos + pardos

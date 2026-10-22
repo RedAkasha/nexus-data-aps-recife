@@ -1,0 +1,95 @@
+id_bairro,cd_bairro_ibge,nome_bairro,rpa,id_ds,origem_ds
+1,2611606001,Recife,1,1,rpa
+2,2611606002,Santo Amaro,1,1,rpa
+3,2611606003,Boa Vista,1,1,rpa
+4,2611606004,Soledade,1,1,rpa
+5,2611606005,Santo Antônio,1,1,rpa
+6,2611606006,Paissandu,1,1,rpa
+7,2611606007,Ilha do Leite,1,1,rpa
+8,2611606008,Coelhos,1,1,rpa
+9,2611606009,Ilha Joana Bezerra,1,1,rpa
+10,2611606010,Cabanga,1,1,rpa
+11,2611606011,São José,1,1,rpa
+12,2611606012,Derby,3,3,inferido
+13,2611606013,Graças,3,3,rpa_diverge_cnes
+14,2611606014,Jaqueira,3,3,inferido
+15,2611606015,Aflitos,3,3,inferido
+16,2611606016,Espinheiro,3,3,cnes
+17,2611606017,Rosarinho,2,2,rpa
+18,2611606018,Tamarineira,3,3,inferido
+19,2611606019,Peixinhos,2,2,rpa
+20,2611606020,Campina do Barreto,2,2,rpa
+21,2611606021,Arruda,2,2,rpa
+22,2611606022,Ponto de Parada,2,2,rpa
+23,2611606023,Hipódromo,2,2,rpa
+24,2611606024,Campo Grande,2,2,rpa
+25,2611606025,Encruzilhada,2,2,rpa
+26,2611606026,Torreão,2,2,rpa
+27,2611606027,Passarinho,3,7,cnes
+28,2611606028,Dois Unidos,2,2,rpa
+29,2611606029,Linha do Tiro,2,2,rpa
+30,2611606030,Beberibe,2,2,rpa
+31,2611606031,Alto Santa Terezinha,2,2,rpa
+32,2611606032,Porto da Madeira,2,2,rpa
+33,2611606033,Cajueiro,2,2,rpa
+34,2611606034,Fundão,2,2,rpa
+35,2611606035,Água Fria,2,2,rpa
+36,2611606036,Bomba do Hemetério,2,2,rpa
+37,2611606037,Pau Ferro,3,7,inferido
+38,2611606038,Guabiraba,3,7,cnes
+39,2611606039,Sítio dos Pintos - São Brás,3,3,cnes
+40,2611606040,Dois Irmãos,3,3,cnes
+41,2611606041,Brejo da Guabiraba,3,7,inferido
+42,2611606042,Córrego do Jenipapo,3,7,cnes
+43,2611606043,Apipucos,3,3,cnes
+44,2611606044,Macaxeira,3,7,cnes
+45,2611606045,Nova Descoberta,3,7,cnes
+46,2611606046,Brejo de Beberibe,3,7,cnes
+47,2611606047,Alto do Mandu,3,3,cnes
+48,2611606048,Casa Amarela,3,3,cnes
+49,2611606049,Vasco da Gama,3,7,cnes
+50,2611606050,Alto José Bonifácio,3,7,cnes
+51,2611606051,Morro da Conceição,3,7,cnes
+52,2611606052,Alto José do Pinho,3,7,cnes
+53,2611606053,Mangabeira,3,7,cnes
+54,2611606054,Parnamirim,3,3,inferido
+55,2611606055,Casa Forte,3,3,inferido
+56,2611606056,Santana,3,3,inferido
+57,2611606057,Poço,3,3,cnes
+58,2611606058,Monteiro,3,3,inferido
+59,2611606059,Torre,4,4,rpa
+60,2611606060,Cordeiro,4,4,rpa
+61,2611606061,Zumbí,4,4,rpa
+62,2611606062,Madalena,4,4,rpa
+63,2611606063,Prado,4,4,rpa
+64,2611606064,Ilha do Retiro,4,4,rpa
+65,2611606065,Bongi,5,5,rpa
+66,2611606066,San Martin,5,5,rpa
+67,2611606067,Mustardinha,5,5,rpa
+68,2611606068,Mangueira,5,5,rpa
+69,2611606069,Várzea,4,4,rpa
+70,2611606070,Caxangá,4,4,rpa
+71,2611606071,Iputinga,4,4,rpa
+72,2611606072,Torrões,4,4,rpa
+73,2611606073,Engenho do Meio,4,4,rpa
+74,2611606074,Cidade Universitária,4,4,rpa
+75,2611606075,Afogados,5,5,rpa
+76,2611606076,Jiquiá,5,5,rpa
+77,2611606077,Estância,5,5,rpa
+78,2611606078,Areias,5,5,rpa
+79,2611606079,Caçote,5,5,rpa
+80,2611606080,Curado,5,5,rpa
+81,2611606081,Totó,5,5,rpa
+82,2611606082,Coqueiral,5,5,rpa
+83,2611606083,Sancho,5,5,rpa
+84,2611606084,Tejipió,5,5,rpa
+85,2611606085,Jardim São Paulo,5,5,rpa
+86,2611606086,Barro,5,5,rpa
+87,2611606087,Cohab,6,8,cnes
+88,2611606088,Jordão,6,8,cnes
+89,2611606089,Ibura,6,8,cnes
+90,2611606090,Ipsep,6,6,cnes
+91,2611606091,Imbiribeira,6,6,cnes
+92,2611606092,Boa Viagem,6,6,cnes
+93,2611606093,Pina,6,6,cnes
+94,2611606094,Brasília Teimosa,6,6,cnes

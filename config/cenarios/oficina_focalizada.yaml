@@ -1,0 +1,3 @@
+# Oficinas nas equipes de pior desempenho observado: mostra o viés de regressão à média
+nome: oficina_focalizada
+oficinas: {alocacao: focalizada}

@@ -1,0 +1,48 @@
+fonte,tabela_fonte,nivel,cd_territorio,variavel,categoria,valor,ic_inferior,ic_superior,dt_acesso,tipo_intervalo,unidade,nota
+MS CNES,CNES servicos,ds,1,unidades_aps_ativas,T,10,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,1,equipes_ativas,tipo_equipe=70,22,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,1,equipes_ativas,tipo_equipe=73,2,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,1,equipes_ativas,tipo_equipe=74,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,1,equipes_ativas,tipo_equipe=76,1,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,2,unidades_aps_ativas,T,21,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,2,equipes_ativas,tipo_equipe=70,61,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,2,equipes_ativas,tipo_equipe=73,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,2,equipes_ativas,tipo_equipe=74,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,2,equipes_ativas,tipo_equipe=76,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,3,unidades_aps_ativas,T,9,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,3,equipes_ativas,tipo_equipe=70,24,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,3,equipes_ativas,tipo_equipe=73,1,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,3,equipes_ativas,tipo_equipe=74,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,3,equipes_ativas,tipo_equipe=76,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,4,unidades_aps_ativas,T,24,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,4,equipes_ativas,tipo_equipe=70,62,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,4,equipes_ativas,tipo_equipe=73,1,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,4,equipes_ativas,tipo_equipe=74,2,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,4,equipes_ativas,tipo_equipe=76,1,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,5,unidades_aps_ativas,T,26,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,5,equipes_ativas,tipo_equipe=70,71,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,5,equipes_ativas,tipo_equipe=73,1,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,5,equipes_ativas,tipo_equipe=74,8,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,5,equipes_ativas,tipo_equipe=76,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,6,unidades_aps_ativas,T,15,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,6,equipes_ativas,tipo_equipe=70,44,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,6,equipes_ativas,tipo_equipe=73,1,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,6,equipes_ativas,tipo_equipe=74,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,6,equipes_ativas,tipo_equipe=76,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,7,unidades_aps_ativas,T,23,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,7,equipes_ativas,tipo_equipe=70,69,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,7,equipes_ativas,tipo_equipe=73,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,7,equipes_ativas,tipo_equipe=74,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,7,equipes_ativas,tipo_equipe=76,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,8,unidades_aps_ativas,T,25,,,2026-10-21,,unidades,Referência 2026-10-18 (carga CNES)
+MS CNES,CNES servicos,ds,8,equipes_ativas,tipo_equipe=70,61,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,8,equipes_ativas,tipo_equipe=73,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,8,equipes_ativas,tipo_equipe=74,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,ds,8,equipes_ativas,tipo_equipe=76,0,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,municipio,2611606,unidades_aps_ativas,T,153,,,2026-10-21,,unidades,
+MS CNES,CNES servicos,municipio,2611606,equipes_ativas,tipo_equipe=70,414,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,municipio,2611606,equipes_ativas,tipo_equipe=71,332,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,municipio,2611606,equipes_ativas,tipo_equipe=72,20,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,municipio,2611606,equipes_ativas,tipo_equipe=73,6,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,municipio,2611606,equipes_ativas,tipo_equipe=74,10,,,2026-10-21,,equipes,
+MS CNES,CNES servicos,municipio,2611606,equipes_ativas,tipo_equipe=76,2,,,2026-10-21,,equipes,

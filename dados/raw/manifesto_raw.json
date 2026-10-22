@@ -1,0 +1,69 @@
+{
+ "gerado_em": "2026-10-21",
+ "arquivos": {
+  "sidra_compact.json": {
+   "sha256": "64a3b9416881692dd2b8688c128382022776ae40545b034964fadd56acd31c51",
+   "bytes": 338432,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://apisidra.ibge.gov.br/values/t/9514/n6/2611606/v/93/p/2022/c2/all/c287/all/c286/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9605/n6/2611606/v/93/p/all/c86/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9606/n6/2611606/v/93/p/2022/c86/all/c2/all/c287/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/4712/n6/2611606/v/all/p/2022?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10125/n6/2611606/v/11852,12785/p/2022/c2/all/c58/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10127/n6/2611606/v/12785/p/2022/c1509/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10132/n6/2611606/v/11852/p/2022/c86/all/c839/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10145/n6/2611606/v/93,13267/p/2022/c2/all/c58/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10147/n6/2611606/v/93,13267/p/2022/c86/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10061/n6/2611606/v/2667/p/2022/c1568/all/c58/all/c2/all/c86/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10296/n6/2611606/v/13604/p/2022/c2/all/c86/all/c386/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10300/n6/2611606/v/13432/p/2022/c629/all/c386/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9922/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9923/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json"
+   ]
+  },
+  "sidra_9922_9923_bairros.csv": {
+   "sha256": "6a52397883d4c125ba4a8ca3fe85873e26e8f7aff1ef2ab7a78356efd9626b43",
+   "bytes": 4239,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://apisidra.ibge.gov.br/values/t/9922/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9923/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json"
+   ]
+  },
+  "cnes_recife_aps.tsv": {
+   "sha256": "3b7913e76293df240b6f2b939508953b85db27cdcb53831208fb9556c6e02f97",
+   "bytes": 129317,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://cnes.datasus.gov.br/services/estabelecimentos?municipio=261160",
+    "https://cnes.datasus.gov.br/services/estabelecimentos/{id}",
+    "https://cnes.datasus.gov.br/services/estabelecimentos-equipes/{id}"
+   ]
+  },
+  "bairros_rpa_recife.csv": {
+   "sha256": "4ceb0750436e754f12701100a4ef5de1693637c9b26a3fa4dbe89c6276175a87",
+   "bytes": 1325,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://dados.recife.pe.gov.br/api/3/action/datastore_search?resource_id=a378d50a-5e55-4956-a28c-13305acfc2b3&limit=200"
+   ]
+  },
+  "cid10/CID-10-CATEGORIAS.CSV": {
+   "sha256": "173e82ac3075b88da286f5bf3ca12621ef657ec1a2423490388a259188e403c9",
+   "bytes": 195515,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://raw.githubusercontent.com/cleytonferrari/CidDataSus/master/CIDImport/Repositorio/Resources/CID-10-CATEGORIAS.CSV"
+   ]
+  },
+  "cid10/CID-10-SUBCATEGORIAS.CSV": {
+   "sha256": "4a323241241789da4269116fb8245d9743947c22df53d481acc1fb1b0876417a",
+   "bytes": 1340271,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://raw.githubusercontent.com/cleytonferrari/CidDataSus/master/CIDImport/Repositorio/Resources/CID-10-SUBCATEGORIAS.CSV"
+   ]
+  }
+ }
+}

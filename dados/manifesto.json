@@ -1,0 +1,169 @@
+{
+ "versao": "1.0.0",
+ "gerado_em": "2026-10-21",
+ "referencia_cnes": "2026-10-18",
+ "raw": {
+  "sidra_compact.json": {
+   "sha256": "64a3b9416881692dd2b8688c128382022776ae40545b034964fadd56acd31c51",
+   "bytes": 338432,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://apisidra.ibge.gov.br/values/t/9514/n6/2611606/v/93/p/2022/c2/all/c287/all/c286/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9605/n6/2611606/v/93/p/all/c86/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9606/n6/2611606/v/93/p/2022/c86/all/c2/all/c287/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/4712/n6/2611606/v/all/p/2022?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10125/n6/2611606/v/11852,12785/p/2022/c2/all/c58/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10127/n6/2611606/v/12785/p/2022/c1509/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10132/n6/2611606/v/11852/p/2022/c86/all/c839/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10145/n6/2611606/v/93,13267/p/2022/c2/all/c58/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10147/n6/2611606/v/93,13267/p/2022/c86/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10061/n6/2611606/v/2667/p/2022/c1568/all/c58/all/c2/all/c86/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10296/n6/2611606/v/13604/p/2022/c2/all/c86/all/c386/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/10300/n6/2611606/v/13432/p/2022/c629/all/c386/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9922/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9923/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json"
+   ]
+  },
+  "sidra_9922_9923_bairros.csv": {
+   "sha256": "6a52397883d4c125ba4a8ca3fe85873e26e8f7aff1ef2ab7a78356efd9626b43",
+   "bytes": 4239,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://apisidra.ibge.gov.br/values/t/9922/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json",
+    "https://apisidra.ibge.gov.br/values/t/9923/n102/in%20n6%202611606/v/all/p/2022/c1/all?formato=json"
+   ]
+  },
+  "cnes_recife_aps.tsv": {
+   "sha256": "3b7913e76293df240b6f2b939508953b85db27cdcb53831208fb9556c6e02f97",
+   "bytes": 129317,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://cnes.datasus.gov.br/services/estabelecimentos?municipio=261160",
+    "https://cnes.datasus.gov.br/services/estabelecimentos/{id}",
+    "https://cnes.datasus.gov.br/services/estabelecimentos-equipes/{id}"
+   ]
+  },
+  "bairros_rpa_recife.csv": {
+   "sha256": "4ceb0750436e754f12701100a4ef5de1693637c9b26a3fa4dbe89c6276175a87",
+   "bytes": 1325,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://dados.recife.pe.gov.br/api/3/action/datastore_search?resource_id=a378d50a-5e55-4956-a28c-13305acfc2b3&limit=200"
+   ]
+  },
+  "cid10/CID-10-CATEGORIAS.CSV": {
+   "sha256": "173e82ac3075b88da286f5bf3ca12621ef657ec1a2423490388a259188e403c9",
+   "bytes": 195515,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://raw.githubusercontent.com/cleytonferrari/CidDataSus/master/CIDImport/Repositorio/Resources/CID-10-CATEGORIAS.CSV"
+   ]
+  },
+  "cid10/CID-10-SUBCATEGORIAS.CSV": {
+   "sha256": "4a323241241789da4269116fb8245d9743947c22df53d481acc1fb1b0876417a",
+   "bytes": 1340271,
+   "dt_acesso": "2026-10-21",
+   "origem": [
+    "https://raw.githubusercontent.com/cleytonferrari/CidDataSus/master/CIDImport/Repositorio/Resources/CID-10-SUBCATEGORIAS.CSV"
+   ]
+  }
+ },
+ "avisos_territorio": [
+  "Graças: RPA 3, UBS do CNES no DS 1; mantido DS 3"
+ ],
+ "cid10_ledi_ausentes_no_datasus": [],
+ "arquivos": {
+  "parametros/censo2022_autismo.csv": {
+   "linhas": 216,
+   "sha256": "e67091aa972d7ee1c019ff6e1c00d38e5c3153eda606cf76b10960af93c4111d"
+  },
+  "parametros/censo2022_deficiencia.csv": {
+   "linhas": 279,
+   "sha256": "7145722f1a61e71643a32920bed781ee95c6889effa45e91624ca8bdc9396baf"
+  },
+  "parametros/censo2022_domicilios.csv": {
+   "linhas": 3,
+   "sha256": "d408f29f6c1c63db86bf7f2bb307cd4dc5f62d41bdf3f8feac591f1f891e3e32"
+  },
+  "parametros/censo2022_instrucao.csv": {
+   "linhas": 1710,
+   "sha256": "3a5eb0522ae506626c24ce6edc4e609349b73f73ed5225d98457c9eb3a308e0a"
+  },
+  "parametros/censo2022_pop_raca_sexo_idade.csv": {
+   "linhas": 2196,
+   "sha256": "bea85fb01d8ff782efd2903543952d16d5eff025006aafc64d1c8cc230e4b51d"
+  },
+  "parametros/censo2022_pop_sexo_idade.csv": {
+   "linhas": 366,
+   "sha256": "9a82db9e62ed051a3511ce9652262846f23a49e94a55c7226673403087b327b9"
+  },
+  "parametros/censo2022_renda.csv": {
+   "linhas": 276,
+   "sha256": "cbbabb1b5c39e9bb113bee59a8aaed1e5f9e57aa94e764488eaec9707e069d10"
+  },
+  "parametros/censo2022_territorio.csv": {
+   "linhas": 416,
+   "sha256": "5dbdfa7331eece9ff6c229155808150511296c49adf1cd9856e52255b8020e5d"
+  },
+  "parametros/censo_pop_raca.csv": {
+   "linhas": 26,
+   "sha256": "81b9933f4939b95ccb473761873944d38df590a3784890507307512a449fe850"
+  },
+  "parametros/cnes_estrutura.csv": {
+   "linhas": 47,
+   "sha256": "0f3c0e505b8b99b7d6ee45efe8b1ad663e0b9de8e412f8646cf5ddabf4e7864f"
+  },
+  "parametros/cnes_serie_equipes.csv": {
+   "linhas": 460,
+   "sha256": "84d3e7904fdf8e777c6ad15a90f6ef2aece768bf3b3d6d25e5f4b0d935eced88"
+  },
+  "parametros/literatura_os_ig.csv": {
+   "linhas": 18,
+   "sha256": "b155ed0abed9b1b336b1ede6018df4dd06c2f054fdc596f7f966e0eafd2fb024"
+  },
+  "parametros/premissas_gerador.csv": {
+   "linhas": 19,
+   "sha256": "c4cbf58a231f4e3a536210acb69cdc1c4ebd85254898baeb4ac1d08642280155"
+  },
+  "estrutura/bairro.csv": {
+   "linhas": 94,
+   "sha256": "5e4b935d9d5eb0281be41c071da8c670d5f85f7f310251b0749c13736fe1cc26"
+  },
+  "estrutura/bairro_referencia.csv": {
+   "linhas": 94,
+   "sha256": "ca84037ca1851da7be4777cc013d49afc023195beb8c3a85d5f98931051a38a1"
+  },
+  "estrutura/conciliacao_cnes.csv": {
+   "linhas": 161,
+   "sha256": "a73e0e158ed408b5d18de92756628d05eee333e1e38b7b888f3817a79ca0e2df"
+  },
+  "estrutura/distrito_sanitario.csv": {
+   "linhas": 8,
+   "sha256": "2b1886d6e4051a2f8fb2754e9d2c15b89a99b870f585db17d907e6dbe75f9802"
+  },
+  "estrutura/dom_cid10.csv": {
+   "linhas": 14233,
+   "sha256": "75c08c27fdbb5e1567dd602a8e51db7c2cacf91fab1bc1e4a2b4a680fc2276b6"
+  },
+  "estrutura/dom_tipo_equipe.csv": {
+   "linhas": 6,
+   "sha256": "2ab6e7b17cb11a390709ed8b05c3e06807a209d1edbe852e7e64fe0ec37a3cd0"
+  },
+  "estrutura/dom_tipo_unidade.csv": {
+   "linhas": 1,
+   "sha256": "204785bf3e654ccc58d7fde7b9508a9ac78d009bb08d10401e4516cc7d5c895b"
+  },
+  "estrutura/equipe.csv": {
+   "linhas": 432,
+   "sha256": "be944173e7e2de8709d78eccc57d167b0b4dd55635b844a6e6f99830459dc5da"
+  },
+  "estrutura/equipe_historico.csv": {
+   "linhas": 809,
+   "sha256": "502ae13dc7b672e2fd3fd70f74c8309f5d6442c3a90bfe3007cbd90e189011ec"
+  },
+  "estrutura/unidade_saude.csv": {
+   "linhas": 153,
+   "sha256": "72173bde45e82d4cb39f7d94daa9e361bab955b3418287c20a78b3bd83a9c270"
+  }
+ }
+}
