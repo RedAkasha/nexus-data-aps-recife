@@ -4,8 +4,6 @@
 
 Este repositório gera, carrega, valida e analisa uma base **sintética** da Atenção Primária à Saúde do Recife. A base segue o leiaute do PEC e-SUS APS 8.7.0 (LEDI). O objetivo é apoiar o monitoramento do registro de **orientação sexual, identidade de gênero, raça/cor e deficiência** no cadastro individual, que é o foco da reunião com a Secretaria de Saúde (01/09/2026).
 
-O código cobre as Etapas 6 a 11 do documento *Emulação de Dados da APS do Recife* (v3). Ele parte do que as Etapas 1 a 5 entregaram: dicionário, modelo conceitual, modelo lógico, DDL e parâmetros oficiais.
-
 > **Dados sintéticos.** Nenhuma linha corresponde a uma pessoa real. Nomes, CPF, CNS e endereços são fictícios (CPF e CNS têm dígito verificador válido). As distribuições vêm de fontes oficiais e de premissas declaradas. A base **não** é um retrato da população do Recife e não pode ser apresentada como tal (RN28).
 
 ---
@@ -25,12 +23,13 @@ O código cobre as Etapas 6 a 11 do documento *Emulação de Dados da APS do Rec
 11. [Etapas do plano × código](#11-etapas-do-plano--código)
 12. [Limitações e pendências](#12-limitações-e-pendências)
 13. [Publicação no GitHub](#13-publicação-no-github)
+14. [Licença e citação](#14-licença-e-citação)
 
 ---
 
 ## 1. O que o gerador faz
 
-O gerador é um **modelo estatístico gerativo**, montado como um grafo acíclico dirigido (DAG). Cada variável é sorteada a partir das que a antecedem, e a ordem segue o Plano Metodológico da Etapa 6 (`docs/Plano_Metodologico_Etapa6_Gerador.pdf`):
+O gerador é um **modelo estatístico gerativo**, montado como um grafo acíclico dirigido (DAG). Cada variável é sorteada a partir das que a antecedem, e a ordem segue o Plano Metodológico (`docs/Plano_Metodologico_Etapa6_Gerador.pdf`):
 
 | Passo | Método | Fonte principal |
 |---|---|---|
@@ -46,7 +45,7 @@ O gerador é um **modelo estatístico gerativo**, montado como um grafo acíclic
 | Atendimentos (FAI) | Poisson–Gama (binomial negativa) por idade × sexo; pré-natal pela distribuição de consultas por raça | Premissas; boletim SESAU (Tabela 1) |
 | Defeitos (Etapa 7) | 13 tipos com gabarito em `controle_defeito` | Modelo lógico, seção 4.3 |
 
-A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a probabilidade de "Sim" por versão e por equipe × mês. Com ela, os métodos das Etapas 8 a 10 podem ser avaliados como num estudo de simulação (ADEMP). O banco não recebe nenhuma informação da verdade.
+A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a probabilidade de "Sim" por versão e por equipe × mês. Com ela, os métodos podem ser avaliados como num estudo de simulação (ADEMP). O banco não recebe nenhuma informação da verdade.
 
 ## 2. Estrutura do repositório
 
@@ -55,12 +54,12 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 │   ├── cenario_base.yaml        parâmetros do cenário base, com a classe de evidência de cada um
 │   └── cenarios/*.yaml          cenários de sensibilidade (só as chaves que mudam)
 ├── dados/
-│   ├── parametros/              CSV oficiais da Etapa 5 (Censo, PNS, literatura, premissas)
+│   ├── parametros/              CSV oficiais (Censo, PNS, literatura, premissas)
 │   ├── parametros_complementares/boletim_sesau_2025.csv
 │   ├── estrutura/               DS, bairros, unidades e equipes reais (CNES)
 │   ├── raw/                     extrações brutas (SIDRA, CNES, CID-10) e manifesto
 │   └── dominios.json            domínios do LEDI 8.7.0
-├── coleta/                      Etapa 5: coleta_parametros.py e gen_carga.py
+├── coleta/                      coleta_parametros.py e gen_carga.py
 ├── src/aps_sintetico/           o pacote (gerador, carga, validação, analítica, inferência, ML)
 ├── sql/postgresql/              01–05 (DDL, domínios, validação, estrutura, parâmetros),
 │                                06 staging → núcleo, 07 camada analítica
@@ -74,28 +73,28 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 
 Os módulos de `src/aps_sintetico/`:
 
-| Módulo | Etapa | Conteúdo |
+| Módulo | Conteúdo |
 |---|---|---|
-| `config.py`, `rng.py`, `parametros.py` | 6 | Cenários em YAML; fluxos de números aleatórios independentes por componente (PCG64 + SeedSequence); leitura dos CSV oficiais |
-| `ipf.py`, `populacao.py` | 6 | IPF, TRS, pessoas, domicílios, setores sintéticos, socioeconômico |
-| `atributos.py` | 6 | Deficiência, TEA, orientação sexual e identidade de gênero |
-| `territorio.py`, `cobertura.py` | 6 | Rede, metas, microáreas, profissionais, adscrição, cobertura, primeiro cadastro |
-| `registro.py` | 6 | Modelo de registro e calibração dos interceptos |
-| `dinamica.py` | 6 | Componente temporal, oficinas, óbitos, mudanças, nascimentos, versões da FCI, verdade mensal, defeitos de comportamento |
-| `atendimentos.py` | 6 | FAI: atendimentos, fichas, problemas e condições |
-| `defeitos.py` | 7 | Identidades e defeitos de processo |
-| `exporta.py` | 6–8 | Núcleo, *staging* (LEDI), verdade, referências e manifesto SHA-256 |
-| `carga.py` | 8 | Carga no PostgreSQL (direta ou via *staging*); script para MySQL |
-| `valida.py` | 8 | Calibração, integridade (VC), qualidade × gabarito (RQ), planilha SQL × Python |
-| `analitica.py` | 9 | Camada analítica em Parquet (equivalente ao `07_analitica.sql`) |
-| `inferencia.py` | 10 | Wilson, bayesiano empírico, viés MNAR, efeito das oficinas |
-| `ml.py` | 10 | Regressão com partição temporal, *walk-forward*, MLflow |
-| `sensibilidade.py` | 10 | Cenários, réplicas e hipercubo latino |
-| `cli.py` | 11 | Linha de comando |
+| `config.py`, `rng.py`, `parametros.py` | Cenários em YAML; fluxos de números aleatórios independentes por componente (PCG64 + SeedSequence); leitura dos CSV oficiais |
+| `ipf.py`, `populacao.py` | IPF, TRS, pessoas, domicílios, setores sintéticos, socioeconômico |
+| `atributos.py` |Deficiência, TEA, orientação sexual e identidade de gênero |
+| `territorio.py`, `cobertura.py` | Rede, metas, microáreas, profissionais, adscrição, cobertura, primeiro cadastro |
+| `registro.py` | Modelo de registro e calibração dos interceptos |
+| `dinamica.py` | Componente temporal, oficinas, óbitos, mudanças, nascimentos, versões da FCI, verdade mensal, defeitos de comportamento |
+| `atendimentos.py` |FAI: atendimentos, fichas, problemas e condições |
+| `defeitos.py` | Identidades e defeitos de processo |
+| `exporta.py` | Núcleo, *staging* (LEDI), verdade, referências e manifesto SHA-256 |
+| `carga.py` | Carga no PostgreSQL (direta ou via *staging*); script para MySQL |
+| `valida.py` | Calibração, integridade (VC), qualidade × gabarito (RQ), planilha SQL × Python |
+| `analitica.py` | Camada analítica em Parquet (equivalente ao `07_analitica.sql`) |
+| `inferencia.py` | Wilson, bayesiano empírico, viés MNAR, efeito das oficinas |
+| `ml.py` | Regressão com partição temporal, *walk-forward*, MLflow |
+| `sensibilidade.py` | Cenários, réplicas e hipercubo latino |
+| `cli.py` | Linha de comando |
 
 ## 3. Instalação
 
-Requisitos: **Python 3.10 ou superior**. O PostgreSQL 16 é opcional e só é necessário para as Etapas 8 e 9 em SQL. O Docker também é opcional.
+Requisitos: **Python 3.10 ou superior**. O PostgreSQL 16 é opcional e só é necessário para etapas em SQL. O Docker também é opcional.
 
 **Windows (PowerShell)**
 
@@ -171,13 +170,13 @@ python -m aps_sintetico sensibilidade --replicas 3 --escala 0.02 --distritos 1,3
 | Cenário | Pergunta que responde |
 |---|---|
 | `pi_alto`, `pi_muito_alto` | E se o "Não" for registrado sem a pergunta ter sido feita? (Apêndice A, pergunta 10) |
-| `mnar_menor`, `mnar_maior` | Quanto as pessoas LGB+ aceitam menos ou mais informar: viés da não resposta informativa |
+| `mnar_menor`, `mnar_maior` | Quanto as pessoas LGBT+ aceitam menos ou mais informar: viés da não resposta informativa |
 | `equipe_sigma_baixo`, `equipe_sigma_alto` | Quanto pesa a variação entre equipes da mesma USF |
 | `oficina_nula`, `oficina_moderada`, `oficina_focalizada` | Efeito verdadeiro das oficinas; alocação nas piores equipes (regressão à média) |
 | `idade_min_10` | Regra do "dado real" com 10 anos (pendência P1) |
 | `cobertura_baixa`, `cobertura_alta` | Cobertura municipal de 75% ou 90% |
 | `deficiencia_sens_baixa`, `deficiencia_sens_alta` | Sensibilidade do registro de deficiência |
-| `uso_lgb_trans_menor` | Menor uso dos serviços por pessoas LGB+ e trans (Souza, 2018) |
+| `uso_lgb_trans_menor` | Menor uso dos serviços por pessoas LGBT+ e trans (Souza, 2018) |
 | `demo` | Base pequena para testar a instalação |
 
 **Metas por USF.** Sem a planilha autorizada, as metas de cada USF vêm de uma priori Beta ancorada na linha 3. Quando a SESAU autorizar, basta apontar `registro.metas_usf_csv` para um CSV `cnes,prop_sim,prop_ni`.
@@ -326,11 +325,10 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 - **Taxas de atendimento.** As taxas por idade × sexo são premissas de ordem de grandeza e devem ser calibradas com o SISAB.
 - **Pendências da SESAU** (Apêndice A). Seguem abertas a semântica do "Não" (π), a idade mínima (10 ou 11) e se a recusa conta entre os ativos. Todas viraram parâmetros e cenários.
 - **MySQL e Docker.** Os scripts estão escritos, mas não foram executados nesta entrega: o ambiente de desenvolvimento não tinha MySQL nem Docker. A rota PostgreSQL foi testada de ponta a ponta.
-- **Licença.** Não foi definida; escolha do grupo antes de tornar o repositório público.
 
 ## 13. Publicação no GitHub
 
-O repositório já vem com o histórico Git. Para publicar em <https://github.com/RedAkasha>:
+O repositório já vem com o histórico Git:
 
 1. Crie um repositório vazio no GitHub (sem README), por exemplo `gerador-dados-sinteticos-aps-recife`.
 2. Na pasta do projeto, rode:
@@ -342,3 +340,68 @@ git push -u origin main
 ```
 
 As pastas `saida/` e `mlruns/` e o arquivo `mlflow.db` ficam fora do Git, porque a semente reproduz tudo.
+
+## 14. Licença e citação
+
+Este repositório usa duas licenças, conforme o tipo de material. Os dados de terceiros continuam sob as condições das fontes.
+
+| Material | Onde está | Licença |
+|---|---|---|
+| Código | `src/`, `painel/`, `tests/`, `coleta/`, `sql/`, `config/`, `docker/`, `docker-compose.yml`, `Makefile`, `pyproject.toml` | [MIT](https://opensource.org/license/mit) |
+| Documentação | `README.md`, `docs/` (incluindo os PDFs do plano e da emulação e os modelos `.brM3`, `.xml` e `.png`) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br) |
+| Dados sintéticos gerados | tudo o que o gerador grava em `saida/` (núcleo, *staging*, verdade, camada analítica e relatórios) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br) |
+| Dados de fontes públicas | `dados/parametros/`, `dados/parametros_complementares/`, `dados/estrutura/`, `dados/raw/`, `dados/dominios.json` | Condições de cada fonte (abaixo) |
+
+### Código: licença MIT
+
+```text
+MIT License
+
+Copyright (c) 2026 Equipe 2 – Nexus Data (Projeto 3 – Dados, CESAR School)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+As bibliotecas usadas (NumPy, pandas, SciPy, scikit-learn, PyYAML, PyArrow, Faker, psycopg, Streamlit, Altair, MLflow) mantêm as próprias licenças, todas compatíveis com a MIT.
+
+### Documentação e dados sintéticos: CC BY 4.0
+
+© 2026 Equipe 2 – Nexus Data. A documentação e as bases geradas podem ser copiadas, adaptadas e redistribuídas para qualquer fim, desde que se dê crédito ao projeto e se indique se houve alteração. Texto completo: <https://creativecommons.org/licenses/by/4.0/legalcode.pt>.
+
+Quem redistribuir uma base gerada deve manter o aviso de que os **dados são sintéticos**: nenhuma linha corresponde a pessoa real, e os números não são estatística do Recife (`docs/data_card.md`).
+
+### Dados de fontes públicas
+
+Os arquivos de `dados/` são cópias ou derivações de dados públicos. Eles foram incluídos para que a geração seja reprodutível e **não** estão cobertos pelas licenças acima. Quem reutilizá-los deve citar a fonte original e seguir as condições dela:
+
+| Fonte | Arquivos |
+|---|---|
+| IBGE – Censo Demográfico 2022 (SIDRA) e Pesquisa Nacional de Saúde 2019 | `censo2022_*.csv`, `censo_pop_raca.csv`, `dados/raw/sidra_*` |
+| Ministério da Saúde – CNES (DATASUS) | `cnes_*.csv`, `dados/estrutura/`, `dados/raw/cnes_recife_aps.tsv` |
+| Ministério da Saúde – CID-10 (DATASUS) | `dados/raw/cid10/`, `dados/estrutura/dom_cid10.csv` |
+| Ministério da Saúde – LEDI e-SUS APS 8.7.0 (tabelas de referência) | `dados/dominios.json` |
+| Prefeitura do Recife – Portal de Dados Abertos (bairros e RPA) | `dados/raw/bairros_rpa_recife.csv` |
+| Secretaria de Saúde do Recife – Boletim 01/2025 | `dados/parametros_complementares/boletim_sesau_2025.csv` |
+| Literatura científica (Spizzirri et al., 2021, *Scientific Reports*, e demais citadas no plano) | `literatura_os_ig.csv` (só parâmetros numéricos extraídos) |
+
+### Como citar
+
+> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <***>.
+
+Projeto acadêmico de alunos, sem vínculo comercial nem caráter oficial da Secretaria de Saúde do Recife.
