@@ -402,6 +402,6 @@ Os arquivos de `dados/` são cópias ou derivações de dados públicos. Eles fo
 
 ### Como citar
 
-> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <***>.
+> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <(https://github.com/RedAkasha/nexus-data-aps-recife)>.
 
 Projeto acadêmico de alunos, sem vínculo comercial nem caráter oficial da Secretaria de Saúde do Recife.
