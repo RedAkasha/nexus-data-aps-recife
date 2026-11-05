@@ -139,6 +139,9 @@ def delta_txt(x, rel=False) -> str:
 
 
 def _props_geo(feat: dict) -> int | None:
+    pr = feat.get("properties", {})
+    if str(pr.get("ds", "")).isdigit():
+        return int(pr["ds"])
     for v in feat.get("properties", {}).values():
         m = re.search(r"\b([1-8])\b|DS\s*([1-8])|^([1-8])$", str(v), re.I)
         if m:
