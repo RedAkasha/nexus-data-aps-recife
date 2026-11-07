@@ -163,8 +163,46 @@ def cartao(col, titulo, valor, delta, bom_se_sobe: bool | None, nota="", rel=Fal
         f"<div style='color:{MUDO};font-size:0.8rem'>{nota}</div></div>", unsafe_allow_html=True)
 
 
+# ----------------------------------------------------------------------------- necessidade por DS (bolas)
+# Códigos do e-SUS (dados/dominios.json): raça/cor 2 = preta, 4 = parda; orientação 148 = heterossexual;
+# identidade 200/201 = homem/mulher cisgênero.
+BOLAS = {"Nenhuma": None,
+         "População negra (preta + parda)": "negra",
+         "Pessoas com deficiência": "deficiencia",
+         "Orientação sexual não heterossexual": "os",
+         "Identidade de gênero não cisgênero": "ig",
+         "Sem registro de orientação sexual": "ni_os"}
+COD_OS = ["148", "154", "155", "196", "197", "198", "199"]
+COD_IG = ["149", "150", "151", "156", "200", "201", "203"]
+
+
+def necessidade(f: pd.DataFrame, chave: str) -> pd.DataFrame:
+    """Por DS: quantidade, denominador e % do indicador escolhido (f = uma competência)."""
+    def soma(x):
+        return x.groupby("id_ds")["n"].sum()
+    if chave == "negra":
+        x = f[f["marcador"] == "RACA_COR"]
+        qtd, den = soma(x[x["categoria"].isin(["2", "4"])]), soma(x)
+    elif chave == "deficiencia":
+        x = f[(f["marcador"] == "DEFICIENCIA") & f["categoria"].isin(["SIM", "NAO", "SEM_REGISTRO"])]
+        qtd, den = soma(x[x["categoria"] == "SIM"]), soma(x)
+    elif chave == "os":
+        x = f[(f["marcador"] == "OS") & f["categoria"].isin(COD_OS)]
+        qtd, den = soma(x[x["categoria"] != "148"]), soma(x)
+    elif chave == "ig":
+        x = f[(f["marcador"] == "IG") & f["categoria"].isin(COD_IG)]
+        qtd, den = soma(x[~x["categoria"].isin(["200", "201"])]), soma(x)
+    else:
+        x = _den(f, "OS")
+        qtd, den = soma(x[x["categoria"] == "NAO_INFORMADO"]), soma(x)
+    d = pd.DataFrame({"qtd": qtd, "den": den}).fillna(0).reset_index()
+    d["pct"] = d["qtd"] / d["den"].where(d["den"] > 0)
+    d["DS"] = d["id_ds"].map(NOMES_DS)
+    return d
+
+
 # ----------------------------------------------------------------------------- mapa
-def mapa(G: dict | None, tot: pd.DataFrame, modo: str):
+def mapa(G: dict | None, tot: pd.DataFrame, modo: str, bolas: pd.DataFrame | None = None, medida: str = "Quantidade"):
     """Bairros do Recife coloridos por DS ou pelo indicador do DS. Sem a malha, barras por DS."""
     v = tot.set_index("id_ds")
     col = {"Distrito Sanitário": None, "% de \"Sim\" (orientação sexual)": "prop_sim",
@@ -185,7 +223,7 @@ def mapa(G: dict | None, tot: pd.DataFrame, modo: str):
         p = dict(f["properties"])
         d = p["id_ds"]
         p["valor"] = None if (col is None or d not in v.index) else float(v.loc[d, col])
-        p["cor"] = COR_DS.get(d, SEM_DADO)
+        p["cor"] = "#ecebe6" if (bolas is not None and col is None) else COR_DS.get(d, SEM_DADO)   # base neutra deixa as bolas em destaque
         feats.append({**f, "properties": p})
     tip = [alt.Tooltip("properties.bairro:N", title="Bairro"), alt.Tooltip("properties.DS:N", title="Distrito")]
     if col is None:
@@ -204,15 +242,30 @@ def mapa(G: dict | None, tot: pd.DataFrame, modo: str):
     rot = alt.Chart(alt.Data(values=G["rotulos"])).encode(longitude="lon:Q", latitude="lat:Q", text="DS:N")
     halo = rot.mark_text(fontSize=12, fontWeight="bold", color="white", stroke="white", strokeWidth=4)
     texto = rot.mark_text(fontSize=12, fontWeight="bold", color=INK)
-    return alt.layer(bairros, contorno, halo, texto).project(type="mercator").properties(height=470)
+    camadas = [bairros, contorno]
+    if bolas is not None:
+        col_b = "qtd" if medida == "Quantidade" else "pct"
+        pts = pd.DataFrame(G["rotulos"]).merge(bolas, on="id_ds")
+        pts["valor"] = pts[col_b].fillna(0)
+        top = float(pts["valor"].max()) or 1.0
+        bol = alt.Chart(pts).mark_circle(color="#d03b3b", opacity=0.72, stroke="#7a1d1d", strokeWidth=1.2).encode(
+            longitude="lon:Q", latitude="lat:Q",
+            size=alt.Size("valor:Q", scale=alt.Scale(domain=[0, top], range=[0, 7000]), legend=None),
+            tooltip=[alt.Tooltip("DS:N", title="Distrito"), alt.Tooltip("qtd:Q", title="Quantidade", format=",.0f"),
+                     alt.Tooltip("pct:Q", title="% do distrito", format=".1%")])
+        camadas.append(bol)
+    camadas += [halo, texto]
+    return alt.layer(*camadas).project(type="mercator").properties(height=470)
 
 
-def legenda_ds(tot: pd.DataFrame, n_eq: pd.Series, modo: str):
+def legenda_ds(tot: pd.DataFrame, n_eq: pd.Series, modo: str, extra: dict | None = None):
     col = {"% de \"Sim\" (orientação sexual)": "prop_sim", "% não informado (orientação sexual)": "prop_ni"}.get(modo)
     v = tot.set_index("id_ds")
     linhas = ["<div style='font-size:0.85rem;line-height:1.35;white-space:nowrap'><b>Distritos</b>"]
     for d in range(1, 9):
         val = f"<b style='float:right;margin-left:10px'>{_pct(v.loc[d, col])}</b>" if col and d in v.index else ""
+        if extra is not None:
+            val = f"<b style='float:right;margin-left:10px;color:#d03b3b'>{extra.get(d, '–')}</b>"
         linhas.append(f"<div style='margin-top:7px'><span style='display:inline-block;width:11px;height:11px;"
                       f"border-radius:50%;background:{COR_DS[d]};margin-right:6px'></span>DS {d}{val}<br>"
                       f"<span style='margin-left:17px;font-size:0.76rem;color:{MUDO}'>{int(n_eq.get(d, 0))} equipes</span></div>")
@@ -281,15 +334,23 @@ def visao_geral(D: dict):
     n_eq = D["monitoramento_equipe"].groupby("id_ds")["ine"].nunique()
     with esq:
         st.markdown("##### Mapa por Distrito Sanitário")
-        modo = st.selectbox("Colorir por", ["Distrito Sanitário", "% de \"Sim\" (orientação sexual)",
-                                            "% não informado (orientação sexual)"], label_visibility="collapsed")
+        c_a, c_b, c_c = st.columns([1.3, 1.5, 1])
+        modo = c_a.selectbox("Colorir por", ["Distrito Sanitário", "% de \"Sim\" (orientação sexual)",
+                                             "% não informado (orientação sexual)"])
+        nome_b = c_b.selectbox("Bolas vermelhas: onde há mais", list(BOLAS))
+        medida = c_c.selectbox("Medida", ["Quantidade", "% do distrito"])
+        bolas, extra = None, None
+        if BOLAS[nome_b]:
+            fl = D["fato_indicador_equipe"]
+            bolas = necessidade(fl[fl["competencia"] == comp], BOLAS[nome_b])
+            extra = {int(r.id_ds): (_int(r.qtd) if medida == "Quantidade" else _pct(r.pct)) for r in bolas.itertuples()}
         arq = geo.arquivo_malha()
         G = carrega_geo(str(arq), arq.stat().st_mtime) if arq else None
         lg, mp = st.columns([1.1, 3])
         with lg:
-            legenda_ds(tot, n_eq, modo)
+            legenda_ds(tot, n_eq, modo, extra)
         with mp:
-            st.altair_chart(mapa(G, tot, modo), width="stretch")
+            st.altair_chart(mapa(G, tot, modo, bolas, medida), width="stretch")
         if G is None:
             st.warning("Mapa aguardando a malha de bairros do Recife em `painel/assets/` "
                        "(`bairros-do-recife.geojson`). Por ora, barras por DS.")
