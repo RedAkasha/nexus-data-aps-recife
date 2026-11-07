@@ -5,7 +5,7 @@ Estes arquivos substituem os de mesmo nome no repositório (`painel/`, `.streaml
 1. Instale: `pip install -e ".[painel]"` (traz streamlit, altair, shapely e pyproj).
 2. Gere os dados sintéticos (8 DS): `python -m aps_sintetico tudo --cenario demo --distritos 1,2,3,4,5,6,7,8 --saida saida/dev --sem-banco --sem-mlflow`
    (ou use a saída do cenário `base`).
-3. **Mapa:** baixe `bairros-do-recife.geojson` no portal de dados abertos da Prefeitura
+3. **Mapa:** já vem incluído em `painel/assets/bairros-do-recife.geojson`. Se precisar trocar, baixe `bairros-do-recife.geojson` no portal de dados abertos da Prefeitura
    (https://dados.recife.pe.gov.br/dataset/area-urbana, recurso "Bairros do Recife", formato GeoJSON) e salve em
    `painel/assets/`. Não precisa converter nada: o painel liga cada bairro ao seu Distrito Sanitário pelo nome
    (`dados/estrutura/bairro.csv`), converte de metros para graus se for preciso e junta os bairros de cada DS.
