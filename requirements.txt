@@ -11,6 +11,8 @@ psycopg[binary]>=3.1
 # Painel (Etapa 9)
 streamlit>=1.50
 altair>=5
+shapely>=2             # mapa de bairros (painel/geo.py)
+pyproj>=3.6            # só usado se a malha vier em metros (UTM)
 # Testes
 pytest>=8
 # Opcional: rastreamento de experimentos (Etapa 10)
