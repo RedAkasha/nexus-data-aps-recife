@@ -1,18 +1,23 @@
 """Painel Nexus Data · APS Recife – segue o mockup "Visão Geral - Recife" do grupo.
 
 Páginas: Visão Geral, Ad. Preenchimento (adequação do preenchimento) e Prevenção IA.
-Lê as tabelas analíticas em Parquet (python -m aps_sintetico analitica) de uma saída do
-gerador, sem precisar do banco. Executar:
+Lê as tabelas analíticas em Parquet (python -m aps_sintetico analitica) de uma saída do gerador,
+sem precisar do banco. Executar:
     streamlit run painel/app.py -- --saida saida/base
-Mapa: coloque a malha dos Distritos Sanitários em painel/assets/distritos_sanitarios.geojson
-(propriedade com o número do DS, 1 a 8). Sem o arquivo, o painel mostra barras por distrito.
+Mapa: salve o GeoJSON de bairros da Prefeitura em painel/assets/ (ver painel/LEIAME.md). Sem o
+arquivo, o painel mostra barras por distrito no lugar do mapa.
 Os dados são SINTÉTICOS; nenhuma linha corresponde a pessoa real.
+
+Definições (as mesmas de src/aps_sintetico/analitica.py e da planilha da SESAU):
+  * cadastrados = cidadãos ativos na competência (soma de raça/cor, que todo cadastro tem);
+  * "Sim" em orientação sexual = pessoa aceitou informar; denominador = elegíveis (idade ≥ mínima) =
+    "dado real" = Sim + Não + Não informado;
+  * completude = 1 − (sem registro ÷ denominador do campo). OS e IG só entre elegíveis.
 """
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -22,21 +27,26 @@ import streamlit as st
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(Path(__file__).parent))
 
 from aps_sintetico import parametros as P  # noqa: E402
+import geo  # noqa: E402
 
-GEOJSON = Path(__file__).parent / "assets" / "distritos_sanitarios.geojson"
-LIMIAR_ALERTA = 0.15          # mesmo corte do painel anterior: "Sim" abaixo de 15%
+LIMIAR_ALERTA = 0.15          # "Sim" abaixo de 15% = equipe em alerta
 # Paleta categórica validada (dataviz), uma cor fixa por DS: a cor segue o distrito, nunca o ranking
 COR_DS = {1: "#2a78d6", 2: "#eb6834", 3: "#1baf7a", 4: "#eda100", 5: "#e87ba4", 6: "#008300",
           7: "#6250d6", 8: "#e34948"}
 NOMES_DS = {i: f"DS {i}" for i in range(1, 9)}
 ESCALA_DS = alt.Scale(domain=list(NOMES_DS.values()), range=list(COR_DS.values()))
-INK, INK2, MUDO = "#0b0b0b", "#52514e", "#898781"
-MARCADORES = {"OS": "Orientação sexual", "IG": "Identidade de gênero", "RACA_COR": "Raça/cor",
-              "DEFICIENCIA": "Deficiência", "NOME_SOCIAL": "Nome social"}
-VAZIOS = {"OS": ["NAO_INFORMADO"], "IG": ["NAO_INFORMADO"], "RACA_COR": ["VAZIO"],
-          "DEFICIENCIA": ["SEM_REGISTRO"], "NOME_SOCIAL": ["VAZIO"]}
+INK, INK2, MUDO, SEM_DADO = "#0b0b0b", "#52514e", "#898781", "#d9d8d4"
+# campo -> (categorias do denominador | None = todas, categorias "sem registro", só elegíveis?)
+CAMPOS = {"OS": ("Orientação sexual", ["SIM", "NAO", "NAO_INFORMADO"], ["NAO_INFORMADO"], True),
+          "IG": ("Identidade de gênero", ["SIM", "NAO", "NAO_INFORMADO"], ["NAO_INFORMADO"], True),
+          "RACA_COR": ("Raça/cor", None, ["VAZIO"], False),
+          "DEFICIENCIA": ("Deficiência", ["SIM", "NAO", "SEM_REGISTRO"], ["SEM_REGISTRO"], False)}
+
+
+ORDEM_CAMPOS = [v[0] for v in CAMPOS.values()]
 
 
 # ----------------------------------------------------------------------------- dados
@@ -45,6 +55,32 @@ def _args() -> Path:
     ap.add_argument("--saida", default=str(RAIZ / "saida" / "base"))
     a, _ = ap.parse_known_args(sys.argv[1:])
     return Path(a.saida)
+
+
+def _den(f: pd.DataFrame, marcador: str) -> pd.DataFrame:
+    """Linhas do denominador de um campo (sem as linhas de detalhe por código, que repetem a contagem)."""
+    _, cats, _, so_el = CAMPOS[marcador]
+    x = f[f["marcador"] == marcador]
+    if cats is not None:
+        x = x[x["categoria"].isin(cats)]
+    return x[x["elegivel"]] if so_el else x
+
+
+def completude(f: pd.DataFrame, por: list[str]) -> pd.DataFrame:
+    """Completude por campo (e por `por`): Registros = denominador; Sem registro = categorias vazias."""
+    partes = []
+    for m, (nome, _, vazias, _) in CAMPOS.items():
+        x = _den(f, m)
+        x = x.assign(vazio=x["categoria"].isin(vazias))
+        g = x.groupby(por + ["vazio"])["n"].sum().unstack("vazio", fill_value=0) if por else \
+            x.groupby("vazio")["n"].sum().to_frame().T
+        g = g.reindex(columns=[False, True], fill_value=0)
+        g.columns = ["ok", "sem"]
+        g = g.reset_index() if por else g.reset_index(drop=True)
+        g["Campo"], g["Registros"] = nome, g["ok"] + g["sem"]
+        g["Completude"] = g["ok"] / g["Registros"].where(g["Registros"] > 0)
+        partes.append(g.drop(columns="ok").rename(columns={"sem": "Sem registro"}))
+    return pd.concat(partes, ignore_index=True)
 
 
 @st.cache_data(show_spinner="Lendo tabelas analíticas…")
@@ -65,11 +101,39 @@ def carrega(saida: str) -> dict:
     p = s / "ml" / "predicoes.parquet"
     out["predicoes"] = pd.read_parquet(p) if p.exists() else None
     out["comps"] = sorted(out["dim_competencia"]["competencia"].tolist())
+    f = out["fato_indicador_equipe"]
+    # cadastros ativos por competência (e por DS)
+    rc = f[f["marcador"] == "RACA_COR"]
+    out["cad"] = rc.groupby("competencia")["n"].sum()
+    out["cad_ds"] = rc.groupby(["competencia", "id_ds"])["n"].sum()
+    # "Sim" e "não informado" em orientação sexual, entre elegíveis, por competência × DS
+    o = f[(f["marcador"] == "OS") & f["elegivel"] & f["categoria"].isin(["SIM", "NAO", "NAO_INFORMADO"])]
+    t = o.pivot_table(index=["competencia", "id_ds"], columns="categoria", values="n", aggfunc="sum").fillna(0)
+    den = t.sum(axis=1)
+    t = pd.DataFrame({"prop_sim": t["SIM"] / den, "prop_ni": t["NAO_INFORMADO"] / den}).reset_index()
+    t["DS"] = t["id_ds"].map(NOMES_DS)
+    out["serie_ds"] = t
+    g = o.groupby(["competencia", "categoria"])["n"].sum().unstack(fill_value=0)
+    out["sim_geral"] = g["SIM"] / g.sum(axis=1)
+    # completude por competência (município) para o gráfico de evolução
+    out["compl_serie"] = pd.concat(
+        [completude(f[f["competencia"] == c], []).assign(competencia=c) for c in out["comps"][-24:]],
+        ignore_index=True)
     return out
 
 
+@st.cache_data(show_spinner="Montando o mapa…")
+def carrega_geo(caminho: str, mtime: float) -> dict:
+    return geo.carregar(caminho)
+
+
+# ----------------------------------------------------------------------------- formatação
 def _mes(c) -> str:
     return f"{str(c)[4:]}/{str(c)[:4]}"
+
+
+def _periodo(p) -> str:
+    return f"{str(p)[4:]}º quadrimestre de {str(p)[:4]}"
 
 
 def _pct(x, casas=1) -> str:
@@ -80,49 +144,17 @@ def _int(x) -> str:
     return f"{int(x):,}".replace(",", ".")
 
 
-def _pp(x) -> str:
-    return "–" if pd.isna(x) else f"{x * 100:+.1f} p.p.".replace(".", ",")
+def _delta(x, rel=False) -> str:
+    """rel: variação relativa (%); senão, diferença em pontos percentuais."""
+    return f"{abs(x) * 100:.1f}%".replace(".", ",") if rel else f"{abs(x) * 100:.1f} p.p.".replace(".", ",")
 
 
-def serie_cadastrados(D) -> pd.Series:
-    """Cadastros ativos por competência = soma do marcador raça/cor (todo cidadão ativo tem uma linha)."""
-    f = D["fato_indicador_equipe"]
-    return f[f["marcador"] == "RACA_COR"].groupby("competencia")["n"].sum()
-
-
-def serie_sim_ds(D) -> pd.DataFrame:
-    """% de 'Sim' em orientação sexual (dado real) por competência × DS."""
-    f = D["fato_indicador_equipe"]
-    f = f[(f["marcador"] == "OS") & f["elegivel"] & f["categoria"].isin(["SIM", "NAO", "NAO_INFORMADO"])]
-    t = f.pivot_table(index=["competencia", "id_ds"], columns="categoria", values="n", aggfunc="sum").fillna(0)
-    t["prop_sim"] = t["SIM"] / t.sum(axis=1)
-    t["prop_ni"] = t["NAO_INFORMADO"] / (t["SIM"] + t["NAO"] + t["NAO_INFORMADO"])
-    t = t.reset_index()
-    t["DS"] = t["id_ds"].map(NOMES_DS)
-    return t[["competencia", "id_ds", "DS", "prop_sim", "prop_ni"]]
-
-
-def alerta_ml(D, limiar: float) -> tuple[float, float, int, int]:
-    """Parcela de equipes com 'Sim' previsto abaixo do limiar, no último período e no anterior."""
-    p = D["predicoes"]
-    if p is None or p.empty:
-        return float("nan"), float("nan"), 0, 0
-    per = sorted(p["periodo"].unique())
-    def parcela(x):
-        return (x["previsto"] < limiar).mean(), int((x["previsto"] < limiar).sum()), len(x)
-    a, na, n = parcela(p[p["periodo"] == per[-1]])
-    b = parcela(p[p["periodo"] == per[-2]])[0] if len(per) > 1 else float("nan")
-    return a, b, na, n
-
-
-# ----------------------------------------------------------------------------- componentes
 def cartao(col, titulo, valor, delta, bom_se_sobe: bool | None, nota="", rel=False):
-    cor = MUDO
-    seta = ""
+    seta, cor = "", MUDO
     if delta is not None and not pd.isna(delta) and round(delta * 100, 1) != 0:
         seta = "▲" if delta > 0 else "▼"
-        cor = ("#006300" if (delta > 0) == bom_se_sobe else "#d03b3b") if bom_se_sobe is not None else INK2
-    d = f"<span style='color:{cor};font-weight:600'>{seta} {delta_txt(delta, rel)}</span>" if seta else ""
+        cor = INK2 if bom_se_sobe is None else ("#006300" if (delta > 0) == bom_se_sobe else "#d03b3b")
+    d = f"<span style='color:{cor};font-weight:600'>{seta} {_delta(delta, rel)}</span>" if seta else ""
     col.markdown(
         f"<div style='border:1px solid #d9d8d4;border-radius:10px;padding:14px 16px;height:100%'>"
         f"<div style='color:{INK2};font-size:0.9rem'>{titulo}</div>"
@@ -131,53 +163,66 @@ def cartao(col, titulo, valor, delta, bom_se_sobe: bool | None, nota="", rel=Fal
         f"<div style='color:{MUDO};font-size:0.8rem'>{nota}</div></div>", unsafe_allow_html=True)
 
 
-def delta_txt(x, rel=False) -> str:
-    """rel: variação relativa (%); senão, diferença em pontos percentuais."""
-    if x is None or pd.isna(x):
-        return ""
-    return f"{abs(x) * 100:.1f}%".replace(".", ",") if rel else f"{abs(x) * 100:.1f} p.p.".replace(".", ",")
+# ----------------------------------------------------------------------------- mapa
+def mapa(G: dict | None, tot: pd.DataFrame, modo: str):
+    """Bairros do Recife coloridos por DS ou pelo indicador do DS. Sem a malha, barras por DS."""
+    v = tot.set_index("id_ds")
+    col = {"Distrito Sanitário": None, "% de \"Sim\" (orientação sexual)": "prop_sim",
+           "% não informado (orientação sexual)": "prop_ni"}[modo]
+    if G is None:
+        d = tot.assign(DS=tot["id_ds"].map(NOMES_DS))
+        if col is None:
+            col = "prop_sim"
+        return alt.Chart(d).mark_bar(cornerRadiusTopRight=4, cornerRadiusBottomRight=4, size=22).encode(
+            y=alt.Y("DS:N", sort=list(NOMES_DS.values()), title=None),
+            x=alt.X(f"{col}:Q", title=modo if modo != "Distrito Sanitário" else "% de \"Sim\"",
+                    axis=alt.Axis(format="%")),
+            color=alt.Color("DS:N", scale=ESCALA_DS, legend=None),
+            tooltip=[alt.Tooltip("DS:N", title="Distrito"), alt.Tooltip(f"{col}:Q", format=".1%")]
+        ).properties(height=430)
+    feats = []
+    for f in G["bairros"]:
+        p = dict(f["properties"])
+        d = p["id_ds"]
+        p["valor"] = None if (col is None or d not in v.index) else float(v.loc[d, col])
+        p["cor"] = COR_DS.get(d, SEM_DADO)
+        feats.append({**f, "properties": p})
+    tip = [alt.Tooltip("properties.bairro:N", title="Bairro"), alt.Tooltip("properties.DS:N", title="Distrito")]
+    if col is None:
+        cor = alt.Color("properties.cor:N", scale=None)
+    else:
+        lo, hi = float(v[col].min()), float(v[col].max())
+        cor = alt.condition("isValid(datum.properties.valor)",
+                            alt.Color("properties.valor:Q", title=modo, scale=alt.Scale(
+                                scheme="blues", domain=[lo, hi if hi > lo else lo + 1e-6]),
+                                legend=alt.Legend(format=".0%", orient="bottom", titleLimit=320, gradientLength=220)),
+                            alt.value(SEM_DADO))
+        tip.append(alt.Tooltip("properties.valor:Q", title=modo, format=".1%"))
+    bairros = alt.Chart(alt.Data(values=feats)).mark_geoshape(stroke="white", strokeWidth=0.6).encode(
+        color=cor, tooltip=tip)
+    contorno = alt.Chart(alt.Data(values=G["ds"])).mark_geoshape(filled=False, stroke=INK, strokeWidth=1.4)
+    rot = alt.Chart(alt.Data(values=G["rotulos"])).encode(longitude="lon:Q", latitude="lat:Q", text="DS:N")
+    halo = rot.mark_text(fontSize=12, fontWeight="bold", color="white", stroke="white", strokeWidth=4)
+    texto = rot.mark_text(fontSize=12, fontWeight="bold", color=INK)
+    return alt.layer(bairros, contorno, halo, texto).project(type="mercator").properties(height=470)
 
 
-def _props_geo(feat: dict) -> int | None:
-    pr = feat.get("properties", {})
-    if str(pr.get("ds", "")).isdigit():
-        return int(pr["ds"])
-    for v in feat.get("properties", {}).values():
-        m = re.search(r"\b([1-8])\b|DS\s*([1-8])|^([1-8])$", str(v), re.I)
-        if m:
-            return int(next(g for g in m.groups() if g))
-    return None
+def legenda_ds(tot: pd.DataFrame, n_eq: pd.Series, modo: str):
+    col = {"% de \"Sim\" (orientação sexual)": "prop_sim", "% não informado (orientação sexual)": "prop_ni"}.get(modo)
+    v = tot.set_index("id_ds")
+    linhas = ["<div style='font-size:0.85rem;line-height:1.35;white-space:nowrap'><b>Distritos</b>"]
+    for d in range(1, 9):
+        val = f"<b style='float:right;margin-left:10px'>{_pct(v.loc[d, col])}</b>" if col and d in v.index else ""
+        linhas.append(f"<div style='margin-top:7px'><span style='display:inline-block;width:11px;height:11px;"
+                      f"border-radius:50%;background:{COR_DS[d]};margin-right:6px'></span>DS {d}{val}<br>"
+                      f"<span style='margin-left:17px;font-size:0.76rem;color:{MUDO}'>{int(n_eq.get(d, 0))} equipes</span></div>")
+    linhas.append("</div>")
+    st.markdown("".join(linhas), unsafe_allow_html=True)
 
 
-def mapa_ds(g: pd.DataFrame, col: str, titulo: str):
-    """Coroplético se o GeoJSON existir; senão barras por DS (cor fixa do distrito)."""
-    if GEOJSON.exists():
-        gj = json.loads(GEOJSON.read_text(encoding="utf-8"))
-        val = g.set_index("id_ds")[col]
-        for f in gj["features"]:
-            n = _props_geo(f)
-            f["properties"]["id_ds"] = n
-            f["properties"]["valor"] = None if n not in val.index else float(val[n])
-            f["properties"]["DS"] = NOMES_DS.get(n, "?")
-        ch = alt.Chart(alt.Data(values=gj["features"])).mark_geoshape(stroke="white", strokeWidth=1.5).encode(
-            color=alt.Color("properties.valor:Q", title=titulo, scale=alt.Scale(scheme="blues"),
-                            legend=alt.Legend(format=".0%")),
-            tooltip=[alt.Tooltip("properties.DS:N", title="Distrito"),
-                     alt.Tooltip("properties.valor:Q", title=titulo, format=".1%")],
-        ).project("mercator").properties(height=380)
-        return ch
-    return alt.Chart(g.assign(DS=g["id_ds"].map(NOMES_DS))).mark_bar(
-        cornerRadiusTopRight=4, cornerRadiusBottomRight=4, size=22).encode(
-        y=alt.Y("DS:N", sort=list(NOMES_DS.values()), title=None),
-        x=alt.X(f"{col}:Q", title=titulo, axis=alt.Axis(format="%")),
-        color=alt.Color("DS:N", scale=ESCALA_DS, legend=None),
-        tooltip=[alt.Tooltip("DS:N", title="Distrito"), alt.Tooltip(f"{col}:Q", title=titulo, format=".1%")],
-    ).properties(height=380)
-
-
+# ----------------------------------------------------------------------------- gráficos
 def tendencia(s: pd.DataFrame, meses: int, comps: list):
-    jan = comps[-meses:]
-    d = s[s["competencia"].isin(jan)].copy()
+    d = s[s["competencia"].isin(comps[-meses:])].copy()
     d["data"] = pd.to_datetime(d["competencia"].astype(str), format="%Y%m")
     sel = alt.selection_point(fields=["DS"], bind="legend")
     base = alt.Chart(d).encode(
@@ -186,24 +231,29 @@ def tendencia(s: pd.DataFrame, meses: int, comps: list):
                 scale=alt.Scale(zero=False)),
         color=alt.Color("DS:N", scale=ESCALA_DS, legend=alt.Legend(title=None, orient="right")),
         opacity=alt.condition(sel, alt.value(1), alt.value(0.15)))
-    linhas = base.mark_line(strokeWidth=2)
     pts = base.mark_circle(size=60, stroke="white", strokeWidth=2).encode(
         tooltip=[alt.Tooltip("data:T", format="%m/%Y", title="competência"), "DS:N",
                  alt.Tooltip("prop_sim:Q", format=".1%", title="Sim")])
-    return (linhas + pts).add_params(sel).properties(height=300)
+    return (base.mark_line(strokeWidth=2) + pts).add_params(sel).properties(height=280)
 
 
-def ranking_ds(D, s: pd.DataFrame, comp, comp_ant) -> pd.DataFrame:
+def alertas(D: dict) -> pd.DataFrame:
+    """Equipes com "Sim" observado abaixo do limiar, por período (id_ds, periodo, n_alerta, n_equipes)."""
+    p = D["fato_painel_ml"]
+    p = p[p["n_dado_real"] > 0].assign(alerta=lambda x: x["prop_sim_os"] < LIMIAR_ALERTA)
+    return p.groupby(["periodo", "id_ds"]).agg(n_alerta=("alerta", "sum"), n_equipes=("alerta", "size")).reset_index()
+
+
+def ranking_ds(D: dict, comp, comp_ant) -> pd.DataFrame:
+    s = D["serie_ds"]
     a = s[s["competencia"] == comp].set_index("id_ds")
-    b = s[s["competencia"] == comp_ant].set_index("id_ds")
+    b = s[s["competencia"] == comp_ant].set_index("id_ds").reindex(a.index)
     r = pd.DataFrame({"Distrito": a.index.map(NOMES_DS), "% Sim (OS)": a["prop_sim"].values,
                       "% Não informado": a["prop_ni"].values,
-                      "Variação (p.p.)": ((a["prop_sim"] - b["prop_sim"]) * 100).values}, index=a.index)
-    ml = D["predicoes"]
-    if ml is not None:
-        u = ml[ml["periodo"] == ml["periodo"].max()]
-        r["Equipes em alerta (ML)"] = u.assign(al=u["previsto"] < LIMIAR_ALERTA).groupby("id_ds")["al"].sum() \
-            .reindex(r.index).fillna(0).astype(int)
+                      "Δ 6m (p.p.)": ((a["prop_sim"] - b["prop_sim"]) * 100).values}, index=a.index)
+    al = alertas(D)
+    al = al[al["periodo"] == al["periodo"].max()].set_index("id_ds")
+    r["Equipes <15%"] = al["n_alerta"].reindex(r.index).fillna(0).astype(int)
     return r.sort_values("% Sim (OS)").reset_index(drop=True)
 
 
@@ -213,59 +263,69 @@ def visao_geral(D: dict):
     comps = D["comps"]
     comp = comps[-1]
     ant = comps[-13] if len(comps) > 12 else comps[0]
-    cad = serie_cadastrados(D)
-    s = serie_sim_ds(D)
-    tot = s[s["competencia"] == comp]
-    fie = D["fato_indicador_equipe"]
-    def sim_geral(c):
-        f = fie[(fie["competencia"] == c) & (fie["marcador"] == "OS") & fie["elegivel"]]
-        n = f[f["categoria"].isin(["SIM", "NAO", "NAO_INFORMADO"])]["n"].sum()
-        return f[f["categoria"] == "SIM"]["n"].sum() / n if n else float("nan")
-    sim, sim0 = sim_geral(comp), sim_geral(ant)
-    al, al0, n_al, n_eq = alerta_ml(D, LIMIAR_ALERTA)
+    cad, sim = D["cad"], D["sim_geral"]
+    al = alertas(D).groupby("periodo")[["n_alerta", "n_equipes"]].sum()
+    al["pct"] = al["n_alerta"] / al["n_equipes"]
+    per = al.index.max()
+    per_ant = al.index[-2] if len(al) > 1 else per
     c1, c2, c3 = st.columns(3)
     cartao(c1, "Pacientes cadastrados (ativos)", _int(cad[comp]),
            (cad[comp] - cad[ant]) / cad[ant] if cad[ant] else None, True, f"vs. {_mes(ant)}", rel=True)
-    cartao(c2, "Orientação sexual: \"Sim\" no dado real", _pct(sim), sim - sim0, True,
+    cartao(c2, "Orientação sexual: \"Sim\" no dado real", _pct(sim[comp]), sim[comp] - sim[ant], True,
            f"vs. {_mes(ant)} · só pessoas elegíveis")
-    cartao(c3, "Equipes em risco de baixo preenchimento", _pct(al),
-           None if pd.isna(al0) else al - al0, False,
-           f"{n_al} de {n_eq} equipes com \"Sim\" previsto < {LIMIAR_ALERTA:.0%} (modelo de ML)")
+    cartao(c3, "Equipes com \"Sim\" abaixo de 15%", _pct(al.loc[per, "pct"]), al.loc[per, "pct"] - al.loc[per_ant, "pct"],
+           False, f"{int(al.loc[per, 'n_alerta'])} de {int(al.loc[per, 'n_equipes'])} equipes · {_periodo(per)}")
     st.write("")
-    ce, cd = st.columns([1, 1.15])
-    with ce:
+    esq, dir_ = st.columns([1, 1.05], gap="large")
+    tot = D["serie_ds"][D["serie_ds"]["competencia"] == comp]
+    n_eq = D["monitoramento_equipe"].groupby("id_ds")["ine"].nunique()
+    with esq:
         st.markdown("##### Mapa por Distrito Sanitário")
-        met = st.selectbox("Indicador", ["% de \"Sim\" (orientação sexual)", "% não informado (orientação sexual)"],
-                           label_visibility="collapsed")
-        col = "prop_sim" if met.startswith("% de") else "prop_ni"
-        st.altair_chart(mapa_ds(tot, col, met), width="stretch")
-        if not GEOJSON.exists():
-            st.caption("Mapa coroplético aguardando a malha dos Distritos Sanitários "
-                       "(`painel/assets/distritos_sanitarios.geojson`); por ora, barras por DS.")
-    with cd:
+        modo = st.selectbox("Colorir por", ["Distrito Sanitário", "% de \"Sim\" (orientação sexual)",
+                                            "% não informado (orientação sexual)"], label_visibility="collapsed")
+        arq = geo.arquivo_malha()
+        G = carrega_geo(str(arq), arq.stat().st_mtime) if arq else None
+        lg, mp = st.columns([1.1, 3])
+        with lg:
+            legenda_ds(tot, n_eq, modo)
+        with mp:
+            st.altair_chart(mapa(G, tot, modo), width="stretch")
+        if G is None:
+            st.warning("Mapa aguardando a malha de bairros do Recife em `painel/assets/` "
+                       "(`bairros-do-recife.geojson`). Por ora, barras por DS.")
+        else:
+            d = G["diag"]
+            sem = d[d["id_ds"].isna()]
+            with st.expander(f"Diagnóstico da malha · {len(d)} bairros · {len(sem)} sem distrito"):
+                st.caption(f"Propriedade do nome: `{G['propriedade_nome']}` · "
+                           f"reprojetada de metros para graus: {'sim' if G['reprojetado'] else 'não'}")
+                st.dataframe(d[d["casamento"] != "exato"], width="stretch", hide_index=True)
+    with dir_:
         h1, h2 = st.columns([3, 1])
         h1.markdown("##### Tendência por Distrito Sanitário")
-        meses = h2.selectbox("Período", [6, 12, 24], format_func=lambda m: f"{m} meses",
-                             label_visibility="collapsed")
-        st.altair_chart(tendencia(s, meses, comps), width="stretch")
+        meses = h2.selectbox("Período", [6, 12, 24], format_func=lambda m: f"{m} meses", label_visibility="collapsed")
+        st.altair_chart(tendencia(D["serie_ds"], meses, comps), width="stretch")
         with st.expander("Ver como tabela"):
-            t = s[s["competencia"].isin(comps[-meses:])].pivot(index="competencia", columns="DS", values="prop_sim")
+            t = D["serie_ds"][D["serie_ds"]["competencia"].isin(comps[-meses:])].pivot(
+                index="competencia", columns="DS", values="prop_sim")
             t.index = [_mes(c) for c in t.index]
             st.dataframe(t.style.format("{:.1%}"), width="stretch")
-    st.markdown("##### Ranking de Distritos")
-    r = ranking_ds(D, s, comp, comps[-7] if len(comps) > 6 else comps[0])
-    cfg = {"% Sim (OS)": st.column_config.ProgressColumn(format="percent", min_value=0, max_value=1),
-           "% Não informado": st.column_config.ProgressColumn(format="percent", min_value=0, max_value=1),
-           "Variação (p.p.)": st.column_config.NumberColumn(format="%+.1f", help="vs. 6 meses antes")}
-    st.dataframe(r, width="stretch", hide_index=True, column_config=cfg)
-    st.caption("Ordenado do menor para o maior \"Sim\". A variação compara com seis meses antes.")
+        st.markdown("##### Ranking de Distritos")
+        r = ranking_ds(D, comp, comps[-7] if len(comps) > 6 else comps[0])
+        st.dataframe(r, width="stretch", hide_index=True, column_config={
+            "Distrito": st.column_config.TextColumn(width=70),
+            "% Sim (OS)": st.column_config.ProgressColumn(format="percent", min_value=0, max_value=1, width=120),
+            "% Não informado": st.column_config.NumberColumn(format="percent", width=95),
+            "Δ 6m (p.p.)": st.column_config.NumberColumn(format="%+.1f", width=80),
+            "Equipes <15%": st.column_config.NumberColumn(width=90)})
+        st.caption("Do menor para o maior \"Sim\" (pessoa aceitou informar a orientação sexual). "
+                   "\"Equipes < 15%\": equipes com \"Sim\" abaixo de 15% no último quadrimestre.")
 
 
 def filtros(D: dict):
     c1, c2 = st.columns([1, 1.6])
     mon = D["monitoramento_equipe"].merge(D["unidade"], on="cnes", how="left")
-    ds_ok = sorted(mon["id_ds"].dropna().astype(int).unique())
-    ds = c1.selectbox("Distrito Sanitário", ["Todos"] + [NOMES_DS[d] for d in ds_ok])
+    ds = c1.selectbox("Distrito Sanitário", ["Todos"] + [NOMES_DS[d] for d in sorted(mon["id_ds"].dropna().astype(int).unique())])
     if ds != "Todos":
         mon = mon[mon["id_ds"] == int(ds.split()[1])]
     uni = mon[["cnes", "nome_unidade"]].drop_duplicates().sort_values("nome_unidade")
@@ -281,48 +341,62 @@ def preenchimento(D: dict):
     comp = D["comps"][-1]
     f = D["fato_indicador_equipe"]
     f = f[(f["competencia"] == comp) & f["ine"].isin(ines)]
-    linhas = []
-    for m, nome in MARCADORES.items():
-        x = f[f["marcador"] == m]
-        tot = x["n"].sum()
-        vaz = x[x["categoria"].isin(VAZIOS[m])]["n"].sum()
-        linhas.append({"Campo": nome, "Registros": int(tot), "Sem preenchimento": int(vaz),
-                       "Completude": 1 - vaz / tot if tot else float("nan")})
-    comp_df = pd.DataFrame(linhas)
+    c = completude(f, [])
     st.subheader(f"Completude dos campos de equidade · {_mes(comp)}")
-    bar = alt.Chart(comp_df).mark_bar(color=COR_DS[1], cornerRadiusTopRight=4, cornerRadiusBottomRight=4, size=22
-                                       ).encode(
-        y=alt.Y("Campo:N", sort="-x", title=None), x=alt.X("Completude:Q", axis=alt.Axis(format="%"),
-                                                          scale=alt.Scale(domain=[0, 1])),
-        tooltip=["Campo:N", alt.Tooltip("Completude:Q", format=".1%"), "Registros:Q", "Sem preenchimento:Q"])
-    st.altair_chart(bar.properties(height=210), width="stretch")
-    st.dataframe(comp_df, width="stretch", hide_index=True,
-                 column_config={"Completude": st.column_config.ProgressColumn(format="percent", min_value=0,
-                                                                              max_value=1)})
+    bar = alt.Chart(c).mark_bar(color=COR_DS[1], cornerRadiusTopRight=4, cornerRadiusBottomRight=4, size=22).encode(
+        y=alt.Y("Campo:N", sort="-x", title=None),
+        x=alt.X("Completude:Q", axis=alt.Axis(format="%"), scale=alt.Scale(domain=[0, 1])),
+        tooltip=["Campo:N", alt.Tooltip("Completude:Q", format=".1%"), "Registros:Q", "Sem registro:Q"])
+    st.altair_chart(bar.properties(height=190), width="stretch")
+    ns = f[f["marcador"] == "NOME_SOCIAL"]
+    st.caption(f"Orientação sexual e identidade de gênero: só pessoas elegíveis (idade ≥ mínima). "
+               f"Nome social é opcional e não entra na completude: {_pct(ns[ns['categoria'] == 'PREENCHIDO']['n'].sum() / max(ns['n'].sum(), 1))} "
+               f"dos cadastros têm nome social.")
+    esq, dir_ = st.columns(2, gap="large")
+    with esq:
+        st.markdown("##### Completude por Distrito Sanitário")
+        cd = completude(f, ["id_ds"])
+        t = cd.pivot(index="id_ds", columns="Campo", values="Completude").reset_index()
+        t.insert(0, "Distrito", t.pop("id_ds").map(NOMES_DS))
+        t = t[["Distrito"] + ORDEM_CAMPOS]
+        st.dataframe(t, width="stretch", hide_index=True, column_config={
+            k: st.column_config.NumberColumn(format="percent") for k in ORDEM_CAMPOS})
+    with dir_:
+        st.markdown("##### Evolução da completude (município)")
+        s = D["compl_serie"].copy()
+        s["data"] = pd.to_datetime(s["competencia"].astype(str), format="%Y%m")
+        ln = alt.Chart(s).mark_line(strokeWidth=2, point=alt.OverlayMarkDef(size=40)).encode(
+            x=alt.X("data:T", title=None, axis=alt.Axis(format="%m/%Y")),
+            y=alt.Y("Completude:Q", axis=alt.Axis(format="%"), scale=alt.Scale(zero=False)),
+            color=alt.Color("Campo:N", legend=alt.Legend(title=None, orient="bottom", columns=2),
+                            scale=alt.Scale(domain=ORDEM_CAMPOS, range=[COR_DS[1], COR_DS[2], COR_DS[3], COR_DS[4]])),
+            tooltip=["Campo:N", alt.Tooltip("data:T", format="%m/%Y"), alt.Tooltip("Completude:Q", format=".1%")])
+        st.altair_chart(ln.properties(height=250), width="stretch")
+    st.dataframe(c[["Campo", "Registros", "Sem registro", "Completude"]], width="stretch", hide_index=True,
+                 column_config={"Completude": st.column_config.ProgressColumn(format="percent", min_value=0, max_value=1)})
     tab1, tab2, tab3 = st.tabs(["Ranking por equipe", "Planilha SESAU (colunas H a U)", "Qualidade × gabarito"])
     with tab1:
-        m = mon.merge(D["equipe"][["ine", "nome_equipe"]], on="ine", how="left").sort_values("n_os_sim_pct")
+        m = mon.merge(D["equipe"][["ine", "nome_equipe"]], on="ine", how="left").dropna(subset=["n_os_sim_pct"])
+        m = m.sort_values("n_os_sim_pct").head(30)
         m["DS"] = m["id_ds"].map(NOMES_DS)
-        m = m.head(30)
-        st.caption("As 30 equipes com menor proporção de Sim.")
+        st.caption("As 30 equipes com menor proporção de \"Sim\" (dado real, data de corte).")
         bar = alt.Chart(m).mark_bar(cornerRadiusTopRight=4, cornerRadiusBottomRight=4).encode(
-            y=alt.Y("nome_equipe:N", sort="x", title=None),
+            y=alt.Y("nome_equipe:N", sort="x", title=None, axis=alt.Axis(labelLimit=260)),
             x=alt.X("n_os_sim_pct:Q", title="% de Sim", axis=alt.Axis(format="%")),
             color=alt.Color("DS:N", scale=ESCALA_DS),
             tooltip=["nome_equipe:N", "ine:N", "DS:N", alt.Tooltip("n_os_sim_pct:Q", format=".1%"),
                      alt.Tooltip("j_dado_real:Q", title="elegíveis")])
-        st.altair_chart(bar.properties(height=max(240, 16 * len(m))), width="stretch")
-        st.caption("Equipes pequenas oscilam mais: compare com o intervalo de Wilson e a estimativa bayesiana "
-                   "do relatório de inferência (python -m aps_sintetico inferencia).")
+        st.altair_chart(bar.properties(height=max(240, 18 * len(m))), width="stretch")
+        st.caption("Equipes pequenas oscilam mais: compare com o intervalo de Wilson do relatório de inferência "
+                   "(python -m aps_sintetico inferencia).")
     with tab2:
         g = mon.groupby(["id_ds", "cnes", "nome_unidade"]).sum(numeric_only=True).reset_index()
-        g["n_os_sim_pct"] = g["m_os_sim_dado_real"] / g["j_dado_real"]
-        g["r_os_nao_pct"] = g["q_os_nao_dado_real"] / g["j_dado_real"]
+        g["n_os_sim_pct"] = g["m_os_sim_dado_real"] / g["j_dado_real"].where(g["j_dado_real"] > 0)
+        g["r_os_nao_pct"] = g["q_os_nao_dado_real"] / g["j_dado_real"].where(g["j_dado_real"] > 0)
         st.dataframe(g, width="stretch", hide_index=True,
                      column_config={"n_os_sim_pct": st.column_config.NumberColumn(format="percent"),
                                     "r_os_nao_pct": st.column_config.NumberColumn(format="percent")})
-        st.download_button("Baixar CSV", g.to_csv(index=False).encode("utf-8"), "monitoramento_usf.csv",
-                           "text/csv")
+        st.download_button("Baixar CSV", g.to_csv(index=False).encode("utf-8"), "monitoramento_usf.csv", "text/csv")
     with tab3:
         if D["qualidade"] is None:
             st.info("Rode `python -m aps_sintetico validar` com o banco carregado para gerar o relatório.")
@@ -334,37 +408,33 @@ def prevencao(D: dict):
     st.markdown("# Prevenção IA")
     p = D["predicoes"]
     if p is None:
-        st.info("Rode `python -m aps_sintetico ml` para treinar os modelos e gerar as predições.")
+        st.info("Ainda não há previsões. Rode `python -m aps_sintetico ml` (ou coloque o `predicoes.parquet` do "
+                "modelo final em `saida/<cenário>/ml/`) e esta página passa a mostrar as equipes de maior risco.")
         return
-    st.caption("Previsão da proporção de \"Sim\" (orientação sexual) de cada equipe no próximo quadrimestre. "
-               "O modelo só vale se vencer a persistência no teste; veja `ml/relatorio_ml.md`.")
+    st.caption("Previsão da proporção de \"Sim\" (orientação sexual) de cada equipe no período seguinte. "
+               "A página lê `ml/predicoes.parquet` e funciona com qualquer modelo que mantenha as colunas "
+               "`ine, periodo, id_ds, prop_sim_os, previsto`.")
     ines, _ = filtros(D)
-    c1, c2 = st.columns([1, 2])
-    lim = c1.slider("Limiar de alerta (\"Sim\" previsto abaixo de)", 0.05, 0.40, LIMIAR_ALERTA, 0.01, format="%.2f")
+    lim = st.slider("Limiar de alerta (\"Sim\" previsto abaixo de)", 0.05, 0.40, LIMIAR_ALERTA, 0.01, format="%.2f")
     per = p["periodo"].max()
-    u = p[(p["periodo"] == per) & p["ine"].isin(ines)].merge(D["equipe"][["ine", "nome_equipe", "cnes"]], on="ine",
-                                                              how="left")
+    u = p[(p["periodo"] == per) & p["ine"].isin(ines)].merge(D["equipe"][["ine", "nome_equipe", "cnes"]], on="ine", how="left")
     u = u.merge(D["unidade"], on="cnes", how="left")
     u["DS"] = u["id_ds"].map(NOMES_DS)
     u["Alerta"] = u["previsto"] < lim
     u["Variação (p.p.)"] = (u["previsto"] - u["prop_sim_os"]) * 100
     k1, k2, k3 = st.columns(3)
     cartao(k1, "Equipes em alerta", _int(u["Alerta"].sum()), None, None, f"de {len(u)} filtradas")
-    cartao(k2, "Modelo escolhido", u["modelo"].iloc[0] if len(u) else "–", None, None,
-           "melhor que a persistência na validação" if len(u) and u["melhor_que_persistencia_cv"].iloc[0]
-           else "não superou a persistência na validação")
-    cartao(k3, "Último período", f"{str(per)[:4]}/Q{str(per)[4:]}", None, None, "base da previsão")
+    cartao(k2, "Modelo", str(u["modelo"].iloc[0]) if "modelo" in u and len(u) else "–", None, None, "da execução em uso")
+    cartao(k3, "Período de referência", _periodo(per), None, None, "base da previsão")
     st.write("")
     tab = u.sort_values("previsto")[["nome_equipe", "nome_unidade", "DS", "prop_sim_os", "previsto",
                                     "Variação (p.p.)", "Alerta"]].rename(
-        columns={"nome_equipe": "Equipe", "nome_unidade": "Unidade", "prop_sim_os": "Sim atual",
-                 "previsto": "Sim previsto"})
+        columns={"nome_equipe": "Equipe", "nome_unidade": "Unidade", "prop_sim_os": "Sim atual", "previsto": "Sim previsto"})
     st.dataframe(tab.head(50), width="stretch", hide_index=True, column_config={
         "Sim atual": st.column_config.NumberColumn(format="percent"),
         "Sim previsto": st.column_config.NumberColumn(format="percent"),
         "Variação (p.p.)": st.column_config.NumberColumn(format="%+.1f")})
-    st.download_button("Baixar previsões (CSV)", tab.to_csv(index=False).encode("utf-8"), "previsoes_equipes.csv",
-                       "text/csv")
+    st.download_button("Baixar previsões (CSV)", tab.to_csv(index=False).encode("utf-8"), "previsoes_equipes.csv", "text/csv")
 
 
 def main():
@@ -376,11 +446,14 @@ def main():
     D = carrega(str(saida))
     with st.sidebar:
         st.markdown("## Nexus **Data**")
-        pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA"],
-                          label_visibility="collapsed")
+        pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA"], label_visibility="collapsed")
         st.divider()
         man = D["manifesto"]
-        st.markdown(f"**Última atualização**  \n{man['dt_geracao']}")
+        try:
+            quando = pd.Timestamp(man["dt_geracao"]).strftime("%d/%m/%Y - %H:%M")
+        except (ValueError, TypeError):
+            quando = str(man["dt_geracao"])
+        st.markdown(f"**Última atualização**  \n{quando}")
         st.caption(f"Cenário `{man['nome']}` · escala {man['escala']} · semente {man['semente']}  \n"
                    "**Dados sintéticos** – não representam pessoas reais.")
     {"Visão Geral": visao_geral, "Ad. Preenchimento": preenchimento, "Prevenção IA": prevencao}[pagina](D)
