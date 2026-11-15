@@ -64,9 +64,18 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 ├── sql/postgresql/              01–05 (DDL, domínios, validação, estrutura, parâmetros),
 │                                06 staging → núcleo, 07 camada analítica
 ├── sql/mysql/                   01–05 equivalentes para MySQL 8
-├── painel/app.py                painel Streamlit (segue o wireframe do grupo)
+├── painel/                      painel Streamlit (segue o wireframe do grupo)
+│   ├── app.py · geo.py          aplicação e leitura da malha de bairros
+│   ├── assets/bairros-do-recife.geojson   malha de bairros (Prefeitura do Recife)
+│   └── LEIAME.md                notas de uso do painel
+├── .streamlit/config.toml       tema do painel
 ├── tests/                       pytest
-├── docs/                        plano, documentação das etapas, data card
+├── docs/
+│   ├── etapas/                  documentação das Etapas 1–5 e modelos (.brM3, .xml, .png)
+│   ├── resultados/              relatórios da execução de referência (base a 10%) e do painel
+│   ├── data_card.md · decisoes_de_implementacao.md
+│   └── *.pdf                    plano metodológico e emulação de dados
+├── docker/mlflow/               imagem do servidor MLflow
 ├── docker-compose.yml           PostgreSQL 16, MinIO e MLflow
 ├── pyproject.toml · requirements.txt · Makefile · .env.example
 ```
@@ -74,14 +83,15 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 Os módulos de `src/aps_sintetico/`:
 
 | Módulo | Conteúdo |
-|---|---|---|
+|---|---|
 | `config.py`, `rng.py`, `parametros.py` | Cenários em YAML; fluxos de números aleatórios independentes por componente (PCG64 + SeedSequence); leitura dos CSV oficiais |
+| `gerador.py`, `modelo.py`, `identificadores.py` | Orquestração do DAG, estruturas de dados do modelo, CPF/CNS/uuid sintéticos com dígito verificador |
 | `ipf.py`, `populacao.py` | IPF, TRS, pessoas, domicílios, setores sintéticos, socioeconômico |
-| `atributos.py` |Deficiência, TEA, orientação sexual e identidade de gênero |
+| `atributos.py` | Deficiência, TEA, orientação sexual e identidade de gênero |
 | `territorio.py`, `cobertura.py` | Rede, metas, microáreas, profissionais, adscrição, cobertura, primeiro cadastro |
 | `registro.py` | Modelo de registro e calibração dos interceptos |
 | `dinamica.py` | Componente temporal, oficinas, óbitos, mudanças, nascimentos, versões da FCI, verdade mensal, defeitos de comportamento |
-| `atendimentos.py` |FAI: atendimentos, fichas, problemas e condições |
+| `atendimentos.py` | FAI: atendimentos, fichas, problemas e condições |
 | `defeitos.py` | Identidades e defeitos de processo |
 | `exporta.py` | Núcleo, *staging* (LEDI), verdade, referências e manifesto SHA-256 |
 | `carga.py` | Carga no PostgreSQL (direta ou via *staging*); script para MySQL |
@@ -126,6 +136,8 @@ python -m aps_sintetico tudo --cenario demo --sem-banco --sem-mlflow
 # 2) painel com essa base
 python -m aps_sintetico painel --cenario demo
 ```
+
+A base `demo` é pequena de propósito: na última conferência, 23 das 24 verificações de calibração passaram (a proporção negra no DS 3 fica fora da tolerância por causa da amostra reduzida). A aprovação de 55 de 55 vale para o cenário base (seção 10).
 
 Fluxo completo com banco, no cenário base (Recife inteiro a 10%):
 
@@ -222,7 +234,7 @@ SELECT regra, COUNT(*) FROM analitica.vw_qualidade_registro GROUP BY 1;
 SELECT * FROM analitica.fato_painel_ml WHERE ine = '0000153044' ORDER BY periodo;
 ```
 
-**MySQL 8 (scripts equivalentes, não testados nesta entrega).**
+**MySQL 8 (scripts equivalentes; DDL conferido, carga não executada).** O `01_ddl.sql` dos dois SGBDs define as mesmas 55 tabelas e colunas (41 em `nucleo`, 9 em `stg`, 5 em `analitica`), e os arquivos `02`, `04` e `05` são idênticos nas duas pastas (SQL padrão). Falta executar a rota MySQL de ponta a ponta.
 
 ```bash
 mysql -u root -p < sql/mysql/01_ddl.sql      # e 02 a 05, na ordem
@@ -250,7 +262,7 @@ A camada analítica para MySQL é a de Parquet (`python -m aps_sintetico analiti
 - qualidade do registro × gabarito;
 - "Prevenção IA", com as equipes de maior risco previstas.
 
-O mapa por DS aparece como barras por distrito. Um mapa coroplético depende do GeoJSON dos bairros (dados abertos da Prefeitura), que não está no repositório.
+O mapa coroplético usa o GeoJSON dos bairros em `painel/assets/bairros-do-recife.geojson` (dados abertos da Prefeitura), que já vem no repositório. Se o arquivo for removido, o painel mostra barras por DS no lugar do mapa. Para abrir o painel direto numa pasta de saída: `streamlit run painel/app.py -- --saida saida/<cenário>`. Detalhes em `painel/LEIAME.md`.
 
 **Inferência** (`inferencia`). Compara cada método com a verdade:
 
@@ -273,6 +285,8 @@ Com `docker compose up -d` e `MLFLOW_TRACKING_URI=http://localhost:5000`, as exe
 ```bash
 python -m pytest            # testes sem banco rodam sempre; os de banco exigem APS_DSN acessível
 ```
+
+Última conferência: 16 testes aprovados com PostgreSQL 16 (13 sem banco e 3 com banco); sem `APS_DSN`, os 3 de banco são pulados.
 
 Os testes cobrem:
 
@@ -305,8 +319,8 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 | Etapa | Produto | Onde está |
 |---|---|---|
 | 1 | Dicionário de dados | `docs/etapas/01_dicionario_dados.md` |
-| 2 | Modelo conceitual e regras de negócio | `docs/etapas/02_regras_de_negocio.md`, `modelo_conceitual_aps_recife.brM3` |
-| 3 | Modelo lógico | `docs/etapas/03_modelo_logico.md` (+ `.brM3`, `.xml`, `.png`) |
+| 2 | Modelo conceitual e regras de negócio | `docs/etapas/02_regras_de_negocio.md`, `docs/etapas/modelo_conceitual_aps_recife.brM3` |
+| 3 | Modelo lógico | `docs/etapas/03_modelo_logico.md` (+ `modelo_logico_aps_recife.brM3`, `.xml`, `.png`) |
 | 4 | Modelo físico | `sql/*/01_ddl.sql`, `03_validacao_carga.sql`, `docs/etapas/04_documentacao_fisica.md` |
 | 5 | Parâmetros oficiais | `coleta/`, `dados/`, `sql/*/04–05`, `docs/etapas/05_parametros_oficiais.md` |
 | 6 | Gerador | `src/aps_sintetico/` (população → atendimentos), `config/`, `docs/Plano_Metodologico_Etapa6_Gerador.pdf` |
@@ -324,22 +338,19 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 - **Setores censitários.** São sintéticos (pendência E6). O Censo 2022 não publica raça/cor por bairro, então a referência de raça por território (Hellinger, RQ04) é a do próprio IPF.
 - **Taxas de atendimento.** As taxas por idade × sexo são premissas de ordem de grandeza e devem ser calibradas com o SISAB.
 - **Pendências da SESAU** (Apêndice A). Seguem abertas a semântica do "Não" (π), a idade mínima (10 ou 11) e se a recusa conta entre os ativos. Todas viraram parâmetros e cenários.
-- **MySQL e Docker.** Os scripts estão escritos, mas não foram executados nesta entrega: o ambiente de desenvolvimento não tinha MySQL nem Docker. A rota PostgreSQL foi testada de ponta a ponta.
+- **MySQL e Docker.** Os scripts estão escritos, mas a carga em MySQL e o `docker-compose.yml` não foram executados nesta entrega. A rota PostgreSQL foi testada de ponta a ponta, inclusive a execução manual de `01`–`05` e `07` num PostgreSQL 16 limpo. O `06_staging_para_nucleo.sql` espera o parâmetro `:carga` (variável do `psql`), então roda pelo `carregar --via-staging` ou com `psql -v carga=<id>`.
+- **Documentação física.** `docs/etapas/04_documentacao_fisica.md` não descreve as tabelas `stg.cnes_estabelecimento`, `stg.cnes_equipe`, `stg.malha_territorial`, `stg.profissional_lotacao` e `analitica.ref_parametro_oficial`, que existem nos DDLs. O modelo lógico em XML cobre só o esquema `nucleo`.
 
-## 13. Publicação no GitHub
+## 13. Repositório no GitHub
 
-O repositório já vem com o histórico Git:
-
-1. Crie um repositório vazio no GitHub (sem README), por exemplo `gerador-dados-sinteticos-aps-recife`.
-2. Na pasta do projeto, rode:
+O código fica em <https://github.com/RedAkasha/nexus-data-aps-recife> (ramo `main`). Para obter uma cópia:
 
 ```bash
-git remote add origin https://github.com/RedAkasha/gerador-dados-sinteticos-aps-recife.git
-git branch -M main
-git push -u origin main
+git clone https://github.com/RedAkasha/nexus-data-aps-recife.git
+cd nexus-data-aps-recife
 ```
 
-As pastas `saida/` e `mlruns/` e o arquivo `mlflow.db` ficam fora do Git, porque a semente reproduz tudo.
+As mudanças entram por *pull request* a partir de um ramo próprio. As pastas `saida/` e `mlruns/`, o arquivo `mlflow.db` e os `*.parquet` (exceto os de `dados/`) ficam fora do Git, porque a semente reproduz tudo.
 
 ## 14. Licença e citação
 
@@ -402,6 +413,6 @@ Os arquivos de `dados/` são cópias ou derivações de dados públicos. Eles fo
 
 ### Como citar
 
-> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <(https://github.com/RedAkasha/nexus-data-aps-recife)>.
+> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <https://github.com/RedAkasha/nexus-data-aps-recife>.
 
 Projeto acadêmico de alunos, sem vínculo comercial nem caráter oficial da Secretaria de Saúde do Recife.
