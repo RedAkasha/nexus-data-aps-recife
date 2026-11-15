@@ -64,9 +64,19 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 ├── sql/postgresql/              01–05 (DDL, domínios, validação, estrutura, parâmetros),
 │                                06 staging → núcleo, 07 camada analítica
 ├── sql/mysql/                   01–05 equivalentes para MySQL 8
-├── painel/app.py                painel Streamlit (segue o wireframe do grupo)
+├── painel/                      painel Streamlit (segue o wireframe do grupo)
+│   ├── app.py · geo.py          aplicação e leitura da malha de bairros
+│   ├── assets/bairros-do-recife.geojson   malha de bairros (Prefeitura do Recife)
+│   └── LEIAME.md                notas de uso do painel
+├── .streamlit/config.toml       tema do painel
 ├── tests/                       pytest
-├── docs/                        plano, documentação das etapas, data card
+├── atividade_aula09/            atividade de Inferência Estatística (Aula 09): bases por DS gravadas no Neon
+├── docs/
+│   ├── etapas/                  documentação das Etapas 1–5 e modelos (.brM3, .xml, .png)
+│   ├── resultados/              relatórios da execução de referência (base a 10%) e do painel
+│   ├── data_card.md · decisoes_de_implementacao.md
+│   └── *.pdf                    plano metodológico e emulação de dados
+├── docker/mlflow/               imagem do servidor MLflow
 ├── docker-compose.yml           PostgreSQL 16, MinIO e MLflow
 ├── pyproject.toml · requirements.txt · Makefile · .env.example
 ```
@@ -74,14 +84,15 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 Os módulos de `src/aps_sintetico/`:
 
 | Módulo | Conteúdo |
-|---|---|---|
+|---|---|
 | `config.py`, `rng.py`, `parametros.py` | Cenários em YAML; fluxos de números aleatórios independentes por componente (PCG64 + SeedSequence); leitura dos CSV oficiais |
+| `gerador.py`, `modelo.py`, `identificadores.py` | Orquestração do DAG, estruturas de dados do modelo, CPF/CNS/uuid sintéticos com dígito verificador |
 | `ipf.py`, `populacao.py` | IPF, TRS, pessoas, domicílios, setores sintéticos, socioeconômico |
-| `atributos.py` |Deficiência, TEA, orientação sexual e identidade de gênero |
+| `atributos.py` | Deficiência, TEA, orientação sexual e identidade de gênero |
 | `territorio.py`, `cobertura.py` | Rede, metas, microáreas, profissionais, adscrição, cobertura, primeiro cadastro |
 | `registro.py` | Modelo de registro e calibração dos interceptos |
 | `dinamica.py` | Componente temporal, oficinas, óbitos, mudanças, nascimentos, versões da FCI, verdade mensal, defeitos de comportamento |
-| `atendimentos.py` |FAI: atendimentos, fichas, problemas e condições |
+| `atendimentos.py` | FAI: atendimentos, fichas, problemas e condições |
 | `defeitos.py` | Identidades e defeitos de processo |
 | `exporta.py` | Núcleo, *staging* (LEDI), verdade, referências e manifesto SHA-256 |
 | `carga.py` | Carga no PostgreSQL (direta ou via *staging*); script para MySQL |
@@ -126,6 +137,8 @@ python -m aps_sintetico tudo --cenario demo --sem-banco --sem-mlflow
 # 2) painel com essa base
 python -m aps_sintetico painel --cenario demo
 ```
+
+A base `demo` é pequena de propósito: na última conferência, 23 das 24 verificações de calibração passaram (a proporção negra no DS 3 fica fora da tolerância por causa da amostra reduzida). A aprovação de 55 de 55 vale para o cenário base (seção 10).
 
 Fluxo completo com banco, no cenário base (Recife inteiro a 10%):
 
@@ -222,7 +235,15 @@ SELECT regra, COUNT(*) FROM analitica.vw_qualidade_registro GROUP BY 1;
 SELECT * FROM analitica.fato_painel_ml WHERE ine = '0000153044' ORDER BY periodo;
 ```
 
-**MySQL 8 (scripts equivalentes, não testados nesta entrega).**
+**Neon (PostgreSQL na nuvem).** O Neon é Postgres gerenciado, então o código e os scripts de `sql/postgresql/` funcionam nele sem mudança; só a connection string muda. Crie um projeto, copie a string em *Connect* e guarde-a **somente** em variável de ambiente (nunca em arquivo versionado):
+
+```powershell
+$env:APS_DSN="postgresql://USUARIO:SENHA@ep-xxx.REGIAO.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+```
+
+Use a string *direct* (sem `-pooler` no host) para criar tabelas e a *pooled* para consultas e painel. O plano gratuito tem 1 GB de Postgres por projeto, e o banco completo do repositório provavelmente não cabe nele (o núcleo em escala cheia passa de 5 GB, segundo `docs/etapas/04_documentacao_fisica.md`). Use o Neon para tabelas pequenas, como a da atividade da Aula 09, e o PostgreSQL local ou do Docker para o fluxo `tudo`.
+
+**MySQL 8 (scripts equivalentes; DDL conferido, carga não executada).** O `01_ddl.sql` dos dois SGBDs define as mesmas 55 tabelas e colunas (41 em `nucleo`, 9 em `stg`, 5 em `analitica`), e os arquivos `02`, `04` e `05` são idênticos nas duas pastas (SQL padrão). Falta executar a rota MySQL de ponta a ponta.
 
 ```bash
 mysql -u root -p < sql/mysql/01_ddl.sql      # e 02 a 05, na ordem
@@ -250,7 +271,7 @@ A camada analítica para MySQL é a de Parquet (`python -m aps_sintetico analiti
 - qualidade do registro × gabarito;
 - "Prevenção IA", com as equipes de maior risco previstas.
 
-O mapa por DS aparece como barras por distrito. Um mapa coroplético depende do GeoJSON dos bairros (dados abertos da Prefeitura), que não está no repositório.
+O mapa coroplético usa o GeoJSON dos bairros em `painel/assets/bairros-do-recife.geojson` (dados abertos da Prefeitura), que já vem no repositório. Se o arquivo for removido, o painel mostra barras por DS no lugar do mapa. Para abrir o painel direto numa pasta de saída: `streamlit run painel/app.py -- --saida saida/<cenário>`. Detalhes em `painel/LEIAME.md`.
 
 **Inferência** (`inferencia`). Compara cada método com a verdade:
 
@@ -268,11 +289,43 @@ O mapa por DS aparece como barras por distrito. Um mapa coroplético depende do 
 
 Com `docker compose up -d` e `MLFLOW_TRACKING_URI=http://localhost:5000`, as execuções vão para o MLflow (backend PostgreSQL, artefatos no MinIO). Sem servidor, ficam num SQLite local (`./mlflow.db`; veja com `mlflow ui --backend-store-uri sqlite:///mlflow.db`).
 
+### Atividade da Aula 09 – Inferência Estatística (bases proxy no Neon)
+
+A pasta `atividade_aula09/` responde à atividade da Aula 09: gerar uma base sintética de respostas (orientação sexual e identidade de gênero) para cada Distrito Sanitário, com 10% dos adultos de cada um e uma semente por distrito (`2026 + id_ds`), gravar a tabela `respostas_sinteticas` no Neon e validar por SQL e por `binomtest` contra 2,5% (PNS 2019, Recife; IC de Wilson).
+
+```powershell
+$env:APS_DSN="<connection string do Neon>"          # só na sessão; não versionar
+.\.venv\Scripts\python -m pip install numpy pandas scipy "psycopg[binary]"
+.\.venv\Scripts\python atividade_aula09\gerar_respostas_neon.py              # grava no banco e valida
+.\.venv\Scripts\python atividade_aula09\gerar_respostas_neon.py --sem-banco  # só gera e valida em pandas
+```
+
+Os resultados vão para `atividade_aula09/saida/` (fora do Git): `base_proxy_SINTETICA_por_ds.csv`, `validacao_por_ds.csv` e `relatorio_aula09.md`. A tabela no banco carrega o comentário "DADOS SINTÉTICOS".
+
+Premissa: o Censo 2022 do repositório traz a população total por DS, mas a idade só no município; os adultos de cada DS são estimados como população do DS × 78,5% (proporção de 18+ no Recife), supondo a mesma estrutura etária em todos os distritos.
+
+Resultado de referência (validado num PostgreSQL 16 local; a consulta SQL e o cálculo em pandas coincidem, e a semente fixa torna a geração reprodutível com as mesmas versões de NumPy e pandas):
+
+| DS | n (10% dos adultos) | LGB | IC95% (Wilson) | p-valor |
+|---|--:|--:|---|--:|
+| 1 | 5.793 | 2,33% | [1,97%; 2,75%] | 0,449 |
+| 2 | 16.511 | 2,45% | [2,22%; 2,69%] | 0,690 |
+| 3 | 10.225 | 2,42% | [2,14%; 2,73%] | 0,612 |
+| 4 | 22.145 | 2,54% | [2,34%; 2,76%] | 0,683 |
+| 5 | 19.324 | 2,40% | [2,19%; 2,62%] | 0,369 |
+| 6 | 19.198 | 2,34% | [2,14%; 2,57%] | 0,173 |
+| 7 | 13.640 | 2,62% | [2,37%; 2,91%] | 0,351 |
+| 8 | 10.094 | 2,62% | [2,32%; 2,95%] | 0,444 |
+
+Nenhum distrito rejeitou H₀ a 5% (0 de 8); no conjunto, 2.884/116.930 = 2,47% (p = 0,471). Era esperado: a base é gerada com 2,5% (o modelo implica 2,489%), então uma rejeição indicaria bug ou azar, não descoberta. Com 8 testes a 5%, a chance de ao menos uma rejeição só por acaso é de cerca de 34%. Passo a passo para quem nunca usou o Neon: `atividade_aula09/LEIAME.md`.
+
 ## 10. Testes e reprodutibilidade
 
 ```bash
 python -m pytest            # testes sem banco rodam sempre; os de banco exigem APS_DSN acessível
 ```
+
+Última conferência: 16 testes aprovados com PostgreSQL 16 (13 sem banco e 3 com banco); sem `APS_DSN`, os 3 de banco são pulados.
 
 Os testes cobrem:
 
@@ -305,8 +358,8 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 | Etapa | Produto | Onde está |
 |---|---|---|
 | 1 | Dicionário de dados | `docs/etapas/01_dicionario_dados.md` |
-| 2 | Modelo conceitual e regras de negócio | `docs/etapas/02_regras_de_negocio.md`, `modelo_conceitual_aps_recife.brM3` |
-| 3 | Modelo lógico | `docs/etapas/03_modelo_logico.md` (+ `.brM3`, `.xml`, `.png`) |
+| 2 | Modelo conceitual e regras de negócio | `docs/etapas/02_regras_de_negocio.md`, `docs/etapas/modelo_conceitual_aps_recife.brM3` |
+| 3 | Modelo lógico | `docs/etapas/03_modelo_logico.md` (+ `modelo_logico_aps_recife.brM3`, `.xml`, `.png`) |
 | 4 | Modelo físico | `sql/*/01_ddl.sql`, `03_validacao_carga.sql`, `docs/etapas/04_documentacao_fisica.md` |
 | 5 | Parâmetros oficiais | `coleta/`, `dados/`, `sql/*/04–05`, `docs/etapas/05_parametros_oficiais.md` |
 | 6 | Gerador | `src/aps_sintetico/` (população → atendimentos), `config/`, `docs/Plano_Metodologico_Etapa6_Gerador.pdf` |
@@ -315,6 +368,7 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 | 9 | Camada analítica e painel | `sql/postgresql/07_analitica.sql`, `analitica.py`, `painel/app.py` |
 | 10 | Inferência, ML e sensibilidade | `inferencia.py`, `ml.py`, `sensibilidade.py`, `config/cenarios/` |
 | 11.1 | Repositório Git com README | este repositório |
+| — | Inferência Estatística, Aula 09 (bases proxy no Neon) | `atividade_aula09/` |
 
 `docs/data_card.md` descreve a base gerada: finalidade, fontes, premissas, limites e uso permitido.
 
@@ -324,22 +378,19 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 - **Setores censitários.** São sintéticos (pendência E6). O Censo 2022 não publica raça/cor por bairro, então a referência de raça por território (Hellinger, RQ04) é a do próprio IPF.
 - **Taxas de atendimento.** As taxas por idade × sexo são premissas de ordem de grandeza e devem ser calibradas com o SISAB.
 - **Pendências da SESAU** (Apêndice A). Seguem abertas a semântica do "Não" (π), a idade mínima (10 ou 11) e se a recusa conta entre os ativos. Todas viraram parâmetros e cenários.
-- **MySQL e Docker.** Os scripts estão escritos, mas não foram executados nesta entrega: o ambiente de desenvolvimento não tinha MySQL nem Docker. A rota PostgreSQL foi testada de ponta a ponta.
+- **MySQL e Docker.** Os scripts estão escritos, mas a carga em MySQL não foi executada nesta entrega. Do `docker-compose.yml`, só o serviço `postgres` foi visto em execução (numa máquina de um integrante); MinIO e MLflow não foram conferidos. O *healthcheck* do `postgres` não informava o banco e gerava `FATAL: database "aps" does not exist` no log a cada 5 s, sem afetar o funcionamento; já corrigido com `-d`. A rota PostgreSQL foi testada de ponta a ponta, inclusive a execução manual de `01`–`05` e `07` num PostgreSQL 16 limpo. O `06_staging_para_nucleo.sql` espera o parâmetro `:carga` (variável do `psql`), então roda pelo `carregar --via-staging` ou com `psql -v carga=<id>`.
+- **Documentação física.** `docs/etapas/04_documentacao_fisica.md` não descreve as tabelas `stg.cnes_estabelecimento`, `stg.cnes_equipe`, `stg.malha_territorial`, `stg.profissional_lotacao` e `analitica.ref_parametro_oficial`, que existem nos DDLs. O modelo lógico em XML cobre só o esquema `nucleo`.
 
-## 13. Publicação no GitHub
+## 13. Repositório no GitHub
 
-O repositório já vem com o histórico Git:
-
-1. Crie um repositório vazio no GitHub (sem README), por exemplo `gerador-dados-sinteticos-aps-recife`.
-2. Na pasta do projeto, rode:
+O código fica em <https://github.com/RedAkasha/nexus-data-aps-recife> (ramo `main`). Para obter uma cópia:
 
 ```bash
-git remote add origin https://github.com/RedAkasha/gerador-dados-sinteticos-aps-recife.git
-git branch -M main
-git push -u origin main
+git clone https://github.com/RedAkasha/nexus-data-aps-recife.git
+cd nexus-data-aps-recife
 ```
 
-As pastas `saida/` e `mlruns/` e o arquivo `mlflow.db` ficam fora do Git, porque a semente reproduz tudo.
+As mudanças entram por *pull request* a partir de um ramo próprio. As pastas `saida/` e `mlruns/`, o arquivo `mlflow.db` e os `*.parquet` (exceto os de `dados/`) ficam fora do Git, porque a semente reproduz tudo.
 
 ## 14. Licença e citação
 
@@ -402,6 +453,6 @@ Os arquivos de `dados/` são cópias ou derivações de dados públicos. Eles fo
 
 ### Como citar
 
-> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <(https://github.com/RedAkasha/nexus-data-aps-recife)>.
+> EQUIPE 2 – NEXUS DATA. *Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)*. Versão 1.0.0. Recife: CESAR School, Projeto 3 – Dados, 2026. Disponível em: <https://github.com/RedAkasha/nexus-data-aps-recife>.
 
 Projeto acadêmico de alunos, sem vínculo comercial nem caráter oficial da Secretaria de Saúde do Recife.
