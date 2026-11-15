@@ -70,13 +70,7 @@ A **verdade** fica em `verdade/`: os atributos latentes de cada pessoa e a proba
 │   └── LEIAME.md                notas de uso do painel
 ├── .streamlit/config.toml       tema do painel
 ├── tests/                       pytest
-├── atividade_aula09/            atividade de Inferência Estatística (Aula 09): bases por DS gravadas no Neon
-├── docs/
-│   ├── etapas/                  documentação das Etapas 1–5 e modelos (.brM3, .xml, .png)
-│   ├── resultados/              relatórios da execução de referência (base a 10%) e do painel
-│   ├── data_card.md · decisoes_de_implementacao.md
-│   └── *.pdf                    plano metodológico e emulação de dados
-├── docker/mlflow/               imagem do servidor MLflow
+├── docs/                        plano, documentação das etapas, data card
 ├── docker-compose.yml           PostgreSQL 16, MinIO e MLflow
 ├── pyproject.toml · requirements.txt · Makefile · .env.example
 ```
@@ -235,15 +229,7 @@ SELECT regra, COUNT(*) FROM analitica.vw_qualidade_registro GROUP BY 1;
 SELECT * FROM analitica.fato_painel_ml WHERE ine = '0000153044' ORDER BY periodo;
 ```
 
-**Neon (PostgreSQL na nuvem).** O Neon é Postgres gerenciado, então o código e os scripts de `sql/postgresql/` funcionam nele sem mudança; só a connection string muda. Crie um projeto, copie a string em *Connect* e guarde-a **somente** em variável de ambiente (nunca em arquivo versionado):
-
-```powershell
-$env:APS_DSN="postgresql://USUARIO:SENHA@ep-xxx.REGIAO.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
-```
-
-Use a string *direct* (sem `-pooler` no host) para criar tabelas e a *pooled* para consultas e painel. O plano gratuito tem 1 GB de Postgres por projeto, e o banco completo do repositório provavelmente não cabe nele (o núcleo em escala cheia passa de 5 GB, segundo `docs/etapas/04_documentacao_fisica.md`). Use o Neon para tabelas pequenas, como a da atividade da Aula 09, e o PostgreSQL local ou do Docker para o fluxo `tudo`.
-
-**MySQL 8 (scripts equivalentes; DDL conferido, carga não executada).** O `01_ddl.sql` dos dois SGBDs define as mesmas 55 tabelas e colunas (41 em `nucleo`, 9 em `stg`, 5 em `analitica`), e os arquivos `02`, `04` e `05` são idênticos nas duas pastas (SQL padrão). Falta executar a rota MySQL de ponta a ponta.
+**MySQL 8 (scripts equivalentes, não testados nesta entrega).**
 
 ```bash
 mysql -u root -p < sql/mysql/01_ddl.sql      # e 02 a 05, na ordem
@@ -378,8 +364,7 @@ Os relatórios dessa execução estão em `docs/resultados/`.
 - **Setores censitários.** São sintéticos (pendência E6). O Censo 2022 não publica raça/cor por bairro, então a referência de raça por território (Hellinger, RQ04) é a do próprio IPF.
 - **Taxas de atendimento.** As taxas por idade × sexo são premissas de ordem de grandeza e devem ser calibradas com o SISAB.
 - **Pendências da SESAU** (Apêndice A). Seguem abertas a semântica do "Não" (π), a idade mínima (10 ou 11) e se a recusa conta entre os ativos. Todas viraram parâmetros e cenários.
-- **MySQL e Docker.** Os scripts estão escritos, mas a carga em MySQL não foi executada nesta entrega. Do `docker-compose.yml`, só o serviço `postgres` foi visto em execução (numa máquina de um integrante); MinIO e MLflow não foram conferidos. O *healthcheck* do `postgres` não informava o banco e gerava `FATAL: database "aps" does not exist` no log a cada 5 s, sem afetar o funcionamento; já corrigido com `-d`. A rota PostgreSQL foi testada de ponta a ponta, inclusive a execução manual de `01`–`05` e `07` num PostgreSQL 16 limpo. O `06_staging_para_nucleo.sql` espera o parâmetro `:carga` (variável do `psql`), então roda pelo `carregar --via-staging` ou com `psql -v carga=<id>`.
-- **Documentação física.** `docs/etapas/04_documentacao_fisica.md` não descreve as tabelas `stg.cnes_estabelecimento`, `stg.cnes_equipe`, `stg.malha_territorial`, `stg.profissional_lotacao` e `analitica.ref_parametro_oficial`, que existem nos DDLs. O modelo lógico em XML cobre só o esquema `nucleo`.
+- **MySQL e Docker.** Os scripts estão escritos, mas não foram executados nesta entrega: o ambiente de desenvolvimento não tinha MySQL nem Docker. A rota PostgreSQL foi testada de ponta a ponta.
 
 ## 13. Repositório no GitHub
 
