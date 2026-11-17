@@ -9,6 +9,8 @@
 -- dom_tipo_unidade e dom_tipo_equipe são carregadas na Etapa 5, a partir do CNES.
 -- =====================================================================
 
+SET SQL_SAFE_UPDATES = 0;
+
 DELETE FROM nucleo.dom_cbo_ficha;
 
 -- dom_sexo: 4 valores · LEDI · Sexo
