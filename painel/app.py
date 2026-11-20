@@ -8,7 +8,7 @@ Mapa: salve o GeoJSON de bairros da Prefeitura em painel/assets/ (ver painel/LEI
 arquivo, o painel mostra barras por distrito no lugar do mapa.
 Os dados são SINTÉTICOS; nenhuma linha corresponde a pessoa real.
 
-Definições (as mesmas de src/aps_sintetico/analitica.py e da planilha da SESAU):
+Definições (as mesmas de src/aps_sintetico/analitica.py e da planilha de monitoramento):
   * cadastrados = cidadãos ativos na competência (soma de raça/cor, que todo cadastro tem);
   * "Sim" em orientação sexual = pessoa aceitou informar; denominador = elegíveis (idade ≥ mínima) =
     "dado real" = Sim + Não + Não informado;
@@ -95,6 +95,7 @@ def carrega(saida: str) -> dict:
     out["unidade"] = uni[["cnes", "nome_unidade"]] if "nome_unidade" in uni else \
         uni[["cnes"]].assign(nome_unidade=uni["cnes"])
     out["equipe"] = est["equipe"][["ine", "nome_equipe", "cnes", "tipo_equipe"]]
+    out["saida"] = s
     out["manifesto"] = json.loads((s / "manifesto.json").read_text(encoding="utf-8"))
     q = s / "relatorios" / "qualidade_vs_gabarito.csv"
     out["qualidade"] = pd.read_csv(q) if q.exists() else None
@@ -435,7 +436,7 @@ def preenchimento(D: dict):
         st.altair_chart(ln.properties(height=250), width="stretch")
     st.dataframe(c[["Campo", "Registros", "Sem registro", "Completude"]], width="stretch", hide_index=True,
                  column_config={"Completude": st.column_config.ProgressColumn(format="percent", min_value=0, max_value=1)})
-    tab1, tab2, tab3 = st.tabs(["Ranking por equipe", "Planilha SESAU (colunas H a U)", "Qualidade × gabarito"])
+    tab1, tab2, tab3 = st.tabs(["Ranking por equipe", "Planilha de monitoramento (colunas H a U)", "Qualidade × gabarito"])
     with tab1:
         m = mon.merge(D["equipe"][["ine", "nome_equipe"]], on="ine", how="left").dropna(subset=["n_os_sim_pct"])
         m = m.sort_values("n_os_sim_pct").head(30)
@@ -465,41 +466,91 @@ def preenchimento(D: dict):
             st.dataframe(D["qualidade"], width="stretch", hide_index=True)
 
 
+def _proximo(per: int) -> int:
+    a, q = divmod(int(per), 10)
+    return a * 10 + q + 1 if q < 3 else (a + 1) * 10 + 1
+
+
 def prevencao(D: dict):
     st.markdown("# Prevenção IA")
     p = D["predicoes"]
-    if p is None:
-        st.info("Ainda não há previsões. Rode `python -m aps_sintetico ml` (ou coloque o `predicoes.parquet` do "
-                "modelo final em `saida/<cenário>/ml/`) e esta página passa a mostrar as equipes de maior risco.")
+    ml = D["saida"] / "ml"
+    if p is None or "prob_alerta" not in p or not (ml / "resumo.json").exists():
+        st.info("Ainda não há previsões. Rode `python -m aps_sintetico ml` e esta página passa a mostrar a fila de "
+                "equipes com risco de baixo preenchimento.")
         return
-    st.caption("Previsão da proporção de \"Sim\" (orientação sexual) de cada equipe no período seguinte. "
-               "A página lê `ml/predicoes.parquet` e funciona com qualquer modelo que mantenha as colunas "
-               "`ine, periodo, id_ds, prop_sim_os, previsto`.")
+    R = json.loads((ml / "resumo.json").read_text(encoding="utf-8"))
+    comp = pd.read_csv(ml / "comparacao.csv")
+    st.caption(f"Alerta de **baixo preenchimento**: a equipe terminará o próximo quadrimestre com menos de "
+               f"{int(R['limiar_alerta'] * 100)}% de \"Sim\" em orientação sexual (dado real entre elegíveis)?")
+    a = R["auditoria_vazamento"]
+    with st.expander("🔒 Como garantimos que o modelo não vaza dados (leia primeiro)", expanded=False):
+        st.markdown(
+            "**Vazamento** é quando o modelo \"vê\" a resposta durante o treino e parece melhor do que é. Evitamos assim:\n\n"
+            "1. **O alvo é o futuro:** variáveis só usam dados até o fim do quadrimestre *t*; o rótulo é o de *t+1*.\n"
+            "2. **Divisão no tempo, nunca aleatória:** treino nos períodos antigos, teste nos mais recentes "
+            f"(treino até {_periodo(a['ultimo_periodo_treino'])}, teste a partir de {_periodo(a['primeiro_periodo_teste'])}).\n"
+            "3. **Validação walk-forward** (janela que cresce no tempo) para escolher modelo e limiar.\n"
+            "4. **Pré-processamento dentro do pipeline:** médias/padronização aprendidas só no treino de cada etapa.\n"
+            "5. **Teste usado uma única vez**, com hiperparâmetros fixados antes (sem busca no teste).\n"
+            "6. **Auditoria automática** que interrompe a execução se o treino não for anterior ao teste, se "
+            f"entrar coluna-alvo nas variáveis, ou se rótulos embaralhados \"funcionarem\" (aqui: AP "
+            f"{a['ap_com_rotulos_embaralhados']:.2f} ≈ acaso {a['prevalencia_teste']:.2f}).\n"
+            "7. **Incerteza honesta:** bootstrap por equipe e comparação com a regra de persistência.\n\n"
+            "O mesmo texto está no topo de `src/aps_sintetico/ml.py`.")
     ines, _ = filtros(D)
-    lim = st.slider("Limiar de alerta (\"Sim\" previsto abaixo de)", 0.05, 0.40, LIMIAR_ALERTA, 0.01, format="%.2f")
-    per = p["periodo"].max()
-    u = p[(p["periodo"] == per) & p["ine"].isin(ines)].merge(D["equipe"][["ine", "nome_equipe", "cnes"]], on="ine", how="left")
+    prox = p[p["fase"] == "proximo"]
+    u = prox[prox["ine"].isin(ines)].merge(D["equipe"][["ine", "nome_equipe", "cnes"]], on="ine", how="left")
     u = u.merge(D["unidade"], on="cnes", how="left")
     u["DS"] = u["id_ds"].map(NOMES_DS)
-    u["Alerta"] = u["previsto"] < lim
-    u["Variação (p.p.)"] = (u["previsto"] - u["prop_sim_os"]) * 100
-    k1, k2, k3 = st.columns(3)
-    cartao(k1, "Equipes em alerta", _int(u["Alerta"].sum()), None, None, f"de {len(u)} filtradas")
-    cartao(k2, "Modelo", str(u["modelo"].iloc[0]) if "modelo" in u and len(u) else "–", None, None, "da execução em uso")
-    cartao(k3, "Período de referência", _periodo(per), None, None, "base da previsão")
+    esc = comp[comp["escolhido"]].iloc[0]
+    k1, k2, k3, k4 = st.columns(4)
+    cartao(k1, "Equipes em alerta", _int(u["alerta"].sum()), None, None,
+           f"de {len(u)} · previsão p/ {_periodo(_proximo(R['periodo_previsto_a_partir_de']))}")
+    cartao(k2, "Modelo definitivo", R["nome_escolhido"], None, None, "escolhido no walk-forward")
+    cartao(k3, "AP no teste", f"{esc['ap']:.2f}".replace(".", ","), None, None, "precisão–revocação, 1 uso do teste")
+    cartao(k4, "Revocação", _pct(esc["revocacao"], 0), None, None, "alertas reais encontrados")
     st.write("")
-    tab = u.sort_values("previsto")[["nome_equipe", "nome_unidade", "DS", "prop_sim_os", "previsto",
-                                    "Variação (p.p.)", "Alerta"]].rename(
-        columns={"nome_equipe": "Equipe", "nome_unidade": "Unidade", "prop_sim_os": "Sim atual", "previsto": "Sim previsto"})
-    st.dataframe(tab.head(50), width="stretch", hide_index=True, column_config={
-        "Sim atual": st.column_config.NumberColumn(format="percent"),
-        "Sim previsto": st.column_config.NumberColumn(format="percent"),
-        "Variação (p.p.)": st.column_config.NumberColumn(format="%+.1f")})
-    st.download_button("Baixar previsões (CSV)", tab.to_csv(index=False).encode("utf-8"), "previsoes_equipes.csv", "text/csv")
+    t1, t2, t3, t4 = st.tabs(["Fila de prioridade", "Comparação de modelos", "Justificativa técnica", "O que pesa na decisão"])
+    with t1:
+        tab = u.sort_values("prob_alerta", ascending=False)[
+            ["nome_equipe", "nome_unidade", "DS", "prop_sim_os", "prob_alerta", "alerta"]].rename(
+            columns={"nome_equipe": "Equipe", "nome_unidade": "Unidade", "prop_sim_os": "Sim atual",
+                     "prob_alerta": "Risco", "alerta": "Alerta"})
+        st.caption("Ordenada pelo risco estimado. Equipes já abaixo do limiar hoje tendem a continuar abaixo.")
+        st.dataframe(tab.head(50), width="stretch", hide_index=True, column_config={
+            "Sim atual": st.column_config.NumberColumn(format="percent"),
+            "Risco": st.column_config.ProgressColumn(format="percent", min_value=0, max_value=1)})
+        st.download_button("Baixar fila (CSV)", tab.to_csv(index=False).encode("utf-8"), "fila_prioridade.csv", "text/csv")
+    with t2:
+        c = comp.melt(id_vars=["nome"], value_vars=["cv_ap", "ap"], var_name="Etapa", value_name="AP")
+        c["Etapa"] = c["Etapa"].map({"cv_ap": "Walk-forward (treino)", "ap": "Teste"})
+        ch = alt.Chart(c).mark_bar().encode(
+            x=alt.X("nome:N", title=None, sort=comp["nome"].tolist(), axis=alt.Axis(labelAngle=0)),
+            xOffset="Etapa:N", y=alt.Y("AP:Q", scale=alt.Scale(domain=[0.9, 1.0]), title="AP (precisão–revocação)"),
+            color=alt.Color("Etapa:N", scale=alt.Scale(range=[COR_DS[1], COR_DS[2]]), legend=alt.Legend(orient="bottom", title=None)),
+            tooltip=["nome:N", "Etapa:N", alt.Tooltip("AP:Q", format=".3f")])
+        st.altair_chart(ch.properties(height=260), width="stretch")
+        vis = comp[["nome", "cv_ap", "ap", "auc", "precisao", "revocacao", "f1", "rev_novos", "escolhido"]].rename(columns={
+            "nome": "Modelo", "cv_ap": "AP walk-forward", "ap": "AP teste", "auc": "AUC", "precisao": "Precisão",
+            "revocacao": "Revocação", "f1": "F1", "rev_novos": "Novos alertas achados", "escolhido": "Definitivo"})
+        st.dataframe(vis, width="stretch", hide_index=True)
+        st.caption("O eixo começa em 0,90 para enxergar a diferença: todos os modelos ficam muito próximos da regra de persistência.")
+    with t3:
+        j = ml / "JUSTIFICATIVA.md"
+        st.markdown(j.read_text(encoding="utf-8").split("\n", 1)[1] if j.exists() else "Sem relatório.")
+    with t4:
+        im = ml / "importancia.csv"
+        if im.exists():
+            d = pd.read_csv(im).head(8)
+            st.caption("Quanto o AP cai no teste quando a variável é embaralhada.")
+            st.altair_chart(alt.Chart(d).mark_bar(color=COR_DS[1]).encode(
+                y=alt.Y("variavel:N", sort="-x", title=None), x=alt.X("queda_ap:Q", title="Queda no AP"),
+                tooltip=["variavel:N", alt.Tooltip("queda_ap:Q", format=".3f")]).properties(height=260), width="stretch")
 
 
 def main():
-    st.set_page_config(page_title="Nexus Data · APS Recife", page_icon="🩺", layout="wide")
+    st.set_page_config(page_title="Nexus Data · CESAR School", page_icon="🩺", layout="wide")
     saida = _args()
     if not (saida / "analitica" / "fato_painel_ml.parquet").exists():
         st.error(f"Não há tabelas analíticas em {saida}. Rode `python -m aps_sintetico tudo` antes.")
@@ -507,6 +558,7 @@ def main():
     D = carrega(str(saida))
     with st.sidebar:
         st.markdown("## Nexus **Data**")
+        st.caption("CESAR School")
         pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA"], label_visibility="collapsed")
         st.divider()
         man = D["manifesto"]

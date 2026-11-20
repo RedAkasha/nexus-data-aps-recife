@@ -15,5 +15,5 @@ Estes arquivos substituem os de mesmo nome no repositório (`painel/`, `.streaml
 Sem o GeoJSON o painel funciona e mostra barras por DS no lugar do mapa.
 
 Páginas: **Visão Geral** (cartões, mapa, tendência, ranking), **Ad. Preenchimento** (completude por campo, por DS e no
-tempo, ranking por equipe, planilha SESAU) e **Prevenção IA**, que só lê `saida/<cenário>/ml/predicoes.parquet`
+tempo, ranking por equipe, planilha de monitoramento) e **Prevenção IA**, que lê `saida/<cenário>/ml/` (predicoes.parquet, comparacao.csv, resumo.json) gerado por `python -m aps_sintetico ml`
 (colunas `ine, periodo, id_ds, prop_sim_os, previsto`; `modelo` é opcional). O modelo final pode ser trocado sem mexer no painel.
