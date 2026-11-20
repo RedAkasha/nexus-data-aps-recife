@@ -1,10 +1,137 @@
-# Gerador de dados sintéticos da APS do Recife (PEC e-SUS APS)
+<h1 align="center">🧬 Nexus Data</h1>
 
-**Projeto 3 – Dados · CESAR School · 2026.2 · Equipe 2 – Nexus Data**
+<p align="center">
+  <strong>Transformando o registro de equidade do PEC e-SUS APS em informação, inteligência e ação.</strong>
+</p>
 
-Este repositório gera, carrega, valida e analisa uma base **sintética** da Atenção Primária à Saúde do Recife. A base segue o leiaute do PEC e-SUS APS 8.7.0 (LEDI). O objetivo é apoiar o monitoramento do registro de **orientação sexual, identidade de gênero, raça/cor e deficiência** no cadastro individual, que é o foco da reunião com a Secretaria de Saúde (01/09/2026).
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-141414?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/PostgreSQL-141414?style=for-the-badge&logo=postgresql&logoColor=white">
+  <img src="https://img.shields.io/badge/Streamlit-141414?style=for-the-badge&logo=streamlit&logoColor=white">
+  <img src="https://img.shields.io/badge/scikit--learn-141414?style=for-the-badge&logo=scikitlearn&logoColor=white">
+  <img src="https://img.shields.io/badge/MLflow-141414?style=for-the-badge&logo=mlflow&logoColor=white">
+  <img src="https://img.shields.io/badge/Docker-141414?style=for-the-badge&logo=docker&logoColor=white">
+</p>
 
-> **Dados sintéticos.** Nenhuma linha corresponde a uma pessoa real. Nomes, CPF, CNS e endereços são fictícios (CPF e CNS têm dígito verificador válido). As distribuições vêm de fontes oficiais e de premissas declaradas. A base **não** é um retrato da população do Recife e não pode ser apresentada como tal (RN28).
+<p align="center">
+  <b>Projeto 3 – Dados · CESAR School · 2026.2 · Equipe 2 – Nexus Data</b><br>
+  Parceiro: Secretaria de Saúde do Recife (SESAU) – Atenção Básica
+</p>
+
+<p align="center">
+  <img src="docs/resultados/painel_demo.png" alt="Painel Nexus Data – Visão Geral (base sintética de demonstração)" width="820">
+  <br><sub>Painel Streamlit – Visão Geral, sobre a base sintética de demonstração.</sub>
+</p>
+
+---
+
+## 📌 Sobre o projeto
+
+O **Nexus Data** reúne um gerador de dados **sintéticos** da Atenção Primária à Saúde (APS) do Recife, no leiaute do PEC e-SUS APS 8.7.0, um banco PostgreSQL, uma camada analítica, um **painel gerencial** e um modelo de **Machine Learning** que antecipa quais equipes vão terminar o próximo quadrimestre com baixo preenchimento dos campos de equidade.
+
+> **Dados sintéticos.** Nenhuma linha corresponde a uma pessoa real. Nomes, CPF, CNS e endereços são fictícios (CPF e CNS têm dígito verificador válido). A base **não** é um retrato da população do Recife e não pode ser apresentada como tal (RN28).
+
+## 🎯 O problema
+
+As políticas de equidade em saúde do Recife dependem de quatro marcadores registrados no **cadastro individual** do PEC e-SUS APS:
+
+- Raça/cor
+- Orientação sexual
+- Identidade de gênero
+- Deficiência
+
+Os registros existem, mas transformá-los em informação confiável e acionável ainda é um processo manual. Hoje, a Secretaria de Saúde precisa lidar com:
+
+- extrações e consolidações recorrentes, feitas à mão;
+- falta de padronização e de regras claras (consentimento, idade mínima, semântica do "Não");
+- cálculo dos indicadores por Equipe de Saúde da Família, unidade e Distrito Sanitário;
+- pouca visibilidade do histórico e do efeito de oficinas e ações formativas;
+- dificuldade de saber **quais equipes precisam de apoio antes** de o preenchimento cair.
+
+Como dados reais de pessoas são sensíveis e não podem ser versionados, o problema também tem uma segunda face: **como desenvolver e testar o pipeline de monitoramento sem dado pessoal**, e como avaliar os métodos contra uma verdade conhecida. É isso que o gerador sintético resolve.
+
+## 🎯 Objetivos
+
+1. Gerar uma base sintética realista e reprodutível (mesma semente, mesmo SHA-256), calibrada com fontes oficiais (Censo 2022, PNS 2019, CNES, boletim SESAU).
+2. Automatizar a carga, a validação e a camada analítica que alimentam o monitoramento por equipe.
+3. Oferecer um painel gerencial com indicadores, tendências, mapa por bairro/Distrito Sanitário e ranking de equipes.
+4. Antecipar equipes com risco de baixo preenchimento com um modelo auditável, sem vazamento de dados, e entregar uma **Fila de Prioridade**.
+
+## 💡 A solução
+
+| Camada | O que entrega |
+|---|---|
+| ⚙️ **Engenharia de dados** | Gerador estatístico (DAG), carga em PostgreSQL direta ou via *staging* LEDI, validações VC01–VC15 e camada analítica em SQL e Parquet |
+| 📊 **Indicadores** | Proporção de "Sim", "Não" e "não informado" por equipe, unidade e DS; planilha de monitoramento da SESAU (colunas H a U); qualidade do registro × gabarito |
+| 🧠 **Machine Learning** | Alerta de baixo preenchimento no próximo quadrimestre, com persistência como piso, walk-forward e auditoria anti-vazamento |
+| 🎯 **Priorização** | Fila de Prioridade ordenada pelo risco estimado, com download em CSV |
+| 📈 **Painel** | Streamlit com Visão Geral, Ranking por equipe, Relatórios, Qualidade do registro e Prevenção IA |
+
+### Fila de Prioridade (aba "Prevenção IA")
+
+O painel lista as equipes por risco estimado de ficar abaixo de 15% de "Sim" no próximo quadrimestre, com o "Sim" atual, o risco e o alerta. A classificação é **apoio à decisão**, sempre a ser lida junto das regras e do contexto definidos pela gestão. O modelo não infere atributos sensíveis de nenhuma pessoa: ele trabalha só com indicadores agregados por equipe.
+
+## 🏗️ Fluxo da solução
+
+```
+Fontes oficiais ──► Gerador sintético ──► nucleo / staging ──► PostgreSQL ──► Camada analítica ──► Painel Streamlit
+(Censo, PNS,        (IPF, cópulas,        (CSV, LEDI)          (carga,        (SQL + Parquet)      (Visão Geral,
+ CNES, SESAU)        registro, dinâmica)                         validação)            │             Preenchimento,
+                                │                                                      ▼             Prevenção IA)
+                                └──► verdade/ (gabarito) ──────────────► Inferência + ML (MLflow)
+```
+
+---
+
+## 👥 Equipe
+
+### Nexus Data Team
+
+<table>
+<tr>
+
+<td align="center">
+  <img width="120" height="120" alt="Filipe Nava" src="https://github.com/user-attachments/assets/91405b85-3789-42c4-9beb-ac0ce52c7e16" /><br>
+  <b>Filipe Nava</b><br>
+  <sub>Developer</sub>
+</td>
+
+<td align="center">
+  <img width="120" height="120" alt="Hallana Santana" src="https://github.com/user-attachments/assets/6234947c-f093-430a-96f8-0a5256881c38" /><br>
+  <b>Hallana Santana</b><br>
+  <sub>Product Owner</sub>
+</td>
+
+<td align="center">
+  <img width="120" height="120" alt="Kiara Souza" src="https://github.com/user-attachments/assets/acff5161-3bdd-4314-9189-d974d07ceefa" /><br>
+  <b>Kiara Souza</b><br>
+  <sub>Developer</sub>
+</td>
+
+<td align="center">
+  <img width="120" height="120" alt="Leandro Tavarez" src="https://github.com/user-attachments/assets/a85468b6-0c87-46ae-ba8d-858dbc074ad2" /><br>
+  <b>Leandro Tavarez</b><br>
+  <sub>Scrum Master</sub>
+</td>
+
+<td align="center">
+  <img width="120" height="120" alt="Patricia Cedraz" src="https://github.com/user-attachments/assets/7d7925de-95cd-489c-970a-030ab75c07b1" /><br>
+  <b>Patricia Cedraz</b><br>
+  <sub>Developer</sub>
+</td>
+
+<td align="center">
+  <img width="120" height="120" alt="Paulo Bueno" src="https://github.com/user-attachments/assets/910b8f17-e6c8-4641-ab2b-1af3abd254c7" /><br>
+  <b>Paulo Bueno</b><br>
+  <sub>Developer</sub>
+</td>
+
+</tr>
+</table>
+
+### 🎓 Contexto acadêmico
+
+**CESAR School — Projeto 3 – Dados (2026.2).** Tema: *Equidade em Dados — Inteligência Analítica sobre o PEC/e-SUS APS para as Políticas de Equidade em Saúde do Recife.* Parceiro: Secretaria Executiva de Atenção Básica, Secretaria de Saúde do Recife. Áreas: Engenharia de Dados · Machine Learning · Analytics · Saúde Pública.
 
 ---
 
@@ -22,10 +149,8 @@ Este repositório gera, carrega, valida e analisa uma base **sintética** da Ate
 10. [Testes e reprodutibilidade](#10-testes-e-reprodutibilidade)
 11. [Etapas do plano × código](#11-etapas-do-plano--código)
 12. [Limitações e pendências](#12-limitações-e-pendências)
-13. [Publicação no GitHub](#13-publicação-no-github)
+13. [Repositório no GitHub](#13-repositório-no-github)
 14. [Licença e citação](#14-licença-e-citação)
-
----
 
 ## 1. O que o gerador faz
 
@@ -266,12 +391,16 @@ O mapa coroplético usa o GeoJSON dos bairros em `painel/assets/bairros-do-recif
 - Viés da prevalência LGB+ estimada só com quem respondeu, bruto e pós-estratificado por idade.
 - Efeito das oficinas: diferença ingênua e diferença-em-diferenças no painel observado, contra a mesma conta na verdade.
 
-**ML** (`ml`). Prevê a proporção de "Sim" da equipe no quadrimestre seguinte (Tabela 10 do plano):
+**ML** (`ml`). Classificação supervisionada de **alerta de baixo preenchimento**: a equipe terminará o próximo quadrimestre com menos de 15% de "Sim" em orientação sexual (dado real entre os elegíveis)? Quem for sinalizado entra na fila de apoio e oficina antes de o problema acontecer.
 
-- Partição temporal, com validação *walk-forward* para escolher o modelo.
-- Linhas de base: persistência e média móvel.
-- Modelos: KNN, linear, ridge, árvore, floresta aleatória e *gradient boosting*, cada um no nível e na variação.
-- Métricas: MAE, RMSE, R², MAE por DS e precisão@k.
+- Alvo é o futuro: as variáveis usam só informação até o fim do quadrimestre *t*; o rótulo é o de *t+1*.
+- Partição temporal (nunca aleatória) e validação *walk-forward* para escolher modelo e limiar.
+- Pré-processamento dentro do `Pipeline` do scikit-learn, ajustado só no treino de cada dobra; hiperparâmetros fixados a priori e teste usado uma única vez.
+- Auditoria automática que **aborta a execução** se o treino não for anterior ao teste, se uma coluna-alvo entrar nas variáveis ou se um modelo com rótulos embaralhados "acertar" demais.
+- Modelos: persistência (piso a vencer), regressão logística, árvore de decisão, KNN e floresta aleatória. Escolha pelo maior AP (área sob a curva precisão–revocação) no *walk-forward*, com regra de 1 erro-padrão em favor do mais explicável.
+- Métricas: AP, AUC, precisão, revocação, F1, precisão@10%, importância por permutação e IC95% por *bootstrap* agrupado por equipe. Saídas em `ml/` (`comparacao.csv`, `resumo.json`, `importancia.csv`, `predicoes.parquet`, `JUSTIFICATIVA.md`).
+
+Resultado de referência (cenário `demo`, 8 DS, teste em 2026/1 e 2026/2): o modelo definitivo foi a regressão logística (AP 0,977; revocação 0,81), praticamente empatada com a persistência (AP 0,981). Isso é um achado honesto: como o cadastro muda devagar, "quem está baixo continua baixo", e o ganho do ML aparece sobretudo na ordenação e na explicação do risco (as variáveis que mais pesam são a proporção atual de "Sim" e de "Não"). Os novos alertas, de equipes que hoje estão fora de alerta, ainda são difíceis de antecipar e seguem como limitação.
 
 Com `docker compose up -d` e `MLFLOW_TRACKING_URI=http://localhost:5000`, as execuções vão para o MLflow (backend PostgreSQL, artefatos no MinIO). Sem servidor, ficam num SQLite local (`./mlflow.db`; veja com `mlflow ui --backend-store-uri sqlite:///mlflow.db`).
 
@@ -311,7 +440,7 @@ Nenhum distrito rejeitou H₀ a 5% (0 de 8); no conjunto, 2.884/116.930 = 2,47% 
 python -m pytest            # testes sem banco rodam sempre; os de banco exigem APS_DSN acessível
 ```
 
-Última conferência: 16 testes aprovados com PostgreSQL 16 (13 sem banco e 3 com banco); sem `APS_DSN`, os 3 de banco são pulados.
+Última conferência: 18 testes, dos quais 15 rodam sem banco (todos aprovados) e 3 exigem PostgreSQL 16; sem `APS_DSN`, esses 3 são pulados.
 
 Os testes cobrem:
 
