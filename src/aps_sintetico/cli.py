@@ -7,7 +7,7 @@ Comandos (na ordem do fluxo):
   validar       relatório de calibração, integridade e qualidade × gabarito (Etapa 8)
   analitica     tabelas analíticas em Parquet, sem banco (Etapa 9)
   inferencia    estimativas por equipe, viés MNAR e efeito das oficinas contra a verdade (Etapa 10)
-  ml            treina e avalia os modelos de regressão (Etapa 10; MLflow opcional)
+  ml            compara modelos de alerta de baixo preenchimento (sem vazamento) (Etapa 10; MLflow opcional)
   sensibilidade cenários, réplicas e hipercubo latino (Etapa 10)
   painel        abre o painel Streamlit
   tudo          gerar → analitica → [carregar → validar] → inferencia → ml
@@ -97,7 +97,7 @@ def cmd_inferencia(a):
 def cmd_ml(a):
     from . import ml
     r = ml.treina(_saida(a), usar_mlflow=not a.sem_mlflow)
-    print(r[["modelo", "mae", "rmse", "r2", "precisao_k", "cv_mae"]].to_string(index=False))
+    print(r[["modelo", "cv_ap", "ap", "auc", "precisao", "revocacao", "escolhido"]].round(3).to_string(index=False))
 
 
 def cmd_sensibilidade(a):
@@ -162,7 +162,7 @@ def main(argv=None) -> int:
     p.set_defaults(f=cmd_validar)
     comum(sub.add_parser("analitica", help="camada analítica em Parquet")).set_defaults(f=cmd_analitica)
     comum(sub.add_parser("inferencia", help="inferência contra a verdade")).set_defaults(f=cmd_inferencia)
-    p = comum(sub.add_parser("ml", help="modelos de regressão"))
+    p = comum(sub.add_parser("ml", help="comparação de modelos de classificação"))
     p.add_argument("--sem-mlflow", action="store_true")
     p.set_defaults(f=cmd_ml)
     p = sub.add_parser("sensibilidade", help="cenários e hipercubo latino")
