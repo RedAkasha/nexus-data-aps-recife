@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 
 import altair as alt
@@ -19,6 +19,7 @@ import streamlit as st
 from scipy import stats
 
 RAIZ = Path(__file__).resolve().parents[1]
+IDADE_MIN = 11     # idade mínima para orientação sexual e identidade de gênero (regra do "dado real", config/cenario_base.yaml)
 DDL = """
 CREATE TABLE IF NOT EXISTS raca_cor (id_raca_cor INTEGER PRIMARY KEY, descricao TEXT);
 CREATE TABLE IF NOT EXISTS orientacao_sexual (id_orientacao_sexual INTEGER PRIMARY KEY, descricao TEXT);
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS pessoa (id_pessoa INTEGER PRIMARY KEY AUTOINCREMENT,
     id_orientacao_sexual INTEGER REFERENCES orientacao_sexual,   -- NULL = não deseja informar
     id_identidade_genero INTEGER REFERENCES identidade_genero,   -- NULL = não deseja informar
     id_microarea INTEGER NOT NULL REFERENCES microarea,
+    sexo TEXT CHECK (sexo IN ('Masculino','Feminino')), dt_nascimento TEXT,
     id_profissional INTEGER REFERENCES profissional, data_coleta TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS pessoa_deficiencia (id_pessoa INTEGER REFERENCES pessoa,
     id_deficiencia INTEGER REFERENCES deficiencia, PRIMARY KEY (id_pessoa, id_deficiencia));
@@ -43,6 +45,11 @@ def abre_banco(saida: Path) -> sqlite3.Connection:
     con = sqlite3.connect(saida / "preenchimento.db")
     con.execute("PRAGMA foreign_keys = ON")
     con.executescript(DDL)
+    for col in ("sexo TEXT", "dt_nascimento TEXT"):          # bancos criados antes dessas colunas
+        try:
+            con.execute(f"ALTER TABLE pessoa ADD COLUMN {col}")
+        except sqlite3.OperationalError:
+            pass
     dom = json.loads((RAIZ / "dados" / "dominios.json").read_text(encoding="utf-8"))
     for tab, chave, col in (("raca_cor", "dom_raca_cor", "id_raca_cor"),
                             ("orientacao_sexual", "dom_orientacao_sexual", "id_orientacao_sexual"),
@@ -78,17 +85,30 @@ def preenchimento_virtual(D: dict, saida: Path):
         nome_eq = st.selectbox("Equipe que fez a coleta", eq["nome"], key="f_eq")
         id_eq = eq.loc[eq["nome"] == nome_eq, "id_equipe"].iloc[0]
         mas = pd.read_sql("SELECT id_microarea, codigo FROM microarea WHERE id_equipe = ? ORDER BY codigo", con, params=(id_eq,))
+        nasc = st.date_input("Data de nascimento", value=date(1990, 1, 1), min_value=date(1900, 1, 1),
+                             max_value=date.today(), format="DD/MM/YYYY", key="f_nasc")
+        hoje = date.today()
+        idade = hoje.year - nasc.year - ((hoje.month, hoje.day) < (nasc.month, nasc.day))
+        menor = idade < IDADE_MIN
+        sexo = st.radio("Sexo", ["Masculino", "Feminino"], horizontal=True, key="f_sexo")
+        if menor:
+            st.warning(f"Idade: {idade} anos. Abaixo de {IDADE_MIN} anos, orientação sexual e identidade de gênero "
+                       "ficam bloqueadas e são gravadas como NULL.")
+        else:
+            st.caption(f"Idade: {idade} anos.")
         with st.form("formulario", clear_on_submit=True):
             prof = st.text_input("Profissional (nome)", placeholder="opcional")
             micro = st.selectbox("Microárea", mas["codigo"], format_func=lambda c: f"Microárea {int(c):02d}")
             raca = st.selectbox("Raça/cor", dom["raca_cor"]["descricao"])
-            q_os = st.radio("Deseja informar a orientação sexual?", ["Não", "Sim"], horizontal=True)
+            q_os = st.radio("Deseja informar a orientação sexual?", ["Não", "Sim"], horizontal=True, disabled=menor)
             os_ = st.selectbox("Orientação sexual (se Sim)", dom["orientacao_sexual"]["descricao"])
-            q_ig = st.radio("Deseja informar a identidade de gênero?", ["Não", "Sim"], horizontal=True)
+            q_ig = st.radio("Deseja informar a identidade de gênero?", ["Não", "Sim"], horizontal=True, disabled=menor)
             ig = st.selectbox("Identidade de gênero (se Sim)", dom["identidade_genero"]["descricao"])
             defs = st.multiselect("Deficiência (pode marcar mais de uma)", dom["deficiencia"]["descricao"])
             enviar = st.form_submit_button("Salvar cadastro", type="primary")
         if enviar:
+            if menor:                      # regra no servidor também: não depende do widget
+                q_os = q_ig = "Não"
             f = lambda t, c, v: int(dom[t].loc[dom[t]["descricao"] == v, c].iloc[0])   # noqa: E731
             idp = None
             if prof.strip():
@@ -96,12 +116,13 @@ def preenchimento_virtual(D: dict, saida: Path):
                 idp = con.execute("SELECT id_profissional FROM profissional WHERE nome=? AND id_equipe=?",
                                   (prof.strip(), id_eq)).fetchone()[0]
             cur = con.execute(
-                "INSERT INTO pessoa (id_raca_cor, id_orientacao_sexual, id_identidade_genero, id_microarea, id_profissional, data_coleta) "
-                "VALUES (?, ?, ?, ?, ?, ?)",
+                "INSERT INTO pessoa (id_raca_cor, id_orientacao_sexual, id_identidade_genero, id_microarea, id_profissional, data_coleta, sexo, dt_nascimento) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 (f("raca_cor", "id_raca_cor", raca),
                  f("orientacao_sexual", "id_orientacao_sexual", os_) if q_os == "Sim" else None,
                  f("identidade_genero", "id_identidade_genero", ig) if q_ig == "Sim" else None,
-                 int(mas.loc[mas["codigo"] == micro, "id_microarea"].iloc[0]), idp, datetime.now().isoformat(timespec="seconds")))
+                 int(mas.loc[mas["codigo"] == micro, "id_microarea"].iloc[0]), idp, datetime.now().isoformat(timespec="seconds"),
+                 sexo, nasc.isoformat()))
             con.executemany("INSERT INTO pessoa_deficiencia VALUES (?, ?)",
                             [(cur.lastrowid, f("deficiencia", "id_deficiencia", x)) for x in defs])
             con.commit()
@@ -110,12 +131,16 @@ def preenchimento_virtual(D: dict, saida: Path):
             rng = np.random.default_rng(len(pd.read_sql("SELECT 1 FROM pessoa", con)) + 1)
             ids_ma = pd.read_sql("SELECT id_microarea FROM microarea", con)["id_microarea"].values
             for _ in range(200):
+                ida = int(rng.integers(0, 90))
+                adulto = ida >= IDADE_MIN
                 cur = con.execute(
-                    "INSERT INTO pessoa (id_raca_cor, id_orientacao_sexual, id_identidade_genero, id_microarea, data_coleta) VALUES (?,?,?,?,?)",
+                    "INSERT INTO pessoa (id_raca_cor, id_orientacao_sexual, id_identidade_genero, id_microarea, data_coleta, sexo, dt_nascimento) "
+                    "VALUES (?,?,?,?,?,?,?)",
                     (int(rng.choice(dom["raca_cor"]["id_raca_cor"], p=[.35, .1, .5, .03, .02])),
-                     int(rng.choice(dom["orientacao_sexual"]["id_orientacao_sexual"])) if rng.random() < .4 else None,
-                     int(rng.choice(dom["identidade_genero"]["id_identidade_genero"])) if rng.random() < .4 else None,
-                     int(rng.choice(ids_ma)), datetime.now().isoformat(timespec="seconds")))
+                     int(rng.choice(dom["orientacao_sexual"]["id_orientacao_sexual"])) if adulto and rng.random() < .4 else None,
+                     int(rng.choice(dom["identidade_genero"]["id_identidade_genero"])) if adulto and rng.random() < .4 else None,
+                     int(rng.choice(ids_ma)), datetime.now().isoformat(timespec="seconds"),
+                     str(rng.choice(["Masculino", "Feminino"])), date(date.today().year - ida, 6, 15).isoformat()))
                 for x in dom["deficiencia"]["id_deficiencia"][rng.random(len(dom["deficiencia"])) < .05]:
                     con.execute("INSERT INTO pessoa_deficiencia VALUES (?,?)", (cur.lastrowid, int(x)))
             con.commit()
@@ -131,14 +156,15 @@ def preenchimento_virtual(D: dict, saida: Path):
         else:
             base = pd.read_sql(
                 "SELECT p.id_pessoa, r.descricao AS raca_cor, COALESCE(o.descricao,'(não informou)') AS orientacao, "
-                "COALESCE(i.descricao,'(não informou)') AS identidade, m.codigo AS microarea, e.nome AS equipe, "
+                "COALESCE(i.descricao,'(não informou)') AS identidade, p.sexo, m.codigo AS microarea, e.nome AS equipe, "
                 "(SELECT COUNT(*) FROM pessoa_deficiencia d WHERE d.id_pessoa = p.id_pessoa) AS n_deficiencias, p.data_coleta "
                 "FROM pessoa p JOIN raca_cor r USING (id_raca_cor) JOIN microarea m USING (id_microarea) "
                 "JOIN equipe e ON e.id_equipe = m.id_equipe LEFT JOIN orientacao_sexual o USING (id_orientacao_sexual) "
                 "LEFT JOIN identidade_genero i USING (id_identidade_genero)", con)
             st.markdown("##### Cruzamento")
             a, b = st.columns(2)
-            ev = {"raca_cor": "Raça/cor", "orientacao": "Orientação", "identidade": "Identidade de gênero", "microarea": "Microárea"}
+            ev = {"raca_cor": "Raça/cor", "orientacao": "Orientação", "identidade": "Identidade de gênero", "sexo": "Sexo",
+                  "microarea": "Microárea"}
             x = a.selectbox("Linhas", list(ev), format_func=ev.get, index=0)
             y = b.selectbox("Colunas", list(ev), format_func=ev.get, index=2)
             if x == y:
