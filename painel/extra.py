@@ -90,10 +90,9 @@ def preenchimento_virtual(D: dict, saida: Path):
         hoje = date.today()
         idade = hoje.year - nasc.year - ((hoje.month, hoje.day) < (nasc.month, nasc.day))
         menor = idade < IDADE_MIN
-        sexo = st.radio("Sexo", ["Masculino", "Feminino"], horizontal=True, key="f_sexo")
         if menor:
-            st.warning(f"Idade: {idade} anos. Abaixo de {IDADE_MIN} anos, orientação sexual e identidade de gênero "
-                       "ficam bloqueadas e são gravadas como NULL.")
+            st.warning(f"Idade: {idade} anos. Abaixo de {IDADE_MIN} anos a orientação sexual fica bloqueada (NULL) e, "
+                       "no lugar da identidade de gênero, só é possível registrar Masculino ou Feminino.")
         else:
             st.caption(f"Idade: {idade} anos.")
         with st.form("formulario", clear_on_submit=True):
@@ -101,9 +100,14 @@ def preenchimento_virtual(D: dict, saida: Path):
             micro = st.selectbox("Microárea", mas["codigo"], format_func=lambda c: f"Microárea {int(c):02d}")
             raca = st.selectbox("Raça/cor", dom["raca_cor"]["descricao"])
             q_os = st.radio("Deseja informar a orientação sexual?", ["Não", "Sim"], horizontal=True, disabled=menor)
-            os_ = st.selectbox("Orientação sexual (se Sim)", dom["orientacao_sexual"]["descricao"])
-            q_ig = st.radio("Deseja informar a identidade de gênero?", ["Não", "Sim"], horizontal=True, disabled=menor)
-            ig = st.selectbox("Identidade de gênero (se Sim)", dom["identidade_genero"]["descricao"])
+            os_ = st.selectbox("Orientação sexual (se Sim)", dom["orientacao_sexual"]["descricao"], disabled=menor)
+            if menor:
+                sexo = st.radio("Sexo (menor de idade)", ["Masculino", "Feminino"], horizontal=True)
+                q_ig, ig = "Não", None
+            else:
+                sexo = None
+                q_ig = st.radio("Deseja informar a identidade de gênero?", ["Não", "Sim"], horizontal=True)
+                ig = st.selectbox("Identidade de gênero (se Sim)", dom["identidade_genero"]["descricao"])
             defs = st.multiselect("Deficiência (pode marcar mais de uma)", dom["deficiencia"]["descricao"])
             enviar = st.form_submit_button("Salvar cadastro", type="primary")
         if enviar:
