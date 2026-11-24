@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from aps_sintetico import parametros as P  # noqa: E402
 import geo  # noqa: E402
+import extra  # noqa: E402
 
 LIMIAR_ALERTA = 0.15          # "Sim" abaixo de 15% = equipe em alerta
 # Paleta categórica validada (dataviz), uma cor fixa por DS: a cor segue o distrito, nunca o ranking
@@ -559,7 +560,7 @@ def main():
     with st.sidebar:
         st.markdown("## Nexus **Data**")
         st.caption("CESAR School")
-        pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA"], label_visibility="collapsed")
+        pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA", "Preenchimento Virtual", "SQL e Inferência"], label_visibility="collapsed")
         st.divider()
         man = D["manifesto"]
         try:
@@ -569,7 +570,9 @@ def main():
         st.markdown(f"**Última atualização**  \n{quando}")
         st.caption(f"Cenário `{man['nome']}` · escala {man['escala']} · semente {man['semente']}  \n"
                    "**Dados sintéticos** – não representam pessoas reais.")
-    {"Visão Geral": visao_geral, "Ad. Preenchimento": preenchimento, "Prevenção IA": prevencao}[pagina](D)
+    {"Visão Geral": visao_geral, "Ad. Preenchimento": preenchimento, "Prevenção IA": prevencao,
+     "Preenchimento Virtual": lambda D: extra.preenchimento_virtual(D, saida),
+     "SQL e Inferência": lambda D: extra.sql_inferencia(D, saida, COR_DS)}[pagina](D)
 
 
 main()
