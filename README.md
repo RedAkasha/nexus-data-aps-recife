@@ -1,5 +1,3 @@
-<h1 align="center">🧬 Nexus Data</h1>
-
 <p align="center">
   <strong>Transformando o registro de equidade do PEC e-SUS APS em informação, inteligência e ação.</strong>
 </p>
@@ -18,8 +16,9 @@
   Parceiro: Secretaria de Saúde do Recife (SESAU) – Atenção Básica
 </p>
 
+<img width="1700" height="920" alt="image" src="https://github.com/user-attachments/assets/71c5b5b4-769f-4cb7-80df-428a7e95029e" />
+
 <p align="center">
-  <img src="docs/resultados/painel_demo.png" alt="Painel Nexus Data – Visão Geral (base sintética de demonstração)" width="820">
   <br><sub>Painel Streamlit – Visão Geral, sobre a base sintética de demonstração.</sub>
 </p>
 
