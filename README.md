@@ -75,7 +75,7 @@ O painel lista as equipes por risco estimado de ficar abaixo de 15% de "Sim" no 
 ```
 Fontes oficiais ──► Gerador sintético ──► nucleo / staging ──► PostgreSQL ──► Camada analítica ──► Painel Streamlit
 (Censo, PNS,        (IPF, cópulas,        (CSV, LEDI)          (carga,        (SQL + Parquet)      (Visão Geral,
- CNES, SESAU)        registro, dinâmica)                         validação)            │             Preenchimento,
+ CNES, CESAR)        registro, dinâmica)                         validação)            │             Preenchimento,
                                 │                                                      ▼             Prevenção IA)
                                 └──► verdade/ (gabarito) ──────────────► Inferência + ML (MLflow)
 ```
