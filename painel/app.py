@@ -205,7 +205,8 @@ def necessidade(f: pd.DataFrame, chave: str) -> pd.DataFrame:
 
 
 # ----------------------------------------------------------------------------- mapa
-def mapa(G: dict | None, tot: pd.DataFrame, modo: str, bolas: pd.DataFrame | None = None, medida: str = "Quantidade"):
+def mapa(G: dict | None, tot: pd.DataFrame, modo: str, bolas: pd.DataFrame | None = None, medida: str = "Quantidade",
+         titulos: tuple = ("Quantidade", "% do distrito")):
     """Bairros do Recife coloridos por DS ou pelo indicador do DS. Sem a malha, barras por DS."""
     v = tot.set_index("id_ds")
     col = {"Distrito Sanitário": None, "% de \"Sim\" (orientação sexual)": "prop_sim",
@@ -254,8 +255,8 @@ def mapa(G: dict | None, tot: pd.DataFrame, modo: str, bolas: pd.DataFrame | Non
         bol = alt.Chart(pts).mark_circle(color="#d03b3b", opacity=0.72, stroke="#7a1d1d", strokeWidth=1.2).encode(
             longitude="lon:Q", latitude="lat:Q",
             size=alt.Size("valor:Q", scale=alt.Scale(domain=[0, top], range=[0, 7000]), legend=None),
-            tooltip=[alt.Tooltip("DS:N", title="Distrito"), alt.Tooltip("qtd:Q", title="Quantidade", format=",.0f"),
-                     alt.Tooltip("pct:Q", title="% do distrito", format=".1%")])
+            tooltip=[alt.Tooltip("DS:N", title="Distrito"), alt.Tooltip("qtd:Q", title=titulos[0], format=",.1f"),
+                     alt.Tooltip("pct:Q", title=titulos[1], format=".1%")])
         camadas.append(bol)
     camadas += [halo, texto]
     return alt.layer(*camadas).project(type="mercator").properties(height=470)
@@ -513,7 +514,8 @@ def prevencao(D: dict):
     cartao(k3, "AP no teste", f"{esc['ap']:.2f}".replace(".", ","), None, None, "precisão–revocação, 1 uso do teste")
     cartao(k4, "Revocação", _pct(esc["revocacao"], 0), None, None, "alertas reais encontrados")
     st.write("")
-    t1, t2, t3, t4, t5 = st.tabs(["Fila de prioridade", "Comparação de modelos", "Justificativa técnica", "O que pesa na decisão", "Por Distrito"])
+    t1, t5, t6, t2, t3, t4 = st.tabs(["Fila de equipes", "Previsão por Distrito", "Mapa da previsão", "Comparação de modelos",
+                                      "Por que escolhemos assim", "O que pesa na decisão"])
     with t1:
         tab = u.sort_values("prob_alerta", ascending=False)[
             ["nome_equipe", "nome_unidade", "DS", "prop_sim_os", "prob_alerta", "alerta"]].rename(
@@ -539,10 +541,11 @@ def prevencao(D: dict):
         st.dataframe(vis, width="stretch", hide_index=True)
         st.caption("O eixo começa em 0,90 para enxergar a diferença: todos os modelos ficam muito próximos da regra de persistência.")
     with t3:
-        j = ml / "JUSTIFICATIVA.md"
-        st.markdown(j.read_text(encoding="utf-8").split("\n", 1)[1] if j.exists() else "Sem relatório.")
+        _por_que(D, comp, R)
     with t5:
         _distritos_ml(D)
+    with t6:
+        _mapa_previsao(D, prox)
     with t4:
         im = ml / "importancia.csv"
         if im.exists():
@@ -551,6 +554,103 @@ def prevencao(D: dict):
             st.altair_chart(alt.Chart(d).mark_bar(color=COR_DS[1]).encode(
                 y=alt.Y("variavel:N", sort="-x", title=None), x=alt.X("queda_ap:Q", title="Queda no AP"),
                 tooltip=["variavel:N", alt.Tooltip("queda_ap:Q", format=".3f")]).properties(height=260), width="stretch")
+
+
+def _por_que(D: dict, comp: pd.DataFrame, R: dict):
+    ml = D["saida"] / "ml"
+    st.markdown("#### O que escolhemos prever, e por quê")
+    st.markdown(
+        "- **Não é evasão.** O professor disse que não fazia sentido e a cliente não pediu. O foco do projeto é o **registro** de "
+        "orientação sexual, identidade de gênero, raça/cor e deficiência.\n"
+        "- **Alvo:** o \"Sim\" em orientação sexual (a pessoa aceitou informar). Quanto menor, mais o registro está falhando.\n"
+        "- **Dois níveis:** por **equipe** (fila de apoio: quem vai ficar abaixo de 15%) e por **Distrito Sanitário** (quanto de \"Sim\" "
+        "cada distrito terá, para priorizar onde agir e alimentar o mapa).")
+    st.markdown("#### Por que esses modelos")
+    st.markdown(
+        "Comparamos do mais simples ao mais complexo: **persistência** (repetir o valor atual, o piso a vencer), **regressão logística** "
+        "(equipes) ou **ridge** (distritos), **árvore de decisão**, **KNN** e **floresta aleatória**. Os simples são explicáveis para a "
+        "equipe de saúde; os complexos testam se há padrão que os simples não pegam.")
+    st.markdown("#### Como escolhemos o definitivo")
+    st.markdown(
+        "Critério fixado **antes** de olhar o teste: o melhor desempenho na validação que avança no tempo (walk-forward). Entre os que "
+        "ficam a **1 erro-padrão** do melhor, escolhemos o mais explicável.")
+    c = comp[["nome", "cv_ap", "ap", "escolhido"]].rename(columns={"nome": "Equipes: modelo", "cv_ap": "AP validação", "ap": "AP teste", "escolhido": "Escolhido"})
+    st.dataframe(c, hide_index=True, width="stretch")
+    pd_ = ml / "comparacao_distritos.csv"
+    if pd_.exists():
+        cd = pd.read_csv(pd_)[["nome", "cv_mae_pp", "teste_mae_pp", "escolhido"]].rename(columns={
+            "nome": "Distritos: modelo", "cv_mae_pp": "Erro validação (p.p.)", "teste_mae_pp": "Erro teste (p.p.)", "escolhido": "Escolhido"})
+        st.dataframe(cd, hide_index=True, width="stretch")
+    st.markdown("#### O que descobrimos (resultado honesto)")
+    st.markdown(
+        "- A **regra simples (persistência) empata ou ganha** dos modelos: o \"Sim\" de uma equipe ou distrito muda pouco de um "
+        "quadrimestre para o outro (cerca de 95% das equipes mantêm o estado e os distritos variam menos de 1 p.p.).\n"
+        "- Mantemos o modelo aprendido porque ele dá uma **pontuação contínua de risco** e é explicável, mas a conclusão para a cliente é "
+        "que **o melhor indicador do futuro é o nível atual**: o apoio deve ir para quem já está baixo.\n"
+        "- O ganho do ML está em organizar a **fila de prioridade** e em medir com rigor, não em adivinhar mudanças.")
+    st.markdown("#### Como evitamos vazamento de dados")
+    st.markdown(
+        "Variáveis só usam dados até o fim do quadrimestre; o alvo é o quadrimestre seguinte. Divisão **no tempo** (treino antes do teste), "
+        "validação walk-forward, pré-processamento dentro do pipeline, hiperparâmetros fixados antes e teste usado uma única vez. Uma auditoria "
+        "automática interrompe a execução se algo disso falhar.")
+    st.markdown("#### Limites")
+    st.markdown("- Base **sintética**: mostra o método, não o desempenho real da rede.\n- Poucos distritos (8): a previsão por distrito é frágil.\n"
+                "- O modelo prevê risco, não causa; a decisão de apoio é da gestão.")
+    j = ml / "JUSTIFICATIVA.md"
+    if j.exists():
+        with st.expander("Relatório técnico completo (equipes)"):
+            st.markdown(j.read_text(encoding="utf-8").split("\n", 1)[1])
+
+
+def _mapa_previsao(D: dict, prox: pd.DataFrame):
+    ml = D["saida"] / "ml"
+    if not (ml / "distritos.parquet").exists():
+        st.info("Rode `python -m aps_sintetico ml` para gerar a previsão por distrito.")
+        return
+    d = pd.read_parquet(ml / "distritos.parquet")
+    al = prox.assign(alerta=prox["alerta"].astype(int)).groupby("id_ds").agg(qtd_alerta=("alerta", "sum"), equipes_tot=("ine", "nunique")).reset_index()
+    d = d.merge(al, on="id_ds", how="left")
+    st.caption("Bolas vermelhas = onde a previsão indica mais necessidade de apoio no próximo quadrimestre. Quanto maior a bola, maior a necessidade.")
+    medida = st.radio("Tamanho da bola", ["Equipes previstas em alerta", "Distância do melhor distrito (menor Sim previsto)"], horizontal=True)
+    if medida.startswith("Equipes"):
+        b = pd.DataFrame({"id_ds": d["id_ds"], "qtd": d["qtd_alerta"].fillna(0), "pct": d["qtd_alerta"].fillna(0) / d["equipes_tot"].where(d["equipes_tot"] > 0)})
+        tit = ("Equipes em alerta", "% das equipes do distrito")
+    else:
+        b = pd.DataFrame({"id_ds": d["id_ds"], "qtd": (d["sim_previsto"].max() - d["sim_previsto"]) * 100, "pct": d["sim_previsto"]})
+        tit = ("p.p. abaixo do melhor distrito", "Sim previsto")
+    arq = geo.arquivo_malha()
+    G = carrega_geo(str(arq), arq.stat().st_mtime) if arq else None
+    comp = D["comps"][-1]
+    tot = D["serie_ds"][D["serie_ds"]["competencia"] == comp]
+    n_eq = D["monitoramento_equipe"].groupby("id_ds")["ine"].nunique()
+    extra_ = {int(r.id_ds): (_int(r.qtd) if medida.startswith("Equipes") else f"{r.qtd:.1f} p.p.") for r in b.itertuples()}
+    esq, dir_ = st.columns([1.1, 1], gap="large")
+    with esq:
+        st.markdown("##### Mapa da previsão por Distrito Sanitário")
+        lg, mp = st.columns([1.1, 3])
+        with lg:
+            legenda_ds(tot, n_eq, "Distrito Sanitário", extra_)
+        with mp:
+            st.altair_chart(mapa(G, tot, "Distrito Sanitário", b, "Quantidade", tit), width="stretch")
+        if G is None:
+            st.warning("Mapa aguardando a malha de bairros em `painel/assets/`.")
+    with dir_:
+        st.markdown("##### Sim atual × previsto")
+        m = d.assign(DS=d["id_ds"].map(NOMES_DS)).melt(id_vars=["DS", "ordem_necessidade"], value_vars=["sim", "sim_previsto"], var_name="Medida", value_name="Sim")
+        m["Medida"] = m["Medida"].map({"sim": "Atual", "sim_previsto": "Previsto"})
+        st.altair_chart(alt.Chart(m).mark_bar().encode(
+            y=alt.Y("DS:N", sort=alt.SortField("ordem_necessidade"), title=None), x=alt.X("Sim:Q", axis=alt.Axis(format="%")), yOffset="Medida:N",
+            color=alt.Color("Medida:N", scale=alt.Scale(range=["#9aa5b1", "#d03b3b"]), legend=alt.Legend(orient="bottom", title=None)),
+            tooltip=["DS", "Medida", alt.Tooltip("Sim:Q", format=".1%")]).properties(height=340), width="stretch")
+        st.markdown("##### Equipes previstas em alerta por distrito")
+        g = d.assign(DS=d["id_ds"].map(NOMES_DS))
+        st.altair_chart(alt.Chart(g).mark_bar(color="#d03b3b").encode(
+            x=alt.X("DS:N", title=None, sort=alt.SortField("ordem_necessidade")), y=alt.Y("qtd_alerta:Q", title="Equipes em alerta"),
+            tooltip=["DS", "qtd_alerta", "equipes_tot"]).properties(height=200), width="stretch")
+        st.dataframe(g.sort_values("ordem_necessidade")[["ordem_necessidade", "DS", "sim", "sim_previsto", "qtd_alerta"]].rename(columns={
+            "ordem_necessidade": "Prioridade", "sim": "Sim atual", "sim_previsto": "Sim previsto", "qtd_alerta": "Equipes em alerta"}),
+            hide_index=True, width="stretch", column_config={"Sim atual": st.column_config.NumberColumn(format="percent"),
+                                                              "Sim previsto": st.column_config.NumberColumn(format="percent")})
 
 
 def _distritos_ml(D: dict):
