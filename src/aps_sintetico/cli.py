@@ -3,6 +3,7 @@
 Comandos (na ordem do fluxo):
   gerar         gera a base sintética (Etapas 6 e 7) e exporta núcleo, staging e verdade
   carregar      carrega a saída no PostgreSQL (rota direta ou --via-staging) e monta a analítica SQL
+  carregar-neon carga seletiva para o Neon (limite de 1 GB): estrutura, cadastros e analítica
   validar       relatório de calibração, integridade e qualidade × gabarito (Etapa 8)
   analitica     tabelas analíticas em Parquet, sem banco (Etapa 9)
   inferencia    estimativas por equipe, viés MNAR e efeito das oficinas contra a verdade (Etapa 10)
@@ -62,6 +63,16 @@ def cmd_carregar(a):
         return
     c = carga.carrega(_saida(a), a.dsn, via_staging=a.via_staging, analitica=not a.sem_analitica)
     print(f"Carga concluída ({'staging → núcleo' if a.via_staging else 'direta'}): {sum(v or 0 for v in c.values()):,} linhas")
+
+
+def cmd_carregar_neon(a):
+    from . import carga_neon
+    c = carga_neon.carrega(_saida(a), a.dsn, perfil=a.perfil)
+    tam, seg = c.pop("_tamanho_mb"), c.pop("_segundos")
+    total = sum(v or 0 for v in c.values())
+    print(f"Carga no Neon concluída (perfil {a.perfil}): {total:,} linhas em {seg / 60:.1f} min".replace(",", "."))
+    print(f"Tamanho do banco: {tam:,.0f} MB de {carga_neon.LIMITE_MB} MB ({tam / carga_neon.LIMITE_MB:.0%})"
+          .replace(",", "."))
 
 
 def cmd_validar(a):
@@ -146,6 +157,10 @@ def main(argv=None) -> int:
     p.add_argument("--sem-analitica", action="store_true")
     p.add_argument("--mysql", action="store_true", help="só escreve o script LOAD DATA para MySQL 8")
     p.set_defaults(f=cmd_carregar)
+    p = comum(sub.add_parser("carregar-neon", help="carga seletiva para o Neon (limite de 1 GB)"), banco=True)
+    p.add_argument("--perfil", choices=["padrao", "enxuto"], default="padrao",
+                   help="padrao: estrutura + cadastros + gabarito + analítica (~700 MB); enxuto: sem cadastros (~300 MB)")
+    p.set_defaults(f=cmd_carregar_neon)
     p = comum(sub.add_parser("validar", help="relatório de validação"), banco=True)
     p.add_argument("--sem-banco", action="store_true", help="só a calibração (sem PostgreSQL)")
     p.set_defaults(f=cmd_validar)
