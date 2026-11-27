@@ -27,6 +27,8 @@ Este repositório gera, carrega, valida e analisa uma base **sintética** da Ate
 
 ---
 
+> **Etapa 06 (entrega):** pipeline, bancos, requisitos × painel e passo a passo em [docs/PIPELINE_E_ENTREGA.md](docs/PIPELINE_E_ENTREGA.md).
+
 ## 1. O que o gerador faz
 
 O gerador é um **modelo estatístico gerativo**, montado como um grafo acíclico dirigido (DAG). Cada variável é sorteada a partir das que a antecedem, e a ordem segue o Plano Metodológico (`docs/Plano_Metodologico_Etapa6_Gerador.pdf`):

@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from aps_sintetico import parametros as P  # noqa: E402
 import geo  # noqa: E402
+import banco  # noqa: E402
 import extra  # noqa: E402
 
 LIMIAR_ALERTA = 0.15          # "Sim" abaixo de 15% = equipe em alerta
@@ -560,7 +561,7 @@ def main():
     with st.sidebar:
         st.markdown("## Nexus **Data**")
         st.caption("CESAR School")
-        pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA", "Preenchimento Virtual", "SQL e Inferência"], label_visibility="collapsed")
+        pagina = st.radio("Navegação", ["Visão Geral", "Ad. Preenchimento", "Prevenção IA", "Preenchimento Virtual", "Banco de Dados", "SQL e Inferência"], label_visibility="collapsed")
         st.divider()
         man = D["manifesto"]
         try:
@@ -572,6 +573,7 @@ def main():
                    "**Dados sintéticos** – não representam pessoas reais.")
     {"Visão Geral": visao_geral, "Ad. Preenchimento": preenchimento, "Prevenção IA": prevencao,
      "Preenchimento Virtual": lambda D: extra.preenchimento_virtual(D, saida),
+     "Banco de Dados": lambda D: banco.pagina(D, saida, COR_DS),
      "SQL e Inferência": lambda D: extra.sql_inferencia(D, saida, COR_DS)}[pagina](D)
 
 

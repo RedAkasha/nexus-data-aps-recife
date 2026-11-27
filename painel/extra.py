@@ -38,6 +38,54 @@ CREATE TABLE IF NOT EXISTS pessoa (id_pessoa INTEGER PRIMARY KEY AUTOINCREMENT,
     id_profissional INTEGER REFERENCES profissional, data_coleta TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS pessoa_deficiencia (id_pessoa INTEGER REFERENCES pessoa,
     id_deficiencia INTEGER REFERENCES deficiencia, PRIMARY KEY (id_pessoa, id_deficiencia));
+CREATE TABLE IF NOT EXISTS carga_fechada (id_carga INTEGER PRIMARY KEY AUTOINCREMENT, data_fechamento TEXT NOT NULL, fechada_em TEXT);
+CREATE TABLE IF NOT EXISTS auditoria_pessoa (id_auditoria INTEGER PRIMARY KEY AUTOINCREMENT, acao TEXT, id_pessoa INTEGER, quando TEXT);
+
+-- Regra: menor de 11 anos não pode ter orientação sexual nem identidade de gênero (devem ser NULL).
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_menor_ins BEFORE INSERT ON pessoa
+WHEN NEW.dt_nascimento IS NOT NULL AND (julianday('now') - julianday(NEW.dt_nascimento)) / 365.25 < 11
+     AND (NEW.id_orientacao_sexual IS NOT NULL OR NEW.id_identidade_genero IS NOT NULL)
+BEGIN SELECT RAISE(ABORT, 'Menor de 11 anos: orientação sexual e identidade de gênero devem ser NULL'); END;
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_menor_upd BEFORE UPDATE ON pessoa
+WHEN NEW.dt_nascimento IS NOT NULL AND (julianday('now') - julianday(NEW.dt_nascimento)) / 365.25 < 11
+     AND (NEW.id_orientacao_sexual IS NOT NULL OR NEW.id_identidade_genero IS NOT NULL)
+BEGIN SELECT RAISE(ABORT, 'Menor de 11 anos: orientação sexual e identidade de gênero devem ser NULL'); END;
+-- Regra 8: cadastro de carga fechada é imutável (não altera nem apaga).
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_carga_fechada_upd BEFORE UPDATE ON pessoa
+WHEN EXISTS (SELECT 1 FROM carga_fechada WHERE date(OLD.data_coleta) <= data_fechamento)
+BEGIN SELECT RAISE(ABORT, 'Carga fechada: o cadastro não pode ser alterado'); END;
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_carga_fechada_del BEFORE DELETE ON pessoa
+WHEN EXISTS (SELECT 1 FROM carga_fechada WHERE date(OLD.data_coleta) <= data_fechamento)
+BEGIN SELECT RAISE(ABORT, 'Carga fechada: o cadastro não pode ser excluído'); END;
+-- Auditoria de tudo que muda em pessoa.
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_aud_ins AFTER INSERT ON pessoa
+BEGIN INSERT INTO auditoria_pessoa (acao, id_pessoa, quando) VALUES ('INSERT', NEW.id_pessoa, datetime('now')); END;
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_aud_upd AFTER UPDATE ON pessoa
+BEGIN INSERT INTO auditoria_pessoa (acao, id_pessoa, quando) VALUES ('UPDATE', NEW.id_pessoa, datetime('now')); END;
+CREATE TRIGGER IF NOT EXISTS trg_pessoa_aud_del AFTER DELETE ON pessoa
+BEGIN INSERT INTO auditoria_pessoa (acao, id_pessoa, quando) VALUES ('DELETE', OLD.id_pessoa, datetime('now')); END;
+
+-- Views (consultas reutilizáveis); a idade é função escalar em SQL puro.
+CREATE VIEW IF NOT EXISTS vw_pessoa_idade AS
+SELECT id_pessoa, id_microarea, id_raca_cor, id_orientacao_sexual, id_identidade_genero, sexo, data_coleta,
+       CAST((julianday('now') - julianday(dt_nascimento)) / 365.25 AS INTEGER) AS idade,
+       CASE WHEN dt_nascimento IS NULL THEN 'sem data'
+            WHEN (julianday('now') - julianday(dt_nascimento)) / 365.25 < 11 THEN '0-10'
+            WHEN (julianday('now') - julianday(dt_nascimento)) / 365.25 < 18 THEN '11-17'
+            WHEN (julianday('now') - julianday(dt_nascimento)) / 365.25 < 60 THEN '18-59'
+            ELSE '60+' END AS faixa_etaria
+FROM pessoa;
+CREATE VIEW IF NOT EXISTS vw_resumo_equipe AS
+SELECT e.id_equipe, e.nome AS equipe, COUNT(p.id_pessoa) AS pessoas,
+       SUM(p.id_orientacao_sexual IS NOT NULL) AS informaram_orientacao,
+       ROUND(100.0 * SUM(p.id_orientacao_sexual IS NOT NULL) / NULLIF(COUNT(p.id_pessoa), 0), 1) AS pct_informou_orientacao,
+       SUM(p.id_identidade_genero IS NOT NULL) AS informaram_identidade
+FROM equipe e JOIN microarea m ON m.id_equipe = e.id_equipe LEFT JOIN pessoa p ON p.id_microarea = m.id_microarea
+GROUP BY e.id_equipe, e.nome;
+CREATE VIEW IF NOT EXISTS vw_raca_identidade AS
+SELECT r.descricao AS raca_cor, COALESCE(i.descricao, '(não informou)') AS identidade, COUNT(*) AS pessoas
+FROM pessoa p JOIN raca_cor r USING (id_raca_cor) LEFT JOIN identidade_genero i USING (id_identidade_genero)
+GROUP BY 1, 2;
 """
 
 
@@ -140,7 +188,7 @@ def preenchimento_virtual(D: dict, saida: Path):
                 cur = con.execute(
                     "INSERT INTO pessoa (id_raca_cor, id_orientacao_sexual, id_identidade_genero, id_microarea, data_coleta, sexo, dt_nascimento) "
                     "VALUES (?,?,?,?,?,?,?)",
-                    (int(rng.choice(dom["raca_cor"]["id_raca_cor"], p=[.35, .1, .5, .03, .02])),
+                    (int(rng.choice(dom["raca_cor"]["id_raca_cor"], p=[.35, .10, .02, .50, .03])),
                      int(rng.choice(dom["orientacao_sexual"]["id_orientacao_sexual"])) if adulto and rng.random() < .4 else None,
                      int(rng.choice(dom["identidade_genero"]["id_identidade_genero"])) if adulto and rng.random() < .4 else None,
                      int(rng.choice(ids_ma)), datetime.now().isoformat(timespec="seconds"),
