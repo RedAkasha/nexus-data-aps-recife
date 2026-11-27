@@ -513,7 +513,7 @@ def prevencao(D: dict):
     cartao(k3, "AP no teste", f"{esc['ap']:.2f}".replace(".", ","), None, None, "precisão–revocação, 1 uso do teste")
     cartao(k4, "Revocação", _pct(esc["revocacao"], 0), None, None, "alertas reais encontrados")
     st.write("")
-    t1, t2, t3, t4 = st.tabs(["Fila de prioridade", "Comparação de modelos", "Justificativa técnica", "O que pesa na decisão"])
+    t1, t2, t3, t4, t5 = st.tabs(["Fila de prioridade", "Comparação de modelos", "Justificativa técnica", "O que pesa na decisão", "Por Distrito"])
     with t1:
         tab = u.sort_values("prob_alerta", ascending=False)[
             ["nome_equipe", "nome_unidade", "DS", "prop_sim_os", "prob_alerta", "alerta"]].rename(
@@ -541,6 +541,8 @@ def prevencao(D: dict):
     with t3:
         j = ml / "JUSTIFICATIVA.md"
         st.markdown(j.read_text(encoding="utf-8").split("\n", 1)[1] if j.exists() else "Sem relatório.")
+    with t5:
+        _distritos_ml(D)
     with t4:
         im = ml / "importancia.csv"
         if im.exists():
@@ -549,6 +551,40 @@ def prevencao(D: dict):
             st.altair_chart(alt.Chart(d).mark_bar(color=COR_DS[1]).encode(
                 y=alt.Y("variavel:N", sort="-x", title=None), x=alt.X("queda_ap:Q", title="Queda no AP"),
                 tooltip=["variavel:N", alt.Tooltip("queda_ap:Q", format=".3f")]).properties(height=260), width="stretch")
+
+
+def _distritos_ml(D: dict):
+    ml = D["saida"] / "ml"
+    if not (ml / "distritos.parquet").exists():
+        st.info("Rode `python -m aps_sintetico ml` para gerar a previsão por Distrito Sanitário.")
+        return
+    d = pd.read_parquet(ml / "distritos.parquet")
+    cp = pd.read_csv(ml / "comparacao_distritos.csv")
+    R = json.loads((ml / "resumo_distritos.json").read_text(encoding="utf-8"))
+    d["DS"] = d["id_ds"].map(NOMES_DS)
+    st.caption("Quanto de \"Sim\" cada Distrito Sanitário terá no próximo quadrimestre (8 distritos × quadrimestres, "
+               "mesmas regras anti-vazamento). Menor \"Sim\" previsto = distrito que mais precisa de apoio (bolas vermelhas do mapa).")
+    k1, k2 = st.columns(2)
+    pior = d.sort_values("sim_previsto").iloc[0]
+    cartao(k1, "Distrito que mais precisa", pior["DS"], None, None, f"Sim previsto {_pct(pior['sim_previsto'])}")
+    cartao(k2, "Modelo escolhido", R["nome"], None, None, f"{R['n_treino']} linhas de treino · amostra pequena")
+    m = d.melt(id_vars=["DS", "ordem_necessidade"], value_vars=["sim", "sim_previsto"], var_name="Medida", value_name="Sim")
+    m["Medida"] = m["Medida"].map({"sim": "Atual", "sim_previsto": "Previsto"})
+    st.altair_chart(alt.Chart(m).mark_bar().encode(
+        y=alt.Y("DS:N", sort=alt.SortField("ordem_necessidade"), title=None), x=alt.X("Sim:Q", axis=alt.Axis(format="%")),
+        yOffset="Medida:N", color=alt.Color("Medida:N", scale=alt.Scale(range=["#9aa5b1", "#d03b3b"]), legend=alt.Legend(orient="bottom", title=None)),
+        tooltip=["DS", "Medida", alt.Tooltip("Sim:Q", format=".1%")]).properties(height=320), width="stretch")
+    st.dataframe(d[["ordem_necessidade", "DS", "equipes", "sim", "sim_previsto", "variacao_pp"]].sort_values("ordem_necessidade").rename(
+        columns={"ordem_necessidade": "Prioridade", "equipes": "Equipes", "sim": "Sim atual", "sim_previsto": "Sim previsto", "variacao_pp": "Variação (p.p.)"}),
+        hide_index=True, width="stretch", column_config={"Sim atual": st.column_config.NumberColumn(format="percent"),
+                                                         "Sim previsto": st.column_config.NumberColumn(format="percent"),
+                                                         "Variação (p.p.)": st.column_config.NumberColumn(format="%+.2f")})
+    st.markdown("##### Comparação de modelos (erro médio, em pontos percentuais; menor é melhor)")
+    st.dataframe(cp[["nome", "cv_mae_pp", "teste_mae_pp", "escolhido"]].rename(columns={
+        "nome": "Modelo", "cv_mae_pp": "Erro na validação", "teste_mae_pp": "Erro no teste", "escolhido": "Escolhido"}),
+        hide_index=True, width="stretch")
+    st.warning("Resultado honesto: o \"Sim\" de cada distrito muda menos de 1 p.p. por quadrimestre, então a regra de persistência "
+               "(repetir o valor atual) erra menos que os modelos. O ranking de prioridade vale mais pelo nível atual do que pela previsão.")
 
 
 def main():

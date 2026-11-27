@@ -87,6 +87,10 @@ def cmd_ml(a):
     from . import ml
     r = ml.treina(_saida(a), usar_mlflow=not a.sem_mlflow)
     print(r[["modelo", "cv_ap", "ap", "auc", "precisao", "revocacao", "escolhido"]].round(3).to_string(index=False))
+    from . import ml_distrito
+    rd = ml_distrito.treina(_saida(a))
+    print("\nPor Distrito Sanitário (erro em p.p.):")
+    print(rd[["modelo", "cv_mae_pp", "teste_mae_pp", "escolhido"]].round(2).to_string(index=False))
 
 
 def cmd_sensibilidade(a):
