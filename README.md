@@ -13,7 +13,7 @@
 
 <p align="center">
   <b>Projeto 3 – Dados · CESAR School · 2026.2 · Equipe 2 – Nexus Data</b><br>
-  Parceiro: Secretaria de Saúde do Recife (SESAU) – Atenção Básica
+  Parceiro: Secretaria de Saúde do Recife (CESAR) – Atenção Básica
 </p>
 
 <img width="1700" height="920" alt="image" src="https://github.com/user-attachments/assets/71c5b5b4-769f-4cb7-80df-428a7e95029e" />
